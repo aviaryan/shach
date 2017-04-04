@@ -1,7 +1,7 @@
 # Shach
  
 
-## Overview:
+## Overview
 
 Building our own new language SHACH (pronounced s-aa-ch). SHACH is a simple
 programming language that compiles to Bash and Windows Batch. The user can write the script
@@ -16,7 +16,7 @@ Cross-compiling is supported so that you can create bash & batch scripts from an
 whether it be OSX, Linux or Windows.
 
 
-## Features:
+## Features
 1. Simple syntax, inspired from C, Python, Bash and Batch.
 2. Write once, use everywhere.
 3. Users can also write the native bash or native batch statements by using the functions provided.
