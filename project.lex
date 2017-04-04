@@ -37,9 +37,7 @@
 
 "loadenv" {return LOADENV;}
 
-\n   {return NL;}
-
-\s*  {return EPSILON;}
+\n   {printf("XX"); return NL;}
 
 "break" {return BREAK;}
 
@@ -57,7 +55,7 @@
 
 "else" {return ELSE;}
 
-"elif" {return ELIF; printf("saurabh");}
+"elif" {return ELIF;}
 
 "func" {return FUNC;}
 
@@ -71,7 +69,7 @@
 
 "dir" {return DIR;}
 
-"\*\*" {return EOFL;}
+"xxx" {return EOFL;}
 
 "arrlen" {return ARRLEN;}
 
@@ -88,6 +86,6 @@
 
 
 
-.*    {return TEXT;}
+[^\n\r]*    {printf("tess < %s >", yytext); return TEXT;}
 
 %%
