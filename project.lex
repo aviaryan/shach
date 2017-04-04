@@ -52,9 +52,9 @@ null  {return EPSILON;}
 
 "if" {return IF;}
 
-"else" {return ELSE; printf("saurabh")}
+"else" {return ELSE;}
 
-"elif" {return ELIF; printf("saurabh")}
+"elif" {return ELIF; printf("saurabh");}
 
 "func" {return FUNC;}
 
@@ -64,13 +64,8 @@ null  {return EPSILON;}
 
 "while" {return WHILE;} 
 
-"file" {return FILE;}
+"file" {return READFILE;}
 
 "dir" {return DIR;}
+.|'\n'		{return yytext[0];}
 %%
-
-void main()
-{
-	printf("Enter the string");
-	yylex();
-}
