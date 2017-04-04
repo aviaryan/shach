@@ -83,30 +83,58 @@ boolExpr1 -> ( boolExpr ) | boolVal
 
 35. condition -> expr < expr | expr > expr | expr <= expr | expr >= expr || expr <> expr | expr == expr | stringExpr == stringExpr | stringExpr <> stringExpr | boolExpr | functionCall
 
-36. paramList -> allExpr , paramList | EPSILON
+paramList : allExpr ',' paramList 
+        | EPSILON
 
-37. idList -> allVar , idList | allVar
+idList : allVar ',' idList 
+        | allVar
+        ;
 
-38. varList -> allVals , varList | allVals
+varList : allVals ',' varList 
+        | allVals
+        ;
 
-39. var -> $ ID
+var : '$' ID
+        ;
 
-40. allVar -> var | var [ positiveNum ]
+allVar : var 
+        | var '[' positiveNum ']'
+        ;
 
-41. string -> “TEXT”
+string : '“'TEXT'”'
+        ;
 
-42. num ->NEGATIVE_NUM positiveNum
+num : NEGATIVE_NUM positiveNum
+        ;
 
-43. positiveNum -> NUMBER
+positiveNum : NUMBER
+        ;
 
-44. numVal -> allVar | num
+numVal : allVar 
+        | num
+        ;
 
-45. strVal -> allVar | string
+strVal : allVar 
+        | string
+        ;
 
-46. boolVal -> allVar | bool
+boolVal : allVar 
+        | bool
+        ;
 
-47. vals -> num | string | bool | functionCall
+vals : num 
+        | string 
+        | bool 
+        | functionCall
+        ;
 
-48. allVals - > vals | allVar
+allVals : vals 
+        | allVar
+        ;
 
-49. allExpr -> expr | stringExpr | boolExpr | arrayExpr | functionCall
+allExpr : expr
+        | stringExpr
+        | boolE
+        | arrayExpr 
+        | functionCall
+        ;
