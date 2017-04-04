@@ -2,7 +2,7 @@
 
 %%
 
-program : statements EOFL
+program : statements EOFL {printf("Valid code"); return 0;}
         ;
 
 statements : functionDeclaration statements 
@@ -106,8 +106,8 @@ winBlockStatement : BEGIN_WN statements END_WN
 
 expr :  id1 '+' expr 
         | id1 '-' expr 
-        | numVal '--' 
-        | numVal '++' 
+        | numVal "--" 
+        | numVal "++" 
         | id1
         ;
 
@@ -119,7 +119,7 @@ id2 : id2 '/' id3
         | id3
         ;
 
-id3 : id3 '**' id4 
+id3 : id3 "**" id4 
         | id4
         ;
 
@@ -128,19 +128,19 @@ id4 : '(' expr ')'
         ;
 
 stringExpr : strVal 
-        | strVal '++' string1
+        | strVal "++" string1
         ;
 
 boolExpr : boolExpr1 
-        | boolVal '&&' boolExpr 
-        | boolVal '||' boolExpr
+        | boolVal "&&" boolExpr 
+        | boolVal "||" boolExpr
         ;
 
 boolExpr1 : '(' boolExpr ')' 
         | boolVal
         ;
 
-bool : TRUE 
+bool : TRUE NL {printf("Good word");}
         | FALSE
         ;
 
@@ -152,19 +152,19 @@ string1 : string1 '+' strVal
         | strVal
         ;
 
-conditionList : condition '&&' conditionList 
-        | condition '||' conditionList 
+conditionList : condition "&&" conditionList 
+        | condition "||" conditionList 
         | condition
         ;
 
 condition : expr '<' expr 
         | expr '>' expr 
-        | expr '<=' expr 
-        | expr '>=' expr 
-        | expr '<>' expr 
-        | expr '==' expr 
-        | stringExpr '==' stringExpr 
-        | stringExpr '<>' stringExpr 
+        | expr "<=" expr 
+        | expr ">=" expr 
+        | expr "<>" expr 
+        | expr "==" expr 
+        | stringExpr "==" stringExpr 
+        | stringExpr "<>" stringExpr 
         | boolExpr 
         | functionCall
         ;
@@ -187,7 +187,7 @@ allVar : var
         | var '[' positiveNum ']'
         ;
 
-string : '“'TEXT'”'
+string : '"' TEXT '"'
         ;
 
 num : NEGATIVE_NUM positiveNum

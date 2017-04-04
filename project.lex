@@ -39,7 +39,7 @@
 
 \n   {return NL;}
 
-null  {return EPSILON;}
+\s*  {return EPSILON;}
 
 \".*\"    {return TEXT;}
 
