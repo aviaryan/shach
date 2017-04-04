@@ -1,15 +1,25 @@
 %{
 	#include "y.tab.h"
 %}
+
 %%
+
 0 | [1-9][0-9]* {return NUMBER;}
+
 (-)? {return NUMBER;}
+
 [a-zA-Z][a-zA-Z0-9_]* | [1-9][0-9]* {return ID;}
+
 [a-zA-Z0-9_]+  {return FUNC_NAME;}
+
 [a-zA-Z0-9_-]*   {return COMMAND;}
+
 "True"  {return TRUE;}
+
 "False"  {return FALSE;}
+
 "return"  {return RETURN;}
+
 "call"   {return CALL;}
 
 "print"  {return PRINT;}
@@ -67,5 +77,7 @@ null  {return EPSILON;}
 "file" {return READFILE;}
 
 "dir" {return DIR;}
+
 .|'\n'		{return yytext[0];}
+
 %%
