@@ -27,8 +27,9 @@ whether it be OSX, Linux or Windows.
 8. Different variable types like string, number, bool and arrays supported.
 
 ## Compile Instructions
+
  ```sh
- $lex filename.l
- $yacc -d filename.y
- $cc lex.yy.c y.tab.c -ll -ly
+ lex filename.l
+ yacc -d filename.y
+ gcc lex.yy.c y.tab.c -ll -ly
  ```
