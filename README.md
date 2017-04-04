@@ -28,8 +28,16 @@ whether it be OSX, Linux or Windows.
 
 ## Compile Instructions
 
- ```sh
- lex filename.l
- yacc -d filename.y
- gcc lex.yy.c y.tab.c -ll -ly
- ```
+```sh
+lex filename.l
+yacc -d filename.y
+gcc lex.yy.c y.tab.c -ll -ly
+```
+ 
+```bat
+flex <file>.l
+bison -dy <file>.y
+gcc lex.yy.c y.tab.c -o <file>.exe
+<file>.exe
+```
+
