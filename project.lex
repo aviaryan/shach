@@ -9,13 +9,7 @@
 
 (-)? {return NUMBER;}
 
-[a-zA-Z][a-zA-Z0-9_]* | [1-9][0-9]* {return ID;}
-
-[a-zA-Z0-9_]+  {return FUNC_NAME;}
-
-[a-zA-Z0-9_-]*   {return COMMAND;}
-
-True  {return TRUE;}
+"True"  {return TRUE;}
 
 "False"  {return FALSE;}
 
@@ -47,7 +41,7 @@ True  {return TRUE;}
 
 null  {return EPSILON;}
 
-.*    {return TEXT;}
+\".*\"    {return TEXT;}
 
 "break" {return BREAK;}
 
@@ -85,9 +79,12 @@ null  {return EPSILON;}
 
 "strlen" {return STRLEN;}
 
-"loadenv" {return LOADENV;}
-
 "(-)?" {return NEGATIVE_NUM;}
 
+[a-zA-Z][a-zA-Z0-9_]* | [1-9][0-9]* {return ID;}
+
+[a-zA-Z0-9_]+  {return FUNC_NAME;}
+
+[a-zA-Z0-9_-]*  {return COMMAND;}
 
 %%
