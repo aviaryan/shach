@@ -1,5 +1,6 @@
 %{
 	#include "y.tab.h"
+	extern int yylval;
 %}
 
 %%
@@ -14,7 +15,7 @@
 
 [a-zA-Z0-9_-]*   {return COMMAND;}
 
-"True"  {return TRUE;}
+True  {return TRUE;}
 
 "False"  {return FALSE;}
 

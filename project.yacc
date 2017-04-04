@@ -1,12 +1,8 @@
-%{
-	#include<stdio.h>
-%}
-
 %token NUMBER ID FUNC_NAME COMMAND TRUE FALSE RETURN CALL SCAN PRINT ISFILE ISDIR EXISTS RAWBASH RAWBATCH BASH BATCH NL EPSILON TEXT BREAK CONTINUE BEGIN_UX END_UX BEGIN_WN END_WN IF ELSE ELIF FUNC IN FOR WHILE READFILE DIR ARRLEN STRLEN LOADENV EOFL NEGATIVE_NUM
 
 %%
 
-program : statements  EOFL
+program : statements EOFL
         ;
 
 statements : functionDeclaration statements 
@@ -235,5 +231,10 @@ allExpr : expr
 int main(){
 	printf("Enter the string");
 	yyparse();
+	return 0;
+}
+
+int yyerror(char *s){
+	printf("Invalid string\n");
 	return 0;
 }
