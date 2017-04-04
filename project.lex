@@ -41,8 +41,6 @@
 
 \s*  {return EPSILON;}
 
-\".*\"    {return TEXT;}
-
 "break" {return BREAK;}
 
 "continue" {return CONTINUE;}
@@ -86,5 +84,10 @@
 [a-zA-Z0-9_]+  {return FUNC_NAME;}
 
 [a-zA-Z0-9_-]*  {return COMMAND;}
+
+
+
+
+.*    {return TEXT;}
 
 %%
