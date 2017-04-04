@@ -2,11 +2,11 @@
 	#include<stdio.h>
 %}
 
-%token NUMBER ID FUNC_NAME COMMAND TRUE FALSE RETURN CALL SCAN PRINT ISFILE ISDIR EXISTS RAWBASH RAWBATCH BASH BATCH LOADENV NL EPSILON TEXT BREAK CONTINUE BEGIN_UX END_UX BEGIN_WN END_WN IF ELSE ELIF FUNC IN FOR WHILE READFILE DIR
+%token NUMBER ID FUNC_NAME COMMAND TRUE FALSE RETURN CALL SCAN PRINT ISFILE ISDIR EXISTS RAWBASH RAWBATCH BASH BATCH NL EPSILON TEXT BREAK CONTINUE BEGIN_UX END_UX BEGIN_WN END_WN IF ELSE ELIF FUNC IN FOR WHILE READFILE DIR ARRLEN STRLEN LOADENV EOFL NEGATIVE_NUM
 
 %%
 
-program : statements  EOF
+program : statements  EOFL
         ;
 
 statements : functionDeclaration statements 
@@ -28,12 +28,12 @@ statement : variableAssignment
         | commentStatement
         ;
 
-variableAssignment : allVar = allExpr
+variableAssignment : allVar '=' allExpr
         ;
 
 conditionalStatement : IF '(' conditionList ')' '{' mainStatements '}' 
-        | IF '(' conditionList ')' '{' mainStatements '}' else '{' mainStatements '}' 
-        | IF '(' conditionList ) '{' mainStatements '}'  elif_st  ELSE '{' mainStatements '}'
+        | IF '(' conditionList ')' '{' mainStatements '}' ELSE '{' mainStatements '}' 
+        | IF '(' conditionList ')' '{' mainStatements '}'  elif_st  ELSE '{' mainStatements '}'
         ;
 
 commandStatement : '~' COMMAND commandHelper
@@ -63,7 +63,7 @@ whileLoop : WHILE '(' conditionList ')' '{' loopStatements '}'
 forLoop : FOR '(' variableAssignment ';' conditionList ';' expr ')' '{' loopStatements '}'
         ;
 
-forLine : FOR var IN FILE '(' strVal ')' '{' loopStatements '}'
+forLine : FOR var IN READFILE '(' strVal ')' '{' loopStatements '}'
         ;
 
 forDir : FOR var IN DIR '(' strVal ')' '{' loopStatements '}'
@@ -224,7 +224,7 @@ allVals : vals
 
 allExpr : expr
         | stringExpr
-        | boolE
+        | boolExpr
         | arrayExpr 
         | functionCall
         ;
@@ -232,7 +232,8 @@ allExpr : expr
 
 %%
 
-void main(){
+int main(){
 	printf("Enter the string");
 	yyparse();
+	return 0;
 }

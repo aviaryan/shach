@@ -78,6 +78,15 @@ null  {return EPSILON;}
 
 "dir" {return DIR;}
 
-.|'\n'		{return yytext[0];}
+"\*\*" {return EOFL;}
+
+"arrlen" {return ARRLEN;}
+
+"strlen" {return STRLEN;}
+
+"loadenv" {return LOADENV;}
+
+"(-)?" {return NEGATIVE_NUM;}
+
 
 %%
