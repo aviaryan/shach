@@ -25,3 +25,19 @@ whether it be OSX, Linux or Windows.
 6. Inbuilt functions provided for making frequent tasks more easier.
 7. Command-line arguments supported.
 8. Different variable types like string, number, bool and arrays supported.
+
+##Compile Instructions
+
+For Windows - 
+
+$$ flex <file>.l
+$$ bison -dy <file>.y
+$$ gcc lex.yy.c y.tab.c -o <file>.exe
+$$ <file>.exe
+
+For Linux - 
+
+$$ lex <file>.l
+$$ yacc <file>.y
+$$ gcc lex.yy.c y.tab.c -ll
+$$ ./a.out
