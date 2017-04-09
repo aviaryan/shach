@@ -1,40 +1,41 @@
 %{
+	#include <stdio.h>
 	#include "y.tab.h"
 	extern int yylval;
-	
-	bool begin_wn = false;
-	bool begin_ux = false;
 %}
+
+	int begin_wn = 0;
+	int begin_ux = 0;
 
 %%
 
 "#BEGIN UX" {
-	begin_ux = true;
+	begin_ux = 1;
 	printf("BEGIN_UX < %s >\n", yytext);
 	return BEGIN_UX;
 }
 
 "#END UX" {
-	begin_ux = false;
+	begin_ux = 0;
 	printf("END_UX < %s >\n", yytext);
 	return END_UX;
 }
 
 "#BEGIN WN" {
-	begin_wn = true;
+	begin_wn = 1;
 	printf("BEGIN_WN < %s >\n", yytext);
 	return BEGIN_WN;
 }
 
 "#END WN" {
-	begin_wn = false;
+	begin_wn = 0;
 	printf("END_WN < %s >\n", yytext);
 	return END_WN;
 }
 
-"#"[^\n]*   { printf("COMMENT\n"); }
+"#"[^\n]*   { printf("COMMENT < %s >\n", yytext); }
 
-0 | [1-9][0-9]* {return NUMBER;}
+0 | [1-9][0-9]* { printf("NUMBER < %s >\n", yytext); return NUMBER; }
 
 (-)? {return NUMBER;}
 
@@ -66,7 +67,7 @@
 
 "loadenv" {printf("LOADENV < %s >\n", yytext); return LOADENV;}
 
-\n   {printf("NL < %s >\n", yytext); return NL;}
+\n   {printf("NL < >\n"); return NL;} // print removed on purpose
 
 "break" {printf("BREAK < %s >\n", yytext); return BREAK;}
 
