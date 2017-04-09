@@ -10,25 +10,25 @@
 
 "#BEGIN UX" {
 	begin_ux = true;
-  printf("BEGIN_UX < %s >\n", yytext);
+	printf("BEGIN_UX < %s >\n", yytext);
 	return BEGIN_UX;
 }
 
 "#END UX" {
-  printf("END_UX < %s >\n", yytext);
 	begin_ux = false;
+	printf("END_UX < %s >\n", yytext);
 	return END_UX;
 }
 
 "#BEGIN WN" {
 	begin_wn = true;
-  printf("BEGIN_WN < %s >\n", yytext);
+	printf("BEGIN_WN < %s >\n", yytext);
 	return BEGIN_WN;
 }
 
 "#END WN" {
-  printf("END_WN < %s >\n", yytext);
 	begin_wn = false;
+	printf("END_WN < %s >\n", yytext);
 	return END_WN;
 }
 
