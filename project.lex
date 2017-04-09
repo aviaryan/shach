@@ -9,83 +9,83 @@
 
 (-)? {return NUMBER;}
 
-"True"  {return TRUE;}
+"True"  {printf("TRUE < %s >\n", yytext); return TRUE;}
 
-"False"  {return FALSE;}
+"False"  {printf("FALSE < %s >\n", yytext); return FALSE;}
 
-"return"  {return RETURN;}
+"return"  {printf("RETURN < %s >\n", yytext); return RETURN;}
 
-"call"   {return CALL;}
+"call"   {printf("CALL < %s >\n", yytext); return CALL;}
 
-"print"  {return PRINT;}
+"print"  {printf("PRINT < %s >\n", yytext); return PRINT;}
 
-"scan" {return SCAN;}
+"scan" {printf("SCAN < %s >\n", yytext); return SCAN;}
 
-"isfile" {return ISFILE;}
+"isfile" {printf("ISFILE < %s >\n", yytext); return ISFILE;}
 
-"isdir" {return ISDIR;}
+"isdir" {printf("ISDIR < %s >\n", yytext); return ISDIR;}
 
-"exists" {return EXISTS;}
+"exists" {printf("EXISTS < %s >\n", yytext); return EXISTS;}
 
-"rawbash" {return RAWBASH;}
+"rawbash" {printf("RAWBASH < %s >\n", yytext); return RAWBASH;}
 
-"rawbatch" {return RAWBATCH;}
+"rawbatch" {printf("RAWBATCH < %s >\n", yytext); return RAWBATCH;}
 
-"bash" {return BASH;}
+"bash" {printf("BASH < %s >\n", yytext); return BASH;}
 
-"batch" {return BATCH;}
+"batch" {printf("BATCH < %s >\n", yytext); return BATCH;}
 
-"loadenv" {return LOADENV;}
+"loadenv" {printf("LOADENV < %s >\n", yytext); return LOADENV;}
 
-\n   {printf("XX"); return NL;}
+\n   {printf("NL < %s >\n", yytext); return NL;}
 
-"break" {return BREAK;}
+"break" {printf("BREAK < %s >\n", yytext); return BREAK;}
 
-"continue" {return CONTINUE;}
+"continue" {printf("CONTINUE < %s >\n", yytext); return CONTINUE;}
 
-"#BEGIN UX" {return BEGIN_UX;}
+"#BEGIN UX" {printf("BEGIN_UX < %s >\n", yytext); return BEGIN_UX;}
 
-"#END UX" {return END_UX;}
+"#END UX" {printf("END_UX < %s >\n", yytext); return END_UX;}
 
-"#BEGIN WN" {return BEGIN_WN;}
+"#BEGIN WN" {printf("BEGIN_WN < %s >\n", yytext); return BEGIN_WN;}
 
-"#END WN" {return END_WN;}
+"#END WN" {printf("END_WN < %s >\n", yytext); return END_WN;}
 
-"if" {return IF;}
+"if" {printf("IF < %s >\n", yytext); return IF;}
 
-"else" {return ELSE;}
+"else" {printf("ELSE < %s >\n", yytext); return ELSE;}
 
-"elif" {return ELIF;}
+"elif" {printf("ELIF < %s >\n", yytext); return ELIF;}
 
-"func" {return FUNC;}
+"func" {printf("FUNC < %s >\n", yytext); return FUNC;}
 
-"in" {return IN;}
+"in" {printf("IN < %s >\n", yytext); return IN;}
 
-"for" {return FOR;}
+"for" {printf("FOR < %s >\n", yytext); return FOR;}
 
-"while" {return WHILE;} 
+"while" {printf("WHILE < %s >\n", yytext); return WHILE;} 
 
-"file" {return READFILE;}
+"file" {printf("READFILE < %s >\n", yytext); return READFILE;}
 
-"dir" {return DIR;}
+"dir" {printf("DIR < %s >\n", yytext); return DIR;}
 
-"xxx" {return EOFL;}
+"xxx" {printf("EOFL < %s >\n", yytext); return EOFL;}
 
-"arrlen" {return ARRLEN;}
+"arrlen" {printf("ARRLEN < %s >\n", yytext); return ARRLEN;}
 
-"strlen" {return STRLEN;}
+"strlen" {printf("STRLEN < %s >\n", yytext); return STRLEN;}
 
-"(-)?" {return NEGATIVE_NUM;}
+"(-)?" {printf("NEGATIVE_NUM < %s >\n", yytext); return NEGATIVE_NUM;}
 
-[a-zA-Z][a-zA-Z0-9_]* | [1-9][0-9]* {return ID;}
+[a-zA-Z][a-zA-Z0-9_]* | [1-9][0-9]* {printf("ID < %s >\n", yytext); return ID;}
 
-[a-zA-Z0-9_]+  {return FUNC_NAME;}
+[a-zA-Z0-9_]+  {printf("FUNC_NAME < %s >\n", yytext); return FUNC_NAME;}
 
-[a-zA-Z0-9_-]*  {return COMMAND;}
-
-
+[a-zA-Z0-9_-]*  {printf("COMMAND < %s >\n", yytext); return COMMAND;}
 
 
-[^\n\r]*    {printf("tess < %s >", yytext); return TEXT;}
+
+
+[^\n\r]*    {printf("TEXT < %s >", yytext); return TEXT;}
 
 %%
