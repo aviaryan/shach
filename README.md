@@ -29,8 +29,8 @@ whether it be OSX, Linux or Windows.
 ## Compile Instructions
 
 ```sh
-lex filename.l
-yacc -d filename.y
+flex project.lex
+yacc -d project.yacc
 gcc lex.yy.c y.tab.c -ll -ly
 ```
  

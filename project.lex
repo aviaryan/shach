@@ -1,10 +1,38 @@
 %{
 	#include "y.tab.h"
 	extern int yylval;
+	
+	bool begin_wn = false;
+	bool begin_ux = false;
 %}
 
 %%
 
+"#BEGIN UX" {
+	begin_ux = true;
+  printf("BEGIN_UX < %s >\n", yytext);
+	return BEGIN_UX;
+}
+
+"#END UX" {
+  printf("END_UX < %s >\n", yytext);
+	begin_ux = false;
+	return END_UX;
+}
+
+"#BEGIN WN" {
+	begin_wn = true;
+  printf("BEGIN_WN < %s >\n", yytext);
+	return BEGIN_WN;
+}
+
+"#END WN" {
+  printf("END_WN < %s >\n", yytext);
+	begin_wn = false;
+	return END_WN;
+}
+
+"#"[^\n]*   { printf("COMMENT"); }
 
 0 | [1-9][0-9]* {return NUMBER;}
 
@@ -44,14 +72,6 @@
 
 "continue" {printf("CONTINUE < %s >\n", yytext); return CONTINUE;}
 
-"#BEGIN UX" {printf("BEGIN_UX < %s >\n", yytext); return BEGIN_UX;}
-
-"#END UX" {printf("END_UX < %s >\n", yytext); return END_UX;}
-
-"#BEGIN WN" {printf("BEGIN_WN < %s >\n", yytext); return BEGIN_WN;}
-
-"#END WN" {printf("END_WN < %s >\n", yytext); return END_WN;}
-
 "if" {printf("IF < %s >\n", yytext); return IF;}
 
 "else" {printf("ELSE < %s >\n", yytext); return ELSE;}
@@ -82,10 +102,7 @@
 
 [a-zA-Z0-9_]+  {printf("FUNC_NAME < %s >\n", yytext); return FUNC_NAME;}
 
-[a-zA-Z0-9_-]*  {printf("COMMAND < %s >\n", yytext); return COMMAND;}
-
-
-
+[a-zA-Z0-9_-]+  {printf("COMMAND < %s >\n", yytext); return COMMAND;}
 
 [^\n\r]*    {printf("TEXT < %s >", yytext); return TEXT;}
 

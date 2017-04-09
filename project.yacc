@@ -2,11 +2,12 @@
 
 %%
 
-program : statements EOFL {printf("Valid code"); return 0;}
+program : statements EOFL {printf("\nValid code"); return 0;}
         ;
 
 statements : functionDeclaration statements 
         | statement NL statements
+        | NL statements
         |
         ;
 
