@@ -1,9 +1,7 @@
 %{
         #include <stdio.h>
-        extern char * yytext;
         extern int begin_wn, begin_ux;
 %}
-
 
 %token NUMBER NEGNUMBER ID FUNC_NAME COMMAND TRUE FALSE RETURN CALL SCAN PRINT ISFILE ISDIR EXISTS RAWBASH RAWBATCH BASH BATCH NL TEXT BREAK CONTINUE BEGIN_UX END_UX BEGIN_WN END_WN IF ELSE ELIF FUNC IN FOR WHILE READFILE DIR ARRLEN STRLEN LOADENV EOFL
 
@@ -15,7 +13,6 @@ program : statements EOFL {printf("\nValid code"); return 0;}
 statements : functionDeclaration statements 
         | statement NL statements
         | NL statements
-        | statement
         |
         ;
 
