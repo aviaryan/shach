@@ -26,14 +26,26 @@ whether it be OSX, Linux or Windows.
 7. Command-line arguments supported.
 8. Different variable types like string, number, bool and arrays supported.
 
+
 ## Compile Instructions
+
+#### Unix
+
+```sh
+make build
+```
+
+OR
 
 ```sh
 flex project.lex
 yacc -d project.yacc
 gcc lex.yy.c y.tab.c -ll -ly
 ```
- 
+
+
+#### Windows
+
 ```bat
 flex <file>.l
 bison -dy <file>.y
@@ -41,3 +53,9 @@ gcc lex.yy.c y.tab.c -o <file>.exe
 <file>.exe
 ```
 
+
+## Testing
+
+```sh
+bash tests/test.sh    
+```
