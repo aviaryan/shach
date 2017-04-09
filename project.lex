@@ -81,10 +81,9 @@
 
 [a-zA-Z0-9_]+  {return FUNC_NAME;}
 
-[a-zA-Z0-9_-]*  {return COMMAND;}
+[a-zA-Z0-9_-]+  {return COMMAND;}
 
-
-
+"#"[^\n]*   { printf("COMMENT"); }
 
 [^\n\r]*    {printf("tess < %s >", yytext); return TEXT;}
 
