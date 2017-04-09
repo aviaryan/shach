@@ -1,16 +1,32 @@
 %{
 	#include "y.tab.h"
 	extern int yylval;
+	
+	bool begin_wn = false;
+	bool begin_ux = false;
 %}
 
 %%
-"#BEGIN UX" {return BEGIN_UX;}
 
-"#END UX" {return END_UX;}
+"#BEGIN UX" {
+	begin_ux = true;
+	return BEGIN_UX;
+}
 
-"#BEGIN WN" {return BEGIN_WN;}
+"#END UX" {
+	begin_ux = false;
+	return END_UX;
+}
 
-"#END WN" {return END_WN;}
+"#BEGIN WN" {
+	begin_wn = true;
+	return BEGIN_WN;
+}
+
+"#END WN" {
+	begin_wn = false;
+	return END_WN;
+}
 
 "#"[^\n]*   { printf("COMMENT"); }
 
