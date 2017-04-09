@@ -35,7 +35,7 @@
 
 "#"[^\n]*   { printf("COMMENT < %s >\n", yytext); }
 
-0 | [1-9][0-9]* { printf("NUMBER < %s >\n", yytext); return NUMBER; }
+0|[1-9][0-9]* { printf("NUMBER < %s >\n", yytext); return NUMBER; }
 
 (-)? {return NUMBER;}
 
@@ -98,13 +98,13 @@
 "strlen" {printf("STRLEN < %s >\n", yytext); return STRLEN;}
 
 "(-)?" {printf("NEGATIVE_NUM < %s >\n", yytext); return NEGATIVE_NUM;}
+"="		{ printf("EQUAL\n"); return('=');}
 
-[a-zA-Z][a-zA-Z0-9_]* | [1-9][0-9]* {printf("ID < %s >\n", yytext); return ID;}
+\$([a-zA-Z][a-zA-Z0-9_]*|[1-9][0-9]*) {printf("ID < %s >\n", yytext); return ID;}
 
 [a-zA-Z0-9_]+  {printf("FUNC_NAME < %s >\n", yytext); return FUNC_NAME;}
 
 [a-zA-Z0-9_-]+  {printf("COMMAND < %s >\n", yytext); return COMMAND;}
 
-[^\n\r]*    {printf("TEXT < %s >", yytext); return TEXT;}
 
 %%

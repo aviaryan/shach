@@ -187,7 +187,7 @@ varList : allVals ',' varList
         | allVals
         ;
 
-var : '$' ID
+var :  ID
         ;
 
 allVar : var 
