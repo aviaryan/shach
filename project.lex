@@ -91,8 +91,6 @@
 
 "dir" {printf("DIR < %s >\n", yytext); return DIR;}
 
-"xxx" {printf("EOFL < %s >\n", yytext); return EOFL;}
-
 "arrlen" {printf("ARRLEN < %s >\n", yytext); return ARRLEN;}
 
 "strlen" {printf("STRLEN < %s >\n", yytext); return STRLEN;}
