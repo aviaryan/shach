@@ -67,7 +67,7 @@
 
 "loadenv" {printf("LOADENV < %s >\n", yytext); return LOADENV;}
 
-\n   {printf("NL < >\n"); return NL;} // print removed on purpose
+\n   {printf("NL < >\n"); return NL;}
 
 "break" {printf("BREAK < %s >\n", yytext); return BREAK;}
 
@@ -103,8 +103,8 @@
 
 [a-zA-Z0-9_]+  {printf("FUNC_NAME < %s >\n", yytext); return FUNC_NAME;}
 
-[a-zA-Z0-9_-]+  {printf("COMMAND < %s >\n", yytext); return COMMAND;}
+"~"[^\n\r]+  {printf("COMMAND < %s >\n", yytext); return COMMAND;}
 
-[^\n\r]*    {printf("TEXT < %s >", yytext); return TEXT;}
+\"[^\n\r]*\"  {printf("STR < %s >", yytext); return STR;}
 
 %%

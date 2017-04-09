@@ -1,9 +1,10 @@
 %{
         #include <stdio.h>
+        extern char * yytext;
         extern int begin_wn, begin_ux;
 %}
 
-%token NUMBER ID FUNC_NAME COMMAND TRUE FALSE RETURN CALL SCAN PRINT ISFILE ISDIR EXISTS RAWBASH RAWBATCH BASH BATCH NL TEXT BREAK CONTINUE BEGIN_UX END_UX BEGIN_WN END_WN IF ELSE ELIF FUNC IN FOR WHILE READFILE DIR ARRLEN STRLEN LOADENV EOFL NEGATIVE_NUM
+%token NUMBER ID FUNC_NAME COMMAND TRUE FALSE RETURN CALL SCAN PRINT ISFILE ISDIR EXISTS RAWBASH RAWBATCH BASH BATCH NL TEXT BREAK CONTINUE BEGIN_UX END_UX BEGIN_WN END_WN IF ELSE ELIF FUNC IN FOR WHILE READFILE DIR ARRLEN STRLEN LOADENV EOFL NEGATIVE_NUM STR
 
 %%
 
@@ -38,11 +39,7 @@ conditionalStatement : IF '(' conditionList ')' '{' mainStatements '}'
         | IF '(' conditionList ')' '{' mainStatements '}'  elif_st  ELSE '{' mainStatements '}'
         ;
 
-commandStatement : '~' COMMAND commandHelper
-        ;
-
-commandHelper : TEXT 
-        | TEXT '{' var '}' commandHelper
+commandStatement : COMMAND
         ;
 
 elif_st : ELIF '(' conditionList ')' '{' mainStatements '}'
@@ -146,7 +143,7 @@ boolExpr1 : '(' boolExpr ')'
         | boolVal
         ;
 
-bool : TRUE NL {printf("Good word");}
+bool : TRUE
         | FALSE
         ;
 
@@ -194,7 +191,7 @@ allVar : var
         | var '[' positiveNum ']'
         ;
 
-string : '"' TEXT '"'
+string : STR
         ;
 
 num : NEGATIVE_NUM positiveNum
