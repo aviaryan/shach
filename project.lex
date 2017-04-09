@@ -32,7 +32,7 @@
 	return END_WN;
 }
 
-"#"[^\n]*   { printf("COMMENT"); }
+"#"[^\n]*   { printf("COMMENT\n"); }
 
 0 | [1-9][0-9]* {return NUMBER;}
 
