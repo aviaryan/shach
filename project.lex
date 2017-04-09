@@ -4,6 +4,15 @@
 %}
 
 %%
+"#BEGIN UX" {return BEGIN_UX;}
+
+"#END UX" {return END_UX;}
+
+"#BEGIN WN" {return BEGIN_WN;}
+
+"#END WN" {return END_WN;}
+
+"#"[^\n]*   { printf("COMMENT"); }
 
 0 | [1-9][0-9]* {return NUMBER;}
 
@@ -43,14 +52,6 @@
 
 "continue" {return CONTINUE;}
 
-"#BEGIN UX" {return BEGIN_UX;}
-
-"#END UX" {return END_UX;}
-
-"#BEGIN WN" {return BEGIN_WN;}
-
-"#END WN" {return END_WN;}
-
 "if" {return IF;}
 
 "else" {return ELSE;}
@@ -82,8 +83,6 @@
 [a-zA-Z0-9_]+  {return FUNC_NAME;}
 
 [a-zA-Z0-9_-]+  {return COMMAND;}
-
-"#"[^\n]*   { printf("COMMENT"); }
 
 [^\n\r]*    {printf("tess < %s >", yytext); return TEXT;}
 
