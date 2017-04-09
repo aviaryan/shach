@@ -37,7 +37,7 @@
 
 0|[1-9][0-9]* { printf("NUMBER < %s >\n", yytext); return NUMBER; }
 
-(-)? {return NUMBER;}
+-[1-9][0-9]* {printf("NEGNUMBER < %s >\n", yytext); return NEGNUMBER;}
 
 "True"  {printf("TRUE < %s >\n", yytext); return TRUE;}
 
@@ -98,6 +98,7 @@
 "strlen" {printf("STRLEN < %s >\n", yytext); return STRLEN;}
 
 "(-)?" {printf("NEGATIVE_NUM < %s >\n", yytext); return NEGATIVE_NUM;}
+
 "="		{ printf("EQUAL\n"); return('=');}
 
 \$([a-zA-Z][a-zA-Z0-9_]*|[1-9][0-9]*) {printf("ID < %s >\n", yytext); return ID;}
