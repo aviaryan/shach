@@ -1,0 +1,9 @@
+language: c
+
+compiler: gcc
+
+before_script:
+  - apt-get install flex bison
+
+script:
+  - bash tests/test.sh
