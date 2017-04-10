@@ -35,11 +35,11 @@
 	return END_WN;
 }
 
-\+		{ printf("ADD\n"); return('+');}
--		{ printf("SUB\n"); return('-');}
-\*	{ printf("MULTI\n"); return('*');}
-"/"	{ printf("DIVIDE\n"); return('/');}
-\*\*	{ printf("POWER\n"); return POWER;}
+"\+"	{ printf("ADD\n"); return('+');}
+"-"		{ printf("SUB\n"); return('-');}
+"\*"	{ printf("MULTI\n"); return('*');}
+"/"		{ printf("DIVIDE\n"); return('/');}
+"\*\*"	{ printf("POWER\n"); return POWER;}
 
 
 "#"[^\n]*   { printf("COMMENT < %s >\n", yytext); }

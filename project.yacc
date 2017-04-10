@@ -121,14 +121,12 @@ id2 : id2 '/' id3
         | id3
         ;
 
-id3 : id3 pow id4 
+id3 : id3 POWER id4 
         | id4
         ;
 
 id4 : '(' expr ')' 
         | numVal
-        ;
-pow :   POWER
         ;
 
 stringExpr : strVal 
