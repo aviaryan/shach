@@ -35,9 +35,9 @@
 
 "#"[^\n]*   { printf("COMMENT < %s >\n", yytext); }
 
-0 | [1-9][0-9]* { printf("NUMBER < %s >\n", yytext); return NUMBER; }
+0|[1-9][0-9]* { printf("NUMBER < %s >\n", yytext); return NUMBER; }
 
-(-)? {return NUMBER;}
+-[1-9][0-9]* {printf("NEGNUMBER < %s >\n", yytext); return NEGATIVE_NUM;}
 
 "True"  {printf("TRUE < %s >\n", yytext); return TRUE;}
 
@@ -84,6 +84,7 @@
 "in" {printf("IN < %s >\n", yytext); return IN;}
 
 "for" {printf("FOR < %s >\n", yytext); return FOR;}
+"="		{ printf("EQUAL\n"); return('=');}
 
 "while" {printf("WHILE < %s >\n", yytext); return WHILE;} 
 
@@ -97,7 +98,7 @@
 
 "(-)?" {printf("NEGATIVE_NUM < %s >\n", yytext); return NEGATIVE_NUM;}
 
-[a-zA-Z][a-zA-Z0-9_]* | [1-9][0-9]* {printf("ID < %s >\n", yytext); return ID;}
+\$([a-zA-Z][a-zA-Z0-9_]*|[1-9][0-9]*) {printf("ID < %s >\n", yytext); return ID;}
 
 [a-zA-Z0-9_]+  {printf("FUNC_NAME < %s >\n", yytext); return FUNC_NAME;}
 
