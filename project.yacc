@@ -199,6 +199,7 @@ num :  positiveNum
 
 positiveNum : NUMBER
         ;
+
 negativeNum : NEGATIVE_NUM  
         ;
 
@@ -230,7 +231,6 @@ allExpr : expr
         | arrayExpr 
         | functionCall
         ;
-
 
 %%
 

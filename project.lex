@@ -36,13 +36,18 @@
 }
 
 "\+"	{ printf("ADD\n"); return('+');}
-"-"		{ printf("SUB\n"); return('-');}
-"\*"	{ printf("MULTI\n"); return('*');}
-"/"		{ printf("DIVIDE\n"); return('/');}
-"\*\*"	{ printf("POWER\n"); return POWER;}
-"["		{ printf("OPEN\n"); return ('[');}
-"]"		{ printf("CLOSE\n"); return (']');}
 
+"-"		{ printf("SUB\n"); return('-');}
+
+"\*"	{ printf("MULTI\n"); return('*');}
+
+"/"		{ printf("DIVIDE\n"); return('/');}
+
+"\*\*"	{ printf("POWER\n"); return POWER;}
+
+"["		{ printf("OPENSQBR\n"); return ('[');}
+
+"]"		{ printf("CLOSESQBR\n"); return (']');}
 
 "#"[^\n]*   { printf("COMMENT < %s >\n", yytext); }
 
