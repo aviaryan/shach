@@ -9,6 +9,8 @@
 
 %%
 
+\n[ \t]*  { printf("TRAILING SPACE < %s >\n", yytext); return NL; }
+
 "#BEGIN UX" {
 	begin_ux = 1;
 	printf("BEGIN_UX < %s >\n", yytext);
