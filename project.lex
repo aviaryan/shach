@@ -69,8 +69,6 @@
 
 "loadenv" {printf("LOADENV < %s >\n", yytext); return LOADENV;}
 
-\n   {printf("NL < >\n"); return NL;}
-
 "break" {printf("BREAK < %s >\n", yytext); return BREAK;}
 
 "continue" {printf("CONTINUE < %s >\n", yytext); return CONTINUE;}
