@@ -1,6 +1,11 @@
 #!/bin/bash
 # RUN from root
 
+# delete old
+rm -f y.tab.c
+rm -f y.tab.h
+rm -f a.out
+rm -f lex.yy.c
 # compile
 make build
 
