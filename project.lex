@@ -37,11 +37,9 @@
 
 \+		{ printf("ADD\n"); return('+');}
 -		{ printf("SUB\n"); return('-');}
---	{ printf("DECR\n"); return("--");}
 \*	{ printf("MULTI\n"); return('*');}
 "/"	{ printf("DIVIDE\n"); return('/');}
-\+\+	{ printf("INCR\n"); return("++");}
-\*\*	{ printf("POWER\n"); return("**");}
+\*\*	{ printf("POWER\n"); return POWER;}
 
 
 "#"[^\n]*   { printf("COMMENT < %s >\n", yytext); }
