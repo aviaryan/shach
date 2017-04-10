@@ -50,6 +50,7 @@ loopStatement : forLoop
         | whileLoop 
         | forLine 
         | forDir
+	|
         ;
 
 loopStatements : mainStatements 
@@ -67,6 +68,7 @@ forLine : FOR var IN READFILE '(' strVal ')' '{' loopStatements '}'
         ;
 
 forDir : FOR var IN DIR '(' strVal ')' '{' loopStatements '}'
+	| FOR var IN DIR '(' strVal ')' '{' NL loopStatements '}'
         ;
 
 commentStatement : "#" TEXT
