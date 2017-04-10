@@ -35,6 +35,20 @@
 	return END_WN;
 }
 
+"+"	{ printf("ADD\n"); return('+');}
+
+"-"	{ printf("SUB\n"); return('-');}
+
+"*"	{ printf("MULTI\n"); return('*');}
+
+"/"	{ printf("DIVIDE\n"); return('/');}
+
+"**"	{ printf("POWER\n"); return POWER;}
+
+"["	{ printf("OPENSQBR\n"); return ('[');}
+
+"]"	{ printf("CLOSESQBR\n"); return (']');}
+
 "#"[^\n]*   { printf("COMMENT < %s >\n", yytext); }
 
 0|[1-9][0-9]* { printf("NUMBER < %s >\n", yytext); return NUMBER; }

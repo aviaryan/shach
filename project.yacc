@@ -4,7 +4,7 @@
         extern int begin_wn, begin_ux;
 %}
 
-%token NUMBER ID FUNC_NAME COMMAND TRUE FALSE RETURN CALL SCAN PRINT ISFILE ISDIR EXISTS RAWBASH RAWBATCH BASH BATCH NL TEXT BREAK CONTINUE BEGIN_UX END_UX BEGIN_WN END_WN IF ELSE ELIF FUNC IN FOR WHILE READFILE DIR ARRLEN STRLEN LOADENV NEGATIVE_NUM STR EOFL
+%token NUMBER ID FUNC_NAME COMMAND TRUE FALSE RETURN CALL SCAN PRINT ISFILE ISDIR EXISTS RAWBASH RAWBATCH BASH BATCH NL TEXT BREAK CONTINUE BEGIN_UX END_UX BEGIN_WN END_WN IF ELSE ELIF FUNC IN FOR WHILE READFILE DIR ARRLEN STRLEN LOADENV NEGATIVE_NUM STR POWER EOFL
 
 %%
 
@@ -110,8 +110,6 @@ winBlockStatement : BEGIN_WN statements END_WN
 
 expr :  id1 '+' expr 
         | id1 '-' expr 
-        | numVal "--" 
-        | numVal "++" 
         | id1
         ;
 
@@ -123,7 +121,7 @@ id2 : id2 '/' id3
         | id3
         ;
 
-id3 : id3 "**" id4 
+id3 : id3 POWER id4 
         | id4
         ;
 
@@ -201,6 +199,7 @@ num :  positiveNum
 
 positiveNum : NUMBER
         ;
+
 negativeNum : NEGATIVE_NUM  
         ;
 
@@ -232,7 +231,6 @@ allExpr : expr
         | arrayExpr 
         | functionCall
         ;
-
 
 %%
 
