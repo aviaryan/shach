@@ -68,7 +68,7 @@ forLine : FOR var IN READFILE '(' strVal ')' '{' loopStatements '}'
         ;
 
 forDir : FOR var IN DIR '(' strVal ')' '{' NL loopStatements '}'
-        ;
+       ;
 
 commentStatement : "#" TEXT
         ;
