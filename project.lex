@@ -35,19 +35,19 @@
 	return END_WN;
 }
 
-"\+"	{ printf("ADD\n"); return('+');}
+"+"	{ printf("ADD\n"); return('+');}
 
-"-"		{ printf("SUB\n"); return('-');}
+"-"	{ printf("SUB\n"); return('-');}
 
-"\*"	{ printf("MULTI\n"); return('*');}
+"*"	{ printf("MULTI\n"); return('*');}
 
-"/"		{ printf("DIVIDE\n"); return('/');}
+"/"	{ printf("DIVIDE\n"); return('/');}
 
-"\*\*"	{ printf("POWER\n"); return POWER;}
+"**"	{ printf("POWER\n"); return POWER;}
 
-"["		{ printf("OPENSQBR\n"); return ('[');}
+"["	{ printf("OPENSQBR\n"); return ('[');}
 
-"]"		{ printf("CLOSESQBR\n"); return (']');}
+"]"	{ printf("CLOSESQBR\n"); return (']');}
 
 "#"[^\n]*   { printf("COMMENT < %s >\n", yytext); }
 
