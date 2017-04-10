@@ -185,7 +185,7 @@ varList : allVals ',' varList
         | allVals
         ;
 
-var : '$' ID
+var :    ID
         ;
 
 allVar : var 
@@ -195,10 +195,13 @@ allVar : var
 string : STR
         ;
 
-num : NEGATIVE_NUM positiveNum
+num :  positiveNum
+        | negativeNum
         ;
 
 positiveNum : NUMBER
+        ;
+negativeNum : NEGATIVE_NUM  
         ;
 
 numVal : allVar 
