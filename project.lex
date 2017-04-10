@@ -86,6 +86,9 @@
 "in" {printf("IN < %s >\n", yytext); return IN;}
 
 "for" {printf("FOR < %s >\n", yytext); return FOR;}
+
+"xxx"  {printf("EOFL < %s >\n", yytext); return EOFL; }
+
 "="		{ printf("EQUAL\n"); return('=');}
 
 "while" {printf("WHILE < %s >\n", yytext); return WHILE;} 
