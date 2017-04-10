@@ -76,8 +76,6 @@
 
 "loadenv" {printf("LOADENV < %s >\n", yytext); return LOADENV;}
 
-\n   {printf("NL < >\n"); return NL;}
-
 "break" {printf("BREAK < %s >\n", yytext); return BREAK;}
 
 "continue" {printf("CONTINUE < %s >\n", yytext); return CONTINUE;}
@@ -93,6 +91,9 @@
 "in" {printf("IN < %s >\n", yytext); return IN;}
 
 "for" {printf("FOR < %s >\n", yytext); return FOR;}
+
+"xxx"  {printf("EOFL < %s >\n", yytext); return EOFL; }
+
 "="		{ printf("EQUAL\n"); return('=');}
 
 "while" {printf("WHILE < %s >\n", yytext); return WHILE;} 
