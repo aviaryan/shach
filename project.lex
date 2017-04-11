@@ -152,4 +152,10 @@
 
 \"[^\n\r\"]*\"  {printf("STR < %s >\n", yytext); return STR;}
 
+[ \t]*  {
+	// this is risky, can cause issues where we remove whitespaces which were actually needed.
+	// important to keep in the end
+	printf("WHITESPACE\n");
+}
+
 %%
