@@ -101,7 +101,16 @@
 
 "xxx"  {printf("EOFL < %s >\n", yytext); return EOFL; }
 
-"="		{ printf("EQUAL\n"); return('=');}
+"="    { printf("EQUAL\n"); return('=');}
+
+"("    { printf("OPENBRACKET\n"); return('(');}
+
+")"    { printf("CLOSEBRACKET\n"); return(')');}
+
+"{"    { printf("OPENBRACE\n"); return('{');}
+
+"}"    { printf("CLOSEBRACE\n"); return('}');}
+
 
 "while" {printf("WHILE < %s >\n", yytext); return WHILE;} 
 
