@@ -1,0 +1,9 @@
+func abc($a,$b){
+  # code
+ return $var
+}
+func abc(){
+  # code
+ return $var
+}
+xxx
