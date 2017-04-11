@@ -131,7 +131,7 @@ id4 : '(' expr ')'
         ;
 
 stringExpr : strVal 
-        | strVal "++" string1
+        | strVal '+' string1
         ;
 
 boolExpr : boolExpr1 

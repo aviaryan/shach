@@ -3,4 +3,6 @@ $a=5
 $a=-5
 $x=3+$v[2]*5
 $x=$x/23
+$v="assa"
+$v="assa"+"advs"
 xxx
