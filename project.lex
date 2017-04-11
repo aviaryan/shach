@@ -38,6 +38,8 @@
 
 "+"	{ printf("ADD\n"); return('+');}
 
+"++" {printf("CONCAT\n"); return CONCAT;}
+
 "-"	{ printf("SUB\n"); return('-');}
 
 "*"	{ printf("MULTI\n"); return('*');}
@@ -148,6 +150,6 @@
 
 "~"[^\n\r]+  {printf("COMMAND < %s >\n", yytext); return COMMAND;}
 
-\"[^\n\r]*\"  {printf("STR < %s >\n", yytext); return STR;}
+\"[^\n\r\"]*\"  {printf("STR < %s >\n", yytext); return STR;}
 
 %%
