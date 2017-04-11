@@ -2,6 +2,21 @@
 
 List of various commands we plan to support and how they look in Unix and Windows format.
 
+### Statements
+
+##### Variable declarations (all types)
+
+```sh
+```
+
+```bat
+```
+
+----
+
+
+
+### Functions
 
 #### isfile()
 
