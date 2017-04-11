@@ -241,6 +241,6 @@ int main(){
 }
 
 int yyerror(char *s){
-	printf("Invalid string\n");
+	printf("UNRECOGNIZED_CODE\n");
 	return 0;
 }

@@ -9,17 +9,28 @@ rm -f lex.yy.c
 # compile
 make build
 
-# test
 # http://stackoverflow.com/questions/20796200/how-to-iterate-over-files-in-a-directory-with-bash
-
 # flag variable
 flag=0
 
+# test good source
 for filename in tests/*.shach; do
 	echo 'Testing: '$filename
 	output=$(./a.out < $filename)
 	# http://stackoverflow.com/questions/229551/string-contains-in-bash
 	if [[ $output != *"VALID_CODE"* ]]; then
+		echo "Failed: "$filename
+		echo "Error: "$output
+		flag=1
+	fi
+done
+
+# test bad source
+for filename in anti-tests/*.shach; do
+	echo 'Anti-testing: '$filename
+	output=$(./a.out < $filename)
+	# http://stackoverflow.com/questions/229551/string-contains-in-bash
+	if [[ $output != *"UNRECOGNIZED_CODE"* ]]; then
 		echo "Failed: "$filename
 		echo "Error: "$output
 		flag=1
