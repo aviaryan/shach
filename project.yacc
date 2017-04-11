@@ -86,8 +86,6 @@ retStatement : RETURN allVar
 
 functionCall : FUNC_NAME '(' paramList ')' 
         | inbuiltFunc '(' paramList ')'
-        | FUNC_NAME '(' ')'
-        | inbuiltFunc '(' ')'
         ;
 
 inbuiltFunc : CALL 
@@ -112,6 +110,7 @@ winBlockStatement : BEGIN_WN statements END_WN
         ;
 
 expr :  id1 '+' expr 
+        | id1 '+' stringExpr
         | id1 '-' expr 
         | id1
         ;
@@ -153,8 +152,8 @@ arrayExpr : '{' varList '}'
         | '[' ']'
         ;
 
-string1 : string1 '+' strVal 
-        | strVal
+string1 : strVal 
+        | strVal '+' string1
         ;
 
 conditionList : condition "&&" conditionList 
@@ -174,8 +173,8 @@ condition : expr '<' expr
         | functionCall
         ;
 
-paramList : paramList ',' paramList 
-        | allExpr
+paramList : allExpr ',' paramList 
+        |
         ;
 
 idList : allVar ',' idList 

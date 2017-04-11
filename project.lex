@@ -131,7 +131,6 @@
 
 "~"[^\n\r]+  {printf("COMMAND < %s >\n", yytext); return COMMAND;}
 
-
 \"[^\n\r\"]*\"  {printf("STR < %s >\n", yytext); return STR;}
 
 %%
