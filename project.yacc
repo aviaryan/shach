@@ -77,7 +77,7 @@ funcStatements : mainStatements retStatement NL funcStatements
         |
         ;
 
-functionDeclaration : FUNC FUNC_NAME '(' universalIdList ')' '{' funcStatements '}' NL
+functionDeclaration : FUNC FUNC_NAME '(' universalIdList ')' '{' funcStatements '}'
         ;
 
 retStatement : RETURN allVar 
