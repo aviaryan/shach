@@ -49,8 +49,8 @@ elif_st : ELIF '(' conditionList ')' '{' mainStatements '}'
 loopStatement : forLoop 
         | whileLoop 
         | forLine 
-	| forDir
-	|
+        | forDir
+        |
         ;
 
 loopStatements : mainStatements 
