@@ -111,6 +111,7 @@
 
 "}"    { printf("CLOSEBRACE\n"); return('}');}
 
+","  { printf("COMMA\n"); return(','); }
 
 "while" {printf("WHILE < %s >\n", yytext); return WHILE;} 
 
@@ -129,6 +130,7 @@
 [a-zA-Z0-9_]+  {printf("FUNC_NAME < %s >\n", yytext); return FUNC_NAME;}
 
 "~"[^\n\r]+  {printf("COMMAND < %s >\n", yytext); return COMMAND;}
+
 
 \"[^\n\r\"]*\"  {printf("STR < %s >\n", yytext); return STR;}
 
