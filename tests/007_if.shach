@@ -1,0 +1,7 @@
+if(3>=2){
+	# comments
+}
+if(3>=2&&True){
+	$s=1
+}
+xxx

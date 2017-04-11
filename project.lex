@@ -15,6 +15,7 @@
 	begin_ux = 1;
 	printf("BEGIN_UX < %s >\n", yytext);
 	return BEGIN_UX;
+	// handle this in yacc rules.. if begin_ux is set, then only output on unix and v.v.
 }
 
 "#END UX" {
@@ -114,6 +115,22 @@
 "}"    { printf("CLOSEBRACE\n"); return('}');}
 
 ","  { printf("COMMA\n"); return(','); }
+
+">"  { printf("GT\n"); return('>'); }
+
+"<"  { printf("LT\n"); return('<'); }
+
+">="  { printf("GTEQ\n"); return GTEQ; }
+
+"<="  { printf("LTEQ\n"); return LTEQ; }
+
+"=="  { printf("EQCOND\n"); return EQCOND; }
+
+"<>"  { printf("NOTEQ\n"); return NOTEQ; }
+
+"&&"  { printf("LOGAND\n"); return LOGAND; }
+
+"||"  { printf("LOGOR\n"); return LOGOR; }
 
 "while" {printf("WHILE < %s >\n", yytext); return WHILE;} 
 

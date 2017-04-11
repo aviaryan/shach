@@ -4,7 +4,7 @@
         extern int begin_wn, begin_ux;
 %}
 
-%token NUMBER ID FUNC_NAME COMMAND TRUE FALSE RETURN CALL SCAN PRINT ISFILE ISDIR EXISTS RAWBASH RAWBATCH BASH BATCH NL TEXT BREAK CONTINUE BEGIN_UX END_UX BEGIN_WN END_WN IF ELSE ELIF FUNC IN FOR WHILE READFILE DIR ARRLEN STRLEN LOADENV NEGATIVE_NUM STR POWER EOFL CONCAT
+%token NUMBER ID FUNC_NAME COMMAND TRUE FALSE RETURN CALL SCAN PRINT ISFILE ISDIR EXISTS RAWBASH RAWBATCH BASH BATCH NL TEXT BREAK CONTINUE BEGIN_UX END_UX BEGIN_WN END_WN IF ELSE ELIF FUNC IN FOR WHILE READFILE DIR ARRLEN STRLEN LOADENV NEGATIVE_NUM STR POWER EOFL CONCAT GTEQ LTEQ NOTEQ EQCOND LOGAND LOGOR
 
 %%
 
@@ -137,8 +137,8 @@ stringExpr : strVal
         ;
 
 boolExpr : boolExpr1 
-        | boolVal "&&" boolExpr 
-        | boolVal "||" boolExpr
+        | boolVal LOGAND boolExpr 
+        | boolVal LOGOR boolExpr
         ;
 
 boolExpr1 : '(' boolExpr ')' 
@@ -157,19 +157,19 @@ string1 : strVal
         | strVal CONCAT string1
         ;
 
-conditionList : condition "&&" conditionList 
-        | condition "||" conditionList 
+conditionList : condition LOGAND conditionList 
+        | condition LOGOR conditionList 
         | condition
         ;
 
 condition : expr '<' expr 
         | expr '>' expr 
-        | expr "<=" expr 
-        | expr ">=" expr 
-        | expr "<>" expr 
-        | expr "==" expr 
-        | stringExpr "==" stringExpr 
-        | stringExpr "<>" stringExpr 
+        | expr LTEQ expr 
+        | expr GTEQ expr 
+        | expr NOTEQ expr 
+        | expr EQCOND expr 
+        | stringExpr EQCOND stringExpr 
+        | stringExpr NOTEQ stringExpr 
         | boolExpr 
         | functionCall
         ;
