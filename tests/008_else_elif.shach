@@ -1,0 +1,14 @@
+if(3>=2&&True){
+	$s=1
+}else{
+	# comment
+}
+
+if(3>=2&&2<=4&&6==7){
+	$s=1
+}elif($s>2){
+	$s=2
+}else{
+	$s="sad"
+}
+xxx
