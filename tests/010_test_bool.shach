@@ -1,0 +1,5 @@
+$a = True && False
+$x = ( True && False ) || True
+$s = $v && ( $q )
+$s = ( $a[1] && True ) || $q
+xxx

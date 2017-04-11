@@ -137,8 +137,8 @@ stringExpr : strVal
         ;
 
 boolExpr : boolExpr1 
-        | boolVal LOGAND boolExpr 
-        | boolVal LOGOR boolExpr
+        | boolExpr1 LOGAND boolExpr 
+        | boolExpr1 LOGOR boolExpr
         ;
 
 boolExpr1 : '(' boolExpr ')' 
