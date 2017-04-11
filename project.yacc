@@ -53,15 +53,16 @@ loopStatement : forLoop
         |
         ;
 
-loopStatements : mainStatements 
-        | BREAK 
-        | CONTINUE
+loopStatements : statement NL loopStatements 
+        | BREAK NL loopStatements
+        | CONTINUE NL loopStatements
+        |
         ;
 
 whileLoop : WHILE '(' conditionList ')' '{' loopStatements '}'
         ;
 
-forLoop : FOR '(' variableAssignment ';' conditionList ';' expr ')' '{' loopStatements '}'
+forLoop : FOR var IN '(' NUMBER ',' NUMBER ',' NUMBER  ')' '{' NL loopStatements '}'
         ;
 
 forLine : FOR var IN READFILE '(' strVal ')' '{' loopStatements '}'
