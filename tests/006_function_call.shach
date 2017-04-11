@@ -1,0 +1,4 @@
+$v=abc()
+$aa=abc($1)
+$ab=abc($1,"string")
+xxx
