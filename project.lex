@@ -52,6 +52,10 @@
 
 "]"	{ printf("CLOSESQBR\n"); return (']');}
 
+"("	{ printf("OPENROBR\n"); return ('(');}
+
+")"	{ printf("CLOSEROBR\n"); return (')');}
+
 "#"[^\n]*   { printf("COMMENT < %s >\n", yytext); }
 
 0|[1-9][0-9]* { printf("NUMBER < %s >\n", yytext); return NUMBER; }
@@ -96,7 +100,7 @@
 
 "elif" {printf("ELIF < %s >\n", yytext); return ELIF;}
 
-"func" {printf("FUNC < %s >\n", yytext); return FUNC;}
+"func " {printf("FUNC < %s >\n", yytext); return FUNC;}
 
 "in" {printf("IN < %s >\n", yytext); return IN;}
 

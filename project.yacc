@@ -77,7 +77,7 @@ funcStatements : mainStatements retStatement NL funcStatements
         |
         ;
 
-functionDeclaration : FUNC ' ' FUNC_NAME '(' idList ')' '{' funcStatements '}' NL
+functionDeclaration : FUNC FUNC_NAME '(' universalIdList ')' '{' funcStatements '}' NL
         ;
 
 retStatement : RETURN allVar 
@@ -178,8 +178,12 @@ paramList : paramList ',' paramList
         | allExpr
         ;
 
-idList : allVar ',' idList 
-        | allVar
+idList : allVals ',' idList 
+        | allVals
+        ;
+
+universalIdList: idList
+        |
         ;
 
 varList : allVals ',' varList 
