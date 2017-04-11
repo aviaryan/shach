@@ -37,6 +37,8 @@
 
 "+"	{ printf("ADD\n"); return('+');}
 
+"++" {printf("CONCAT\n"); return CONCAT;}
+
 "-"	{ printf("SUB\n"); return('-');}
 
 "*"	{ printf("MULTI\n"); return('*');}
