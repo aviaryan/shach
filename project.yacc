@@ -4,7 +4,7 @@
         extern int begin_wn, begin_ux;
 %}
 
-%token NUMBER ID FUNC_NAME COMMAND TRUE FALSE RETURN CALL SCAN PRINT ISFILE ISDIR EXISTS RAWBASH RAWBATCH BASH BATCH NL TEXT BREAK CONTINUE BEGIN_UX END_UX BEGIN_WN END_WN IF ELSE ELIF FUNC IN FOR WHILE READFILE DIR ARRLEN STRLEN LOADENV NEGATIVE_NUM STR POWER EOFL
+%token NUMBER ID FUNC_NAME COMMAND TRUE FALSE RETURN CALL SCAN PRINT ISFILE ISDIR EXISTS RAWBASH RAWBATCH BASH BATCH NL TEXT BREAK CONTINUE BEGIN_UX END_UX BEGIN_WN END_WN IF ELSE ELIF FUNC IN FOR WHILE READFILE DIR ARRLEN STRLEN LOADENV NEGATIVE_NUM STR POWER EOFL CONCAT
 
 %%
 
@@ -133,7 +133,7 @@ id4 : '(' expr ')'
         ;
 
 stringExpr : strVal 
-        | strVal "++" string1
+        | strVal CONCAT string1
         ;
 
 boolExpr : boolExpr1 
@@ -153,8 +153,8 @@ arrayExpr : '{' varList '}'
         | '[' ']'
         ;
 
-string1 : string1 '+' strVal 
-        | strVal
+string1 : strVal 
+        | strVal CONCAT string1
         ;
 
 conditionList : condition "&&" conditionList 
