@@ -2,6 +2,6 @@ for $a in dir("tests"){
     $c=1
     $d=1
     #comment
-    $a=1
+    $a = 1
 }
 xxx
