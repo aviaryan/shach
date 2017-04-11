@@ -86,6 +86,8 @@ retStatement : RETURN allVar
 
 functionCall : FUNC_NAME '(' paramList ')' 
         | inbuiltFunc '(' paramList ')'
+        | FUNC_NAME '(' ')'
+        | inbuiltFunc '(' ')'
         ;
 
 inbuiltFunc : CALL 
@@ -173,8 +175,8 @@ condition : expr '<' expr
         | functionCall
         ;
 
-paramList : allExpr ',' paramList 
-        |
+paramList : paramList ',' paramList 
+        | allExpr
         ;
 
 idList : allVar ',' idList 
