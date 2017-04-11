@@ -1,0 +1,5 @@
+func abc($a,$b){
+  # code
+}
+return $var
+xxx
