@@ -82,7 +82,7 @@ commentStatement : "#" TEXT
 
 funcStatements : statement NL funcStatements 
         | conditionalFuncStatement NL funcStatements
-        | retStatement NL funcStatements
+        | retStatement NL
         |
         ;
 
