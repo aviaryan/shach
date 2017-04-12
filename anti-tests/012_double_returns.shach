@@ -1,0 +1,5 @@
+func a($a,$b){
+	return "string"
+	return "world"
+}
+xxx

@@ -62,7 +62,7 @@
 
 "False"  {printf("FALSE < %s >\n", yytext); return FALSE;}
 
-"return"  {printf("RETURN < %s >\n", yytext); return RETURN;}
+"return "  {printf("RETURN < %s >\n", yytext); return RETURN;}
 
 "call"   {printf("CALL < %s >\n", yytext); return CALL;}
 
