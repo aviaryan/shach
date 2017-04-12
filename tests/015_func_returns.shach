@@ -1,0 +1,8 @@
+func a($a,$b){
+	if (2==$v){
+	   return 2
+	}
+	return 3
+}
+$v = a(2,3)
+xxx

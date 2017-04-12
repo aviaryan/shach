@@ -1,0 +1,11 @@
+$v=2
+func a($a,$b){
+	if (2==$v){
+	   return 2
+	} elif (True && $v) {
+		return 3
+	} else {
+		return 4
+	}
+}
+xxx

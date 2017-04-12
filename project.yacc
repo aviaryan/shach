@@ -45,6 +45,14 @@ commandStatement : COMMAND
 elif_st : ELIF '(' conditionList ')' '{' mainStatements '}'
         ;
 
+conditionalFuncStatement : IF '(' conditionList ')' '{' funcStatements '}'
+        | IF '(' conditionList ')' '{' funcStatements '}' ELSE '{' funcStatements '}' 
+        | IF '(' conditionList ')' '{' funcStatements '}'  elif_func_st  ELSE '{' funcStatements '}'
+        ;
+
+elif_func_st : ELIF '(' conditionList ')' '{' funcStatements '}'
+        ;
+
 loopStatement : forLoop 
         | whileLoop 
         | forLine 
@@ -72,14 +80,16 @@ forDir : FOR var IN DIR '(' strVal ')' '{' loopStatements '}'
 commentStatement : "#" TEXT
         ;
 
-funcStatements : mainStatements retStatement NL funcStatements 
+funcStatements : statement NL funcStatements 
+        | conditionalFuncStatement NL funcStatements
+        | retStatement NL funcStatements
         |
         ;
 
 functionDeclaration : FUNC FUNC_NAME '(' universalIdList ')' '{' funcStatements '}'
         ;
 
-retStatement : RETURN allVar 
+retStatement : RETURN allVals
         | RETURN
         ;
 
