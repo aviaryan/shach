@@ -1,5 +1,6 @@
 # Shach
  
+ ![ScreenShot](https://i.imgsafe.org/da7382f992.png)
 
 ## Overview
 
@@ -14,8 +15,6 @@ write, no complex syntaxes, different inbuilt functions provided for making the 
 above all you don’t have to worry about writing different codes for different platforms.
 Cross-compiling is supported so that you can create bash & batch scripts from any platform,
 whether it be OSX, Linux or Windows.
-
-![ScreenShot](https://i.imgsafe.org/da7382f992.png)
 
 
 ## Features
