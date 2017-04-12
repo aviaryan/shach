@@ -158,4 +158,6 @@
 	printf("WHITESPACE\n");
 }
 
+.  {printf("INVALID < %s >\n", yytext); return INVALID;}
+
 %%
