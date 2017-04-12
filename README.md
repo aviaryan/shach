@@ -15,6 +15,8 @@ above all you don’t have to worry about writing different codes for different 
 Cross-compiling is supported so that you can create bash & batch scripts from any platform,
 whether it be OSX, Linux or Windows.
 
+![ScreenShot](https://i.imgsafe.org/da7382f992.png)
+
 
 ## Features
 1. Simple syntax, inspired from C, Python, Bash and Batch.
