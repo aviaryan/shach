@@ -52,10 +52,6 @@
 
 "]"	{ printf("CLOSESQBR\n"); return (']');}
 
-"("	{ printf("OPENROBR\n"); return ('(');}
-
-")"	{ printf("CLOSEROBR\n"); return (')');}
-
 "#"[^\n]*   { printf("COMMENT < %s >\n", yytext); }
 
 0|[1-9][0-9]* { printf("NUMBER < %s >\n", yytext); return NUMBER; }

@@ -13,8 +13,6 @@ program : statements EOFL {printf("\nVALID_CODE"); return 0;}
 
 statements : functionDeclaration statements 
         | statement NL statements
-        | NL statements
-        | statement
         |
         ;
 
@@ -30,12 +28,13 @@ statement : variableAssignment
         | winBlockStatement 
         | commandStatement 
         | commentStatement
+        |
         ;
 
 variableAssignment : allVar '=' allExpr
         ;
 
-conditionalStatement : IF '(' conditionList ')' '{' mainStatements '}' 
+conditionalStatement : IF '(' conditionList ')' '{' mainStatements '}'
         | IF '(' conditionList ')' '{' mainStatements '}' ELSE '{' mainStatements '}' 
         | IF '(' conditionList ')' '{' mainStatements '}'  elif_st  ELSE '{' mainStatements '}'
         ;
@@ -50,7 +49,6 @@ loopStatement : forLoop
         | whileLoop 
         | forLine 
         | forDir
-        |
         ;
 
 loopStatements : statement NL loopStatements 
@@ -62,13 +60,13 @@ loopStatements : statement NL loopStatements
 whileLoop : WHILE '(' conditionList ')' '{' loopStatements '}'
         ;
 
-forLoop : FOR var IN '(' NUMBER ',' NUMBER ',' NUMBER  ')' '{' NL loopStatements '}'
+forLoop : FOR var IN '(' NUMBER ',' NUMBER ',' NUMBER  ')' '{' loopStatements '}'
         ;
 
 forLine : FOR var IN READFILE '(' strVal ')' '{' loopStatements '}'
         ;
 
-forDir : FOR var IN DIR '(' strVal ')' '{' NL loopStatements '}'
+forDir : FOR var IN DIR '(' strVal ')' '{' loopStatements '}'
        ;
 
 commentStatement : "#" TEXT

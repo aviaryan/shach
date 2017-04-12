@@ -1,5 +1,7 @@
 if(3>=2){
+	$a=1
 	# comments
+	$v=2
 }
 if(3>=2 && True){
 	$s=1
