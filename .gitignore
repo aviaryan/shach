@@ -3,3 +3,4 @@ y.tab.h
 a.out
 lex.yy.c
 .DS_Store
+y.output

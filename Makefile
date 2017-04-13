@@ -1,6 +1,6 @@
 build:
 	lex project.lex
-	yacc -d project.yacc
+	yacc -d -v project.yacc
 	gcc lex.yy.c y.tab.c -ll -ly
 
 test:
