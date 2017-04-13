@@ -1,0 +1,7 @@
+$start=1
+
+for $p in file($1) {
+	~ aria2c {$p} -x 2 -s 2 -o "Episode_"{$start}".mp4" --check-certificate=False
+	$start = $start + 1
+}
+xxx
