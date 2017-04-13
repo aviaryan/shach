@@ -155,7 +155,7 @@ id4 : '(' expr ')'
         ;
 
 stringExpr : strVal 
-        | strVal CONCAT string1
+        | strVal CONCAT stringExpr
         ;
 
 boolExpr : boolExpr1 
@@ -175,10 +175,6 @@ arrayExpr : '{' varList '}'
         | '[' ']'
         ;
 
-string1 : strVal 
-        | strVal CONCAT string1
-        ;
-
 conditionList : condition LOGAND conditionList 
         | condition LOGOR conditionList 
         | condition
@@ -196,7 +192,7 @@ condition : expr '<' expr
         | functionCall
         ;
 
-paramList : paramList ',' paramList 
+paramList : allExpr ',' paramList 
         | allExpr
         ;
 
