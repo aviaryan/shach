@@ -6,6 +6,8 @@
 
 	int begin_wn = 0;
 	int begin_ux = 0;
+	int raw_wn = 0;
+	int raw_ux = 0;
 
 %%
 
@@ -38,27 +40,26 @@
 
 "#BEGIN RAWUX" {
 	raw_ux = 1;
-	printf("BEGIN_RAWUX < %s >\n", yytext);
-	return BEGIN_RAWUX;
-	// handle this in yacc rules.. if begin_ux is set, then only output on unix and v.v.
+	printf("BEGIN_RAW_UX < %s >\n", yytext);
+	return BEGIN_RAW_UX;
 }
 
 "#END RAWUX" {
 	raw_ux = 0;
-	printf("END_RAWUX < %s >\n", yytext);
-	return END_RAWUX;
+	printf("END_RAW_UX < %s >\n", yytext);
+	return END_RAW_UX;
 }
 
-"#BEGIN RAWWN" {
+"#BEGIN RAW_WN" {
 	raw_wn = 1;
-	printf("BEGIN_RAWWN < %s >\n", yytext);
-	return BEGIN_RAWWN;
+	printf("BEGIN_RAW_WN < %s >\n", yytext);
+	return BEGIN_RAW_WN;
 }
 
 "#END RAWWN" {
 	raw_wn = 0;
-	printf("END_RAWWN < %s >\n", yytext);
-	return END_RAWWN;
+	printf("END_RAW_WN < %s >\n", yytext);
+	return END_RAW_WN;
 }
 
 "+"	{ printf("ADD\n"); return('+');}
