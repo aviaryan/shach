@@ -102,7 +102,7 @@ funcStatements : statement NL funcStatements
 functionDeclaration : FUNC FUNC_NAME '(' universalIdList ')' '{' funcStatements '}'
         ;
 
-retStatement : RETURN allVals
+retStatement : RETURN '(' allVals ')'
         | RETURN
         ;
 
