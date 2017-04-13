@@ -67,10 +67,14 @@ loopStatement : forLoop
         | forDir
         ;
 
+nlLoop : NL nlLoop
+        |
+        ;
+
 loopStatements : statement NL loopStatements 
         | conditionalLoopStatement NL loopStatements
-        | BREAK NL
-        | CONTINUE NL
+        | BREAK nlLoop
+        | CONTINUE nlLoop
         |
         ;
 
@@ -91,7 +95,7 @@ commentStatement : "#" TEXT
 
 funcStatements : statement NL funcStatements 
         | conditionalFuncStatement NL funcStatements
-        | retStatement NL
+        | retStatement nlLoop
         |
         ;
 

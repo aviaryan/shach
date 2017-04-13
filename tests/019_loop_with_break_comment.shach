@@ -1,0 +1,6 @@
+while(3 > 2) {
+	break
+	#comment
+	#comment
+}
+xxx
