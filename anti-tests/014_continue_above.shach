@@ -1,0 +1,5 @@
+for $p in dir($1) {
+	continue
+	$v=1
+}
+xxx

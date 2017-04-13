@@ -3,11 +3,10 @@ for $v in (1,10,3){
 }
 $a=1
 for $v in (1,10,3){
-  continue
-  break
   $a=1
   $y=2
   #comment
+  continue
 }
 $a=1
 xxx

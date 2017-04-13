@@ -3,6 +3,8 @@ func a($a,$b){
 	   return 2
 	}
 	return "string"
+
+	
 }
 $v = a(2,3)
 xxx
