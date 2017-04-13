@@ -1,9 +1,9 @@
 func abc($a,$b){
   # code
- return $var
+ return($var)
 }
 func abc(){
   # code
- return $var
+ return($var)
 }
 xxx

@@ -1,5 +1,5 @@
 func abc($a,$b){
   # code
 }
-return $var
+return($var)
 xxx
