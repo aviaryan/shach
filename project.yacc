@@ -4,8 +4,7 @@
         extern int begin_wn, begin_ux;
 %}
 
-%token NUMBER ID FUNC_NAME COMMAND TRUE FALSE RETURN CALL SCAN PRINT ISFILE ISDIR EXISTS RAWBASH RAWBATCH BASH BATCH NL TEXT BREAK CONTINUE BEGIN_UX END_UX BEGIN_WN END_WN IF ELSE ELIF FUNC IN FOR WHILE READFILE DIR ARRLEN STRLEN LOADENV NEGATIVE_NUM STR POWER EOFL CONCAT GTEQ LTEQ NOTEQ EQCOND LOGAND LOGOR INVALID
-
+%token NUMBER ID FUNC_NAME COMMAND TRUE FALSE RETURN CALL SCAN PRINT ISFILE ISDIR EXISTS RAWBASH RAWBATCH BASH BATCH NL TEXT BREAK CONTINUE BEGIN_UX END_UX BEGIN_WN END_WN IF ELSE ELIF FUNC IN FOR WHILE READFILE DIR ARRLEN STRLEN LOADENV NEGATIVE_NUM STR POWER EOFL CONCAT GTEQ LTEQ NOTEQ EQCOND LOGAND LOGOR INVALID BEGIN_RAW_UX END_RAW_UX BEGIN_RAW_WN END_RAW_WN
 %%
 
 program : statements EOFL {printf("\nVALID_CODE"); return 0;}
@@ -28,7 +27,8 @@ statement : variableAssignment
         | winBlockStatement 
         | commandStatement 
         | commentStatement
-        |
+        | rawStatementBlock
+	|
         ;
 
 variableAssignment : allVar '=' allExpr
@@ -132,6 +132,10 @@ uxBlockStatement : BEGIN_UX statements END_UX
 
 winBlockStatement : BEGIN_WN statements END_WN
         ;
+
+rawStatementBlock : BEGIN_RAW_UX stringExpr END_RAW_UX
+	| BEGIN_RAW_WN stringExpr END_RAW_WN
+	;
 
 expr :  id1 '+' expr 
         | id1 '-' expr 
