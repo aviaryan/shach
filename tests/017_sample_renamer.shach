@@ -1,0 +1,8 @@
+for $p in dir($1) {
+	if ( exists($p ++ "new") ) {
+        continue
+    } else {
+        ~ mv "$p" "{$p}new"
+    }
+}
+xxx

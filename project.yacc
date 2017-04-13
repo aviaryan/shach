@@ -53,6 +53,14 @@ conditionalFuncStatement : IF '(' conditionList ')' '{' funcStatements '}'
 elif_func_st : ELIF '(' conditionList ')' '{' funcStatements '}'
         ;
 
+conditionalLoopStatement : IF '(' conditionList ')' '{' loopStatements '}'
+        | IF '(' conditionList ')' '{' loopStatements '}' ELSE '{' loopStatements '}' 
+        | IF '(' conditionList ')' '{' loopStatements '}'  elif_loop_st  ELSE '{' loopStatements '}'
+        ;
+
+elif_loop_st : ELIF '(' conditionList ')' '{' loopStatements '}'
+        ;
+
 loopStatement : forLoop 
         | whileLoop 
         | forLine 
@@ -60,8 +68,9 @@ loopStatement : forLoop
         ;
 
 loopStatements : statement NL loopStatements 
-        | BREAK NL loopStatements
-        | CONTINUE NL loopStatements
+        | conditionalLoopStatement NL loopStatements
+        | BREAK NL
+        | CONTINUE NL
         |
         ;
 
