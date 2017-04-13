@@ -36,6 +36,31 @@
 	return END_WN;
 }
 
+"#BEGIN RAWUX" {
+	raw_ux = 1;
+	printf("BEGIN_RAWUX < %s >\n", yytext);
+	return BEGIN_RAWUX;
+	// handle this in yacc rules.. if begin_ux is set, then only output on unix and v.v.
+}
+
+"#END RAWUX" {
+	raw_ux = 0;
+	printf("END_RAWUX < %s >\n", yytext);
+	return END_RAWUX;
+}
+
+"#BEGIN RAWWN" {
+	raw_wn = 1;
+	printf("BEGIN_RAWWN < %s >\n", yytext);
+	return BEGIN_RAWWN;
+}
+
+"#END RAWWN" {
+	raw_wn = 0;
+	printf("END_RAWWN < %s >\n", yytext);
+	return END_RAWWN;
+}
+
 "+"	{ printf("ADD\n"); return('+');}
 
 "++" {printf("CONCAT\n"); return CONCAT;}
