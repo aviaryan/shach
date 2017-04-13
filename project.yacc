@@ -28,6 +28,7 @@ statement : variableAssignment
         | winBlockStatement 
         | commandStatement 
         | commentStatement
+	| rawBlockStatement
         |
         ;
 
@@ -41,7 +42,7 @@ conditionalStatement : IF '(' conditionList ')' '{' mainStatements '}'
 
 commandStatement : COMMAND
         ;
-
+	
 elif_st : ELIF '(' conditionList ')' '{' mainStatements '}'
         ;
 
@@ -132,6 +133,10 @@ uxBlockStatement : BEGIN_UX statements END_UX
 
 winBlockStatement : BEGIN_WN statements END_WN
         ;
+	
+rawBlockStatement : BEGIN_RAWUX stringExpr END_RAWUX
+	| BEGIN_RAWWN stringExpr END_RAWWN
+	;
 
 expr :  id1 '+' expr 
         | id1 '-' expr 
