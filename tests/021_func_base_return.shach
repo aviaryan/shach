@@ -1,0 +1,7 @@
+func a(){
+	return   
+   
+	   # added lots of whitespace
+}
+$v = a(2,3)
+xxx
