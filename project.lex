@@ -184,6 +184,8 @@
 	printf("WHITESPACE\n");
 }
 
+[a-zA-Z0-9\t\n ./<>?;:"'`!@#$%^&*()\[\]{}_+=|\\-]* {printf("RAW < %s >\n", yytext); return RAW;}
+
 .  {printf("INVALID < %s >\n", yytext); return INVALID;}
 
 %%
