@@ -152,9 +152,15 @@
 
 [a-zA-Z0-9_]+  {printf("FUNC_NAME < %s >\n", yytext); return FUNC_NAME;}
 
-"~"[^\n\r]+  {printf("COMMAND < %s >\n", yytext); return COMMAND;}
+"~"[^\n\r]+  {
+	yylval = strdup(yytext);
+	printf("COMMAND < %s >\n", yytext); return COMMAND;
+}
 
-\"[^\n\r\"]*\"  {printf("STR < %s >\n", yytext); return STR;}
+\"[^\n\r\"]*\"  {
+	yylval = strdup(yytext);
+	printf("STR < %s >\n", yytext); return STR;
+}
 
 [ \t]*  {
 	// this is risky, can cause issues where we remove whitespaces which were actually needed.
