@@ -39,31 +39,67 @@ statement : variableAssignment { $$ = $1; }
 variableAssignment : allVar '=' allExpr { sprintf($$, "%s = %s", $1, $3); }
         ;
 
-conditionalStatement : IF '(' conditionList ')' '{' mainStatements '}'   { sprintf($$, "if (%s){\n%s}", $3, $6); }
-        | IF '(' conditionList ')' '{' mainStatements '}' ELSE '{' mainStatements '}'   { sprintf($$, "if (%s){\n%s} else {\n%s}", $3, $6, $10); }
-        | IF '(' conditionList ')' '{' mainStatements '}'  elif_st  ELSE '{' mainStatements '}'   { sprintf($$, "if (%s){\n%s} %s else {\n%s}", $3, $6, $8, $11); }
+conditionalStatement : IF '(' conditionList ')' '{' nlLoopPlus mainStatements '}'  { 
+            char * s = malloc(sizeof(char) * lstr2($3, $7));
+            sprintf(s, "if (%s){\n%s}", $3, $7); $$ = s;
+        }
+        | IF '(' conditionList ')' '{' nlLoopPlus mainStatements '}' ELSE '{' nlLoopPlus mainStatements '}'  { 
+            char * s = malloc(sizeof(char) * lstr3($3, $7, $12));
+            sprintf(s, "if (%s){\n%s} else {\n%s}", $3, $7, $12); $$ = s;
+        }
+        | IF '(' conditionList ')' '{' nlLoopPlus mainStatements '}'  elif_st  ELSE '{' nlLoopPlus mainStatements '}'  { 
+            char * s = malloc(sizeof(char) * lstr4($3, $7, $9, $13));
+            sprintf(s, "if (%s){\n%s} %s else {\n%s}", $3, $7, $9, $13); $$ = s;
+        }
         ;
 
 commandStatement : COMMAND { $$ = $1; }
         ;
 
-elif_st : ELIF '(' conditionList ')' '{' mainStatements '}'  { sprintf($$, "elif (%s){\n%s}", $3, $6); }
+elif_st : ELIF '(' conditionList ')' '{' nlLoopPlus mainStatements '}'  { 
+            char * s = malloc(sizeof(char) * lstr2($3, $7));
+            sprintf(s, "elif (%s){\n%s}", $3, $7); $$ = s;
+        }
         ;
 
-conditionalFuncStatement : IF '(' conditionList ')' '{' funcStatements '}'   { sprintf($$, "if (%s){\n%s}", $3, $6); }
-        | IF '(' conditionList ')' '{' funcStatements '}' ELSE '{' funcStatements '}'   { sprintf($$, "if (%s){\n%s} else {\n%s}", $3, $6, $10); }
-        | IF '(' conditionList ')' '{' funcStatements '}'  elif_func_st  ELSE '{' funcStatements '}'   { sprintf($$, "if (%s){\n%s} %s else {\n%s}", $3, $6, $8, $11); }
+conditionalFuncStatement : IF '(' conditionList ')' '{' nlLoopPlus funcStatements '}' { 
+            char * s = malloc(sizeof(char) * lstr2($3, $7));
+            sprintf(s, "if (%s){\n%s}", $3, $7); $$ = s;
+        }
+        | IF '(' conditionList ')' '{' nlLoopPlus funcStatements '}' ELSE '{' nlLoopPlus funcStatements '}' {
+            char * s = malloc(sizeof(char) * lstr3($3, $7, $12)); 
+            sprintf(s, "if (%s){\n%s} else {\n%s}", $3, $7, $12); $$ = s;
+        }
+        | IF '(' conditionList ')' '{' nlLoopPlus funcStatements '}'  elif_func_st  ELSE '{' nlLoopPlus funcStatements '}' {
+            char * s = malloc(sizeof(char) * lstr4($3, $7, $9, $13));
+            sprintf(s, "if (%s){\n%s} %s else {\n%s}", $3, $7, $9, $13); $$ = s;
+        }
         ;
 
-elif_func_st : ELIF '(' conditionList ')' '{' funcStatements '}'  { sprintf($$, "elif (%s){\n%s}", $3, $6); }
+elif_func_st : ELIF '(' conditionList ')' '{' nlLoopPlus funcStatements '}' {
+            char * s = malloc(sizeof(char) * lstr2($3, $7));
+            sprintf(s, "elif (%s){\n%s}", $3, $7); $$ = s;
+        }
         ;
 
-conditionalLoopStatement : IF '(' conditionList ')' '{' loopStatements '}'   { sprintf($$, "if (%s){\n%s}", $3, $6); }
-        | IF '(' conditionList ')' '{' loopStatements '}' ELSE '{' loopStatements '}'   { sprintf($$, "if (%s){\n%s} else {\n%s}", $3, $6, $10); }
-        | IF '(' conditionList ')' '{' loopStatements '}'  elif_loop_st  ELSE '{' loopStatements '}'   { sprintf($$, "if (%s){\n%s} %s else {\n%s}", $3, $6, $8, $11); }
+conditionalLoopStatement : IF '(' conditionList ')' '{' nlLoopPlus loopStatements '}' { 
+            char * s = malloc(sizeof(char) * lstr2($3, $7));
+            sprintf(s, "if (%s){\n%s}", $3, $7); $$ = s;
+        }
+        | IF '(' conditionList ')' '{' nlLoopPlus loopStatements '}' ELSE '{' nlLoopPlus loopStatements '}' {
+            char * s = malloc(sizeof(char) * lstr3($3, $7, $12)); 
+            sprintf(s, "if (%s){\n%s} else {\n%s}", $3, $7, $12); $$ = s;
+        }
+        | IF '(' conditionList ')' '{' nlLoopPlus loopStatements '}'  elif_loop_st  ELSE '{' nlLoopPlus loopStatements '}' {
+            char * s = malloc(sizeof(char) * lstr4($3, $7, $9, $13));
+            sprintf(s, "if (%s){\n%s} %s else {\n%s}", $3, $7, $9, $13); $$ = s;
+        }
         ;
 
-elif_loop_st : ELIF '(' conditionList ')' '{' loopStatements '}'  { sprintf($$, "elif (%s){\n%s}", $3, $6); }
+elif_loop_st : ELIF '(' conditionList ')' '{' nlLoopPlus loopStatements '}' {
+            char * s = malloc(sizeof(char) * lstr2($3, $7));
+            sprintf(s, "elif (%s){\n%s}", $3, $7); $$ = s;
+        }
         ;
 
 loopStatement : forLoop { $$ = $1; }
@@ -193,13 +229,19 @@ arrayExpr : '{' varList '}'
 
 conditionList : condition LOGAND conditionList 
         | condition LOGOR conditionList 
-        | condition
+        | condition { $$ = $1; }
         ;
 
 condition : expr '<' expr 
         | expr '>' expr 
-        | expr LTEQ expr 
-        | expr GTEQ expr 
+        | expr LTEQ expr { 
+            char * s = malloc(sizeof(char) * lstr2($1, $3));
+            sprintf(s, "%s <= %s", $1, $3); $$ = s;
+        }
+        | expr GTEQ expr { 
+            char * s = malloc(sizeof(char) * lstr2($1, $3));
+            sprintf(s, "%s >= %s", $1, $3); $$ = s;
+        }
         | expr NOTEQ expr 
         | expr EQCOND expr 
         | stringExpr EQCOND stringExpr 
@@ -234,18 +276,18 @@ allVar : var { $$ = $1; }
 string : STR { $$ = $1; }
         ;
 
-num :  positiveNum
-        | negativeNum
+num :  positiveNum  { $$ = $1; }
+        | negativeNum { $$ = $1; }
         ;
 
-positiveNum : NUMBER
+positiveNum : NUMBER { $$ = $1; }
         ;
 
-negativeNum : NEGATIVE_NUM  
+negativeNum : NEGATIVE_NUM  { $$ = $1; }
         ;
 
-numVal : allVar 
-        | num
+numVal : allVar { $$ = $1; }
+        | num { $$ = $1; }
         ;
 
 strVal : allVar { $$ = $1; }
@@ -266,7 +308,7 @@ allVals : vals
         | allVar
         ;
 
-allExpr : expr
+allExpr : expr { $$ = $1; }
         | stringExpr
         | boolExpr
         | arrayExpr 
@@ -274,6 +316,18 @@ allExpr : expr
         ;
 
 %%
+
+int lstr2(char * s1, char * s2){
+    return strlen(s1) + strlen(s2) + 20;
+}
+
+int lstr3(char * s1, char * s2, char * s3){
+    return lstr2(s1, s2) + strlen(s3);
+}
+
+int lstr4(char * s1, char * s2, char * s3, char * s4){
+    return lstr3(s1, s2, s3) + strlen(s4);
+}
 
 int main(){
 	yyparse();
