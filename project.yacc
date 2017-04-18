@@ -1,5 +1,6 @@
 %{
         #include <stdio.h>
+        #include <string.h>
         #define YYSTYPE char*
         extern char * yytext;
         extern int begin_wn, begin_ux;
@@ -11,18 +12,18 @@
 
 program : nlLoop statements EOFL { 
             printf("\nVALID_CODE");
-            printf("<< %s >>", $1);
+            printf("<< %s >>", $2);
             return 0; 
         }
         ;
 
-statements : functionDeclaration NL statements { sprintf($$, "%s\n%s", $1, $3); }
+statements : functionDeclaration nlLoopPlus statements { sprintf($$, "%s\n%s", $1, $3); }
         | statement nlLoopPlus statements { sprintf($$, "%s\n%s", $1, $3); }
-        | { $$=""; }
+        | { $$ = ""; }
         ;
 
-mainStatements : statement NL mainStatements { sprintf($$, "%s\n%s", $1, $3); }
-        | { $$=""; }
+mainStatements : statement nlLoopPlus mainStatements { sprintf($$, "%s\n%s", $1, $3); }
+        | { $$ = ""; }
         ;
 
 statement : variableAssignment { $$ = $1; }
@@ -62,47 +63,55 @@ conditionalLoopStatement : IF '(' conditionList ')' '{' loopStatements '}'   { s
         | IF '(' conditionList ')' '{' loopStatements '}'  elif_loop_st  ELSE '{' loopStatements '}'   { sprintf($$, "if (%s){\n%s} %s else {\n%s}", $3, $6, $8, $11); }
         ;
 
-elif_loop_st : ELIF '(' conditionList ')' '{' loopStatements '}'
+elif_loop_st : ELIF '(' conditionList ')' '{' loopStatements '}'  { sprintf($$, "elif (%s){\n%s}", $3, $6); }
         ;
 
-loopStatement : forLoop 
-        | whileLoop 
-        | forLine 
-        | forDir
+loopStatement : forLoop { $$ = $1; }
+        | whileLoop { $$ = $1; }
+        | forLine { $$ = $1; }
+        | forDir { $$ = $1; }
         ;
 
-nlLoopPlus : NL nlLoop
+nlLoopPlus : NL nlLoop { printf("nllll"); }
         ;
 
-nlLoop : NL nlLoop
+nlLoop : NL nlLoop { printf("why"); }
         |
         ;
 
-loopStatements : statement NL loopStatements 
-        | conditionalLoopStatement NL loopStatements
-        | BREAK nlLoop
-        | CONTINUE nlLoop
-        |
+loopStatements : statement nlLoopPlus loopStatements { sprintf($$, "%s\n%s", $1, $3); }
+        | conditionalLoopStatement nlLoopPlus loopStatements { sprintf($$, "%s\n%s", $1, $3); }
+        | BREAK nlLoopPlus { sprintf($$, "break\n"); }
+        | CONTINUE nlLoopPlus { sprintf($$, "continue\n"); }
+        | { $$ = ""; }
         ;
 
-whileLoop : WHILE '(' conditionList ')' '{' loopStatements '}'
+whileLoop : WHILE '(' conditionList ')' '{' nlLoopPlus loopStatements '}'
         ;
 
-forLoop : FOR var IN '(' NUMBER ',' NUMBER ',' NUMBER  ')' '{' loopStatements '}'
+forLoop : FOR var IN '(' NUMBER ',' NUMBER ',' NUMBER  ')' '{' nlLoopPlus loopStatements '}'
         ;
 
-forLine : FOR var IN READFILE '(' strVal ')' '{' loopStatements '}'
+forLine : FOR var IN READFILE '(' strVal ')' '{' nlLoopPlus loopStatements '}'  {
+            int len = strlen($2) + strlen($6) + strlen($10) + 20;
+            char * s = malloc(sizeof(char) * len);
+            sprintf(s, "for %s in file(%s){\n%s}", $2, $6, $10); $$ = s;
+        }
         ;
 
-forDir : FOR var IN DIR '(' strVal ')' '{' loopStatements '}'
+forDir : FOR var IN DIR '(' strVal ')' '{' nlLoopPlus loopStatements '}'  { 
+            int len = strlen($2) + strlen($6) + strlen($10) + 20;
+            char * s = malloc(sizeof(char) * len);
+            sprintf(s, "for %s in dir(%s){\n%s}", $2, $6, $10); $$ = s;
+        }
        ;
 
 commentStatement : "#" TEXT
         ;
 
-funcStatements : statement NL funcStatements 
-        | conditionalFuncStatement NL funcStatements
-        | retStatement nlLoop
+funcStatements : statement nlLoopPlus funcStatements 
+        | conditionalFuncStatement nlLoopPlus funcStatements
+        | retStatement nlLoopPlus
         |
         ;
 
@@ -140,25 +149,25 @@ uxBlockStatement : BEGIN_UX statements END_UX
 winBlockStatement : BEGIN_WN statements END_WN
         ;
 
-expr :  id1 '+' expr 
-        | id1 '-' expr 
-        | id1
+expr :  id1 '+' expr  { sprintf($$, "%s+%s", $1, $3); }
+        | id1 '-' expr  { sprintf($$, "%s-%s", $1, $3); }
+        | id1 { $$ = $1; }
         ;
 
-id1 : id2 '*' id1 
-        | id2
+id1 : id2 '*' id1  { sprintf($$, "%s*%s", $1, $3); }
+        | id2 { $$ = $1; }
         ;
 
-id2 : id2 '/' id3 
-        | id3
+id2 : id2 '/' id3  { sprintf($$, "%s/%s", $1, $3); }
+        | id3 { $$ = $1; }
         ;
 
-id3 : id3 POWER id4 
-        | id4
+id3 : id3 POWER id4  { sprintf($$, "%s^%s", $1, $3); }
+        | id4 { $$ = $1; }
         ;
 
-id4 : '(' expr ')' 
-        | numVal
+id4 : '(' expr ')'  { sprintf($$, "(%s)", $2); }
+        | numVal { $$ = $1; }
         ;
 
 stringExpr : strVal 
@@ -215,14 +224,14 @@ varList : allVals ',' varList
         | allVals
         ;
 
-var :    ID { $$=$1; }
+var :    ID { printf("Ass"); $$ = $1; }
         ;
 
-allVar : var { $$=$1; }
+allVar : var { $$ = $1; }
         | var '[' positiveNum ']'
         ;
 
-string : STR
+string : STR { $$ = $1; }
         ;
 
 num :  positiveNum
@@ -239,8 +248,8 @@ numVal : allVar
         | num
         ;
 
-strVal : allVar 
-        | string
+strVal : allVar { $$ = $1; }
+        | string { $$ = $1; printf("Strings"); }
         ;
 
 boolVal : allVar 
