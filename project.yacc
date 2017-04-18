@@ -1,26 +1,43 @@
 %{
         #include <stdio.h>
+        #include <string.h>
         extern char * yytext;
         extern int begin_wn, begin_ux;
 %}
 
 %token NUMBER ID FUNC_NAME COMMAND TRUE FALSE RETURN CALL SCAN PRINT ISFILE ISDIR EXISTS RAWBASH RAWBATCH BASH BATCH NL TEXT BREAK CONTINUE BEGIN_UX END_UX BEGIN_WN END_WN IF ELSE ELIF FUNC IN FOR WHILE READFILE DIR ARRLEN STRLEN LOADENV NEGATIVE_NUM STR POWER EOFL CONCAT GTEQ LTEQ NOTEQ EQCOND LOGAND LOGOR INVALID
 
+%union {
+    int ival;
+    float fval;
+    char *sval;
+}
+
+%type <sval> ID
+%type <sval> statements
+%type <sval> statement
+%type <sval> variableAssignment
+%type <sval> allVar
+%type <sval> allExpr
+%type <sval> mainStatements
+%type <sval> var
+%type <sval> functionDeclaration
+
 %%
 
-program : statements EOFL {printf("\nVALID_CODE"); return 0;}
+program : statements EOFL { printf("VALID_CODE"); printf("<< FINAL CODE %s >>", $1); return 0;}
         ;
 
-statements : functionDeclaration statements 
-        | statement NL statements
-        |
+statements : functionDeclaration NL statements
+        | statement NL statements { sprintf($$, "%s\n%s", $1, $3); }
+        | { $$=""; }
         ;
 
-mainStatements : statement NL mainStatements 
-        |
+mainStatements : statement NL mainStatements { sprintf($$, "%s\n%s", $1, $3); }
+        | { $$=""; }
         ;
 
-statement : variableAssignment 
+statement : variableAssignment { $$ = $1; }
         | conditionalStatement 
         | functionCall 
         | loopStatement 
@@ -31,7 +48,7 @@ statement : variableAssignment
         |
         ;
 
-variableAssignment : allVar '=' allExpr
+variableAssignment : allVar '=' allExpr { sprintf($$, "%s = 2", $1); }
         ;
 
 conditionalStatement : IF '(' conditionList ')' '{' mainStatements '}'
@@ -208,10 +225,10 @@ varList : allVals ',' varList
         | allVals
         ;
 
-var :    ID
+var :    ID { $$=$1; }
         ;
 
-allVar : var 
+allVar : var { $$=$1; }
         | var '[' positiveNum ']'
         ;
 
