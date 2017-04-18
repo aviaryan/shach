@@ -1,7 +1,8 @@
 %{
 	#include <stdio.h>
+	#include <string.h>
 	#include "y.tab.h"
-	extern int yylval;
+	//extern int yylval;
 %}
 
 	int begin_wn = 0;
@@ -144,7 +145,10 @@
 
 "(-)?" {printf("NEGATIVE_NUM < %s >\n", yytext); return NEGATIVE_NUM;}
 
-\$([a-zA-Z][a-zA-Z0-9_]*|[1-9][0-9]*) {printf("ID < %s >\n", yytext); return ID;}
+\$([a-zA-Z][a-zA-Z0-9_]*|[1-9][0-9]*) {
+	yylval.sval = strdup(yytext);
+	printf("ID < %s >\n", yytext); return ID;
+}
 
 [a-zA-Z0-9_]+  {printf("FUNC_NAME < %s >\n", yytext); return FUNC_NAME;}
 
