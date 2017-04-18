@@ -69,7 +69,10 @@
 
 "False"  {printf("FALSE < %s >\n", yytext); return FALSE;}
 
-"return"  {printf("RETURN < %s >\n", yytext); return RETURN;}
+"return"  {
+	yylval = strdup(yytext);
+	printf("RETURN < %s >\n", yytext); return RETURN;
+}
 
 "call"   {printf("CALL < %s >\n", yytext); return CALL;}
 
@@ -149,14 +152,15 @@
 
 "strlen" {printf("STRLEN < %s >\n", yytext); return STRLEN;}
 
-"(-)?" {printf("NEGATIVE_NUM < %s >\n", yytext); return NEGATIVE_NUM;}
-
 \$([a-zA-Z][a-zA-Z0-9_]*|[1-9][0-9]*) {
 	yylval = strdup(yytext);
 	printf("ID < %s >\n", yytext); return ID;
 }
 
-[a-zA-Z0-9_]+  {printf("FUNC_NAME < %s >\n", yytext); return FUNC_NAME;}
+[a-zA-Z0-9_]+  {
+	yylval = strdup(yytext);
+	printf("FUNC_NAME < %s >\n", yytext); return FUNC_NAME;
+}
 
 "~"[^\n\r]+  {
 	yylval = strdup(yytext);

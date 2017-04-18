@@ -143,17 +143,23 @@ forDir : FOR var IN DIR '(' strVal ')' '{' nlLoopPlus loopStatements '}'  {
 commentStatement : "#" TEXT
         ;
 
-funcStatements : statement nlLoopPlus funcStatements 
-        | conditionalFuncStatement nlLoopPlus funcStatements
-        | retStatement nlLoopPlus
-        |
+funcStatements : statement nlLoopPlus funcStatements { sprintf($$, "%s\n%s", $1, $3); }
+        | conditionalFuncStatement nlLoopPlus funcStatements { sprintf($$, "%s\n%s", $1, $3); }
+        | retStatement nlLoopPlus { sprintf($$, "%s\n", $1); }
+        | { $$ = ""; }
         ;
 
-functionDeclaration : FUNC FUNC_NAME '(' universalIdList ')' '{' funcStatements '}'
+functionDeclaration : FUNC FUNC_NAME '(' universalIdList ')' '{' nlLoopPlus funcStatements '}' {
+            char * s = malloc(lstr3($2, $4, $8));
+            sprintf(s, "func %s(%s){\n%s}", $2, $4, $8); $$ = s;
+        }
         ;
 
-retStatement : RETURN '(' allVals ')'
-        | RETURN
+retStatement : RETURN '(' allVals ')' {
+            char * s = malloc(lstr1($3));
+            sprintf(s, "return(%s)", $3); $$ = s;
+        }
+        | RETURN { $$ = $1; }
         ;
 
 functionCall : FUNC_NAME '(' paramList ')' 
@@ -252,12 +258,15 @@ paramList : allExpr ',' paramList
         | allExpr
         ;
 
-idList : allVals ',' idList 
-        | allVals
+idList : var ',' idList {
+            char * s = malloc(lstr2($1, $3));
+            sprintf(s, "%s,%s", $1, $3); $$ = s;
+        }
+        | var { $$ = $1; }
         ;
 
-universalIdList: idList
-        |
+universalIdList: idList { $$ = $1; }
+        | { $$ = ""; }
         ;
 
 varList : allVals ',' varList 
@@ -314,6 +323,10 @@ allExpr : expr { $$ = $1; }
         ;
 
 %%
+
+int lstr1(char * s1){
+    return sizeof(char) * (strlen(s1) + 20);
+}
 
 int lstr2(char * s1, char * s2){
     return sizeof(char) * (strlen(s1) + strlen(s2) + 20);
