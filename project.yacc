@@ -8,18 +8,28 @@
 %token NUMBER ID FUNC_NAME COMMAND TRUE FALSE RETURN CALL SCAN PRINT ISFILE ISDIR EXISTS RAWBASH RAWBATCH BASH BATCH NL TEXT BREAK CONTINUE BEGIN_UX END_UX BEGIN_WN END_WN IF ELSE ELIF FUNC IN FOR WHILE READFILE DIR ARRLEN STRLEN LOADENV NEGATIVE_NUM STR POWER EOFL CONCAT GTEQ LTEQ NOTEQ EQCOND LOGAND LOGOR INVALID
 
 %union {
-    int ival;
-    float fval;
     char *sval;
 }
 
 %type <sval> ID
+%type <sval> FUNC_NAME
+%type <sval> COMMAND
+%type <sval> TRUE
+%type <sval> FALSE
+
 %type <sval> statements
+%type <sval> mainStatements
 %type <sval> statement
 %type <sval> variableAssignment
+%type <sval> conditionalStatement
+%type <sval> commandStatement
+%type <sval> elif_st
+%type <sval> conditionalFuncStatement
+%type <sval> elif_func_st
+%type <sval> conditionalLoopStatement
+
 %type <sval> allVar
 %type <sval> allExpr
-%type <sval> mainStatements
 %type <sval> var
 %type <sval> functionDeclaration
 
@@ -28,7 +38,7 @@
 program : statements EOFL { printf("VALID_CODE"); printf("<< FINAL CODE %s >>", $1); return 0;}
         ;
 
-statements : functionDeclaration NL statements
+statements : functionDeclaration NL statements { sprintf($$, "%s\n%s", $1, $3); }
         | statement NL statements { sprintf($$, "%s\n%s", $1, $3); }
         | { $$=""; }
         ;
@@ -38,41 +48,41 @@ mainStatements : statement NL mainStatements { sprintf($$, "%s\n%s", $1, $3); }
         ;
 
 statement : variableAssignment { $$ = $1; }
-        | conditionalStatement 
-        | functionCall 
-        | loopStatement 
-        | uxBlockStatement 
-        | winBlockStatement 
-        | commandStatement 
-        | commentStatement
-        |
+        | conditionalStatement { $$ = $1; }
+        | functionCall { $$ = $1; }
+        | loopStatement { $$ = $1; }
+        | uxBlockStatement { $$ = $1; }
+        | winBlockStatement { $$ = $1; }
+        | commandStatement { $$ = $1; }
+        | commentStatement { $$ = $1; }
+        | { $$=""; }
         ;
 
-variableAssignment : allVar '=' allExpr { sprintf($$, "%s = 2", $1); }
+variableAssignment : allVar '=' allExpr { sprintf($$, "%s = %s", $1, $3); }
         ;
 
-conditionalStatement : IF '(' conditionList ')' '{' mainStatements '}'
-        | IF '(' conditionList ')' '{' mainStatements '}' ELSE '{' mainStatements '}' 
-        | IF '(' conditionList ')' '{' mainStatements '}'  elif_st  ELSE '{' mainStatements '}'
+conditionalStatement : IF '(' conditionList ')' '{' mainStatements '}'   { sprintf($$, "if (%s){\n%s}", $3, $6); }
+        | IF '(' conditionList ')' '{' mainStatements '}' ELSE '{' mainStatements '}'   { sprintf($$, "if (%s){\n%s} else {\n%s}", $3, $6, $10); }
+        | IF '(' conditionList ')' '{' mainStatements '}'  elif_st  ELSE '{' mainStatements '}'   { sprintf($$, "if (%s){\n%s} %s else {\n%s}", $3, $6, $8, $11); }
         ;
 
-commandStatement : COMMAND
+commandStatement : COMMAND { $$ = $1; }
         ;
 
-elif_st : ELIF '(' conditionList ')' '{' mainStatements '}'
+elif_st : ELIF '(' conditionList ')' '{' mainStatements '}'  { sprintf($$, "elif (%s){\n%s}", $3, $6); }
         ;
 
-conditionalFuncStatement : IF '(' conditionList ')' '{' funcStatements '}'
-        | IF '(' conditionList ')' '{' funcStatements '}' ELSE '{' funcStatements '}' 
-        | IF '(' conditionList ')' '{' funcStatements '}'  elif_func_st  ELSE '{' funcStatements '}'
+conditionalFuncStatement : IF '(' conditionList ')' '{' funcStatements '}'   { sprintf($$, "if (%s){\n%s}", $3, $6); }
+        | IF '(' conditionList ')' '{' funcStatements '}' ELSE '{' funcStatements '}'   { sprintf($$, "if (%s){\n%s} else {\n%s}", $3, $6, $10); }
+        | IF '(' conditionList ')' '{' funcStatements '}'  elif_func_st  ELSE '{' funcStatements '}'   { sprintf($$, "if (%s){\n%s} %s else {\n%s}", $3, $6, $8, $11); }
         ;
 
-elif_func_st : ELIF '(' conditionList ')' '{' funcStatements '}'
+elif_func_st : ELIF '(' conditionList ')' '{' funcStatements '}'  { sprintf($$, "elif (%s){\n%s}", $3, $6); }
         ;
 
-conditionalLoopStatement : IF '(' conditionList ')' '{' loopStatements '}'
-        | IF '(' conditionList ')' '{' loopStatements '}' ELSE '{' loopStatements '}' 
-        | IF '(' conditionList ')' '{' loopStatements '}'  elif_loop_st  ELSE '{' loopStatements '}'
+conditionalLoopStatement : IF '(' conditionList ')' '{' loopStatements '}'   { sprintf($$, "if (%s){\n%s}", $3, $6); }
+        | IF '(' conditionList ')' '{' loopStatements '}' ELSE '{' loopStatements '}'   { sprintf($$, "if (%s){\n%s} else {\n%s}", $3, $6, $10); }
+        | IF '(' conditionList ')' '{' loopStatements '}'  elif_loop_st  ELSE '{' loopStatements '}'   { sprintf($$, "if (%s){\n%s} %s else {\n%s}", $3, $6, $8, $11); }
         ;
 
 elif_loop_st : ELIF '(' conditionList ')' '{' loopStatements '}'
