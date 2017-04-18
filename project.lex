@@ -55,9 +55,15 @@
 
 "#"[^\n]*   { printf("COMMENT < %s >\n", yytext); }
 
-0|[1-9][0-9]* { printf("NUMBER < %s >\n", yytext); return NUMBER; }
+0|[1-9][0-9]* {
+	yylval = strdup(yytext);
+	printf("NUMBER < %s >\n", yytext); return NUMBER; 
+}
 
--[1-9][0-9]* {printf("NEGNUMBER < %s >\n", yytext); return NEGATIVE_NUM;}
+-[1-9][0-9]* {
+	yylval = strdup(yytext);
+	printf("NEGNUMBER < %s >\n", yytext); return NEGATIVE_NUM;
+}
 
 "True"  {printf("TRUE < %s >\n", yytext); return TRUE;}
 
