@@ -1,45 +1,23 @@
 %{
         #include <stdio.h>
-        #include <string.h>
+        #define YYSTYPE char*
         extern char * yytext;
         extern int begin_wn, begin_ux;
 %}
 
 %token NUMBER ID FUNC_NAME COMMAND TRUE FALSE RETURN CALL SCAN PRINT ISFILE ISDIR EXISTS RAWBASH RAWBATCH BASH BATCH NL TEXT BREAK CONTINUE BEGIN_UX END_UX BEGIN_WN END_WN IF ELSE ELIF FUNC IN FOR WHILE READFILE DIR ARRLEN STRLEN LOADENV NEGATIVE_NUM STR POWER EOFL CONCAT GTEQ LTEQ NOTEQ EQCOND LOGAND LOGOR INVALID
 
-%union {
-    char *sval;
-}
-
-%type <sval> ID
-%type <sval> FUNC_NAME
-%type <sval> COMMAND
-%type <sval> TRUE
-%type <sval> FALSE
-
-%type <sval> statements
-%type <sval> mainStatements
-%type <sval> statement
-%type <sval> variableAssignment
-%type <sval> conditionalStatement
-%type <sval> commandStatement
-%type <sval> elif_st
-%type <sval> conditionalFuncStatement
-%type <sval> elif_func_st
-%type <sval> conditionalLoopStatement
-
-%type <sval> allVar
-%type <sval> allExpr
-%type <sval> var
-%type <sval> functionDeclaration
-
 %%
 
-program : statements EOFL { printf("VALID_CODE"); printf("<< FINAL CODE %s >>", $1); return 0;}
+program : nlLoop statements EOFL { 
+            printf("\nVALID_CODE");
+            printf("<< %s >>", $1);
+            return 0; 
+        }
         ;
 
 statements : functionDeclaration NL statements { sprintf($$, "%s\n%s", $1, $3); }
-        | statement NL statements { sprintf($$, "%s\n%s", $1, $3); }
+        | statement nlLoopPlus statements { sprintf($$, "%s\n%s", $1, $3); }
         | { $$=""; }
         ;
 
@@ -55,7 +33,6 @@ statement : variableAssignment { $$ = $1; }
         | winBlockStatement { $$ = $1; }
         | commandStatement { $$ = $1; }
         | commentStatement { $$ = $1; }
-        | { $$=""; }
         ;
 
 variableAssignment : allVar '=' allExpr { sprintf($$, "%s = %s", $1, $3); }
@@ -92,6 +69,9 @@ loopStatement : forLoop
         | whileLoop 
         | forLine 
         | forDir
+        ;
+
+nlLoopPlus : NL nlLoop
         ;
 
 nlLoop : NL nlLoop
