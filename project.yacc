@@ -206,12 +206,8 @@ winBlockStatement : BEGIN_WN statements END_WN
         ;
 
 rawStatementBlock : RAW_UX
-	      | RAW_WN
-	      ;
-
-expr :  id1 '+' expr 
-        | id1 '-' expr 
-        | id1
+	| RAW_WN
+	;
 
 expr :  id1 '+' expr  { sprintf($$, "%s+%s", $1, $3); }
         | id1 '-' expr  { sprintf($$, "%s-%s", $1, $3); }
