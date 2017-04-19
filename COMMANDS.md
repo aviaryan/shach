@@ -174,14 +174,14 @@ for /l %x in (1, 1, 100) do (
 
 #### forLine()
 
-```
+```sh
 while read p; do
   echo $p
 done <peptides.txt
 
 ```
 
-```
+```bat
 for /F "tokens=*" %A in (myfile.txt) do [process] %%A
 
 ```
@@ -279,6 +279,37 @@ let a="3 * (2 + 1)"
 @set /a "c=%a%+%b%"
 @set /a "d=%c%+1"
 set /a "Result = ( 24 << 1 ) & 23"
+```
+
+-----
+
+
+
+#### strings
+
+```
+STR="Hello World" 
+echo $STR 
+
+foo="Hello"
+foo="$foo World"
+echo $foo
+
+```
+
+```
+SET location = "bob"
+ECHO We're working with "%location%"
+
+@echo off
+set myvar="the list: "
+for /r %%i in (*.doc) DO call :concat %%i
+echo %myvar%
+goto :eof
+
+:concat
+set myvar=%myvar% %1;
+goto :eof
 ```
 
 -----
