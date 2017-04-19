@@ -145,3 +145,54 @@ goto :eof
 ```
 
 -----
+
+
+#### forLoop()
+
+```{START..END..INCREMENT}
+for i in {0..10..2}
+  do 
+     echo "Welcome $i times"
+ done
+
+```
+
+```(START, INCREMENT, END)
+for /l %x in (1, 1, 100) do (
+   echo %x
+   copy %x.txt z:\whatever\etc
+)
+```
+
+-----
+
+
+#### forLine()
+
+```for value in $1/*.html
+do
+cp $value $1/$( basename -s .html $value ).php
+done
+
+```
+
+```
+```
+
+-----
+
+
+
+#### forDir()
+
+```for i in {0..10..2}
+  do 
+     echo "Welcome $i times"
+ done
+
+```
+
+```
+```
+
+-----
