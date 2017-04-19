@@ -38,12 +38,12 @@
 	return END_WN;
 }
 
-"#BEGIN RAWUX"[a-zA-Z0-9\t\n ./<>?;:!@#$%^&*()\[\]{}_+=|\\-]*"#END RAWUX" {
+"#BEGIN RAWUX"[\s\S]*?"#END RAWUX" {
 	printf("RAW_UX < %s >\n", yytext);
 	return RAW_UX;
 }
 
-"#BEGIN RAWWN"[a-zA-Z0-9\t\n ./<>?;:!@#$%^&*()\[\]{}_+=|\\-]*"#END RAWWN" {
+"#BEGIN RAWWN"[\s\S]*?"#END RAWWN" {
 	printf("RAW_WN < %s >\n", yytext);
 	return RAW_WN;
 }
