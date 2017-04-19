@@ -7,9 +7,13 @@ List of various commands we plan to support and how they look in Unix and Window
 ##### Variable declarations (all types)
 
 ```sh
+myvar=$(expr 1 + 1)
+myvar=2
 ```
 
 ```bat
+set "location=bob"
+set constant=10
 ```
 
 ----
@@ -147,6 +151,7 @@ goto :eof
 -----
 
 
+
 #### forLoop()
 
 ```{START..END..INCREMENT}
@@ -254,6 +259,26 @@ goto:eof
 
 echo.going to execute myDosFunc with different arguments
 call:myDosFunc 100 YeePEE
+```
+
+-----
+
+
+#### Maths Expression
+
+```sh
+myvar=$(expr 1 + 1)
+let myvar2=myvar+1
+myvar=$((myvar+3))
+myvar=$[myvar+2]
+$((expression))
+expr 3 '*' '(' 2 '+' 1 ')'
+let a="3 * (2 + 1)"
+```
+```bat
+@set /a "c=%a%+%b%"
+@set /a "d=%c%+1"
+set /a "Result = ( 24 << 1 ) & 23"
 ```
 
 -----
