@@ -169,14 +169,16 @@ for /l %x in (1, 1, 100) do (
 
 #### forLine()
 
-```for value in $1/*.html
-do
-cp $value $1/$( basename -s .html $value ).php
-done
+```
+while read p; do
+  echo $p
+done <peptides.txt
 
 ```
 
 ```
+for /F "tokens=*" %A in (myfile.txt) do [process] %%A
+
 ```
 
 -----
@@ -185,14 +187,23 @@ done
 
 #### forDir()
 
-```for i in {0..10..2}
-  do 
-     echo "Welcome $i times"
- done
-
+```sh
+for D in /path/to/data; do
+    # command 1
+    if [ -d "$D" ]
+    then
+        # command 2
+        for i in /path/to/data/$D/*.foo
+        do
+            # command 3
+        done
+    fi
+done
 ```
 
-```
+```bat
+CD \Work 
+FOR /D /r %%G in ("User*") DO Echo We found %%~nxG
 ```
 
 -----
@@ -200,7 +211,8 @@ done
 
 #### whileLoop()
 
-```while [ $x -le 5 ]
+```sh
+while [ $x -le 5 ]
 do
   echo "Welcome $x times"
   x=$(( $x + 1 ))
@@ -208,7 +220,8 @@ done
 
 ```
 
-```@echo off
+```bat
+@echo off
 SET /A "index = 1"
 SET /A "count = 5"
 :while
@@ -223,7 +236,8 @@ if %index% leq %count% (
 
 #### Function with parameters()
 
-```print_something () {
+```sh
+print_something () {
 echo Hello $1
 }
 print_something Mars
@@ -231,7 +245,8 @@ print_something Jupiter
 
 ```
 
-```:myDosFunc    - here starts my function identified by it's label
+```bat
+:myDosFunc    - here starts my function identified by it's label
 echo.
 echo. here the myDosFunc function is executing a group of commands
 echo. it could do %~1 of things %~2.
