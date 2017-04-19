@@ -1,9 +1,12 @@
 %{
         #include <stdio.h>
         #include <string.h>
+        #include <stdbool.h>
         #define YYSTYPE char*
         extern char * yytext;
         extern int begin_wn, begin_ux;
+        bool compileBash = true;
+        int dataType = 1; // 0 for int, 1 for string
 %}
 
 %token NUMBER ID FUNC_NAME COMMAND TRUE FALSE RETURN CALL SCAN PRINT ISFILE ISDIR EXISTS RAWBASH RAWBATCH BASH BATCH NL TEXT BREAK CONTINUE BEGIN_UX END_UX BEGIN_WN END_WN IF ELSE ELIF FUNC IN FOR WHILE READFILE DIR ARRLEN STRLEN LOADENV NEGATIVE_NUM STR POWER EOFL CONCAT GTEQ LTEQ NOTEQ EQCOND LOGAND LOGOR INVALID
@@ -36,7 +39,14 @@ statement : variableAssignment { $$ = $1; }
         | commentStatement { $$ = $1; }
         ;
 
-variableAssignment : allVar '=' allExpr { sprintf($$, "%s = %s", $1, $3); }
+variableAssignment : allVar '=' allExpr {
+            if (compileBash){
+                sprintf($$, "%s=%s", &$1[1], $3); 
+            } else {
+                char * s = malloc(lstr2($1, $3));
+                sprintf(s, "set %s=%s", $1, $3); $$ = s;
+            }
+        }
         ;
 
 conditionalStatement : IF '(' conditionList ')' '{' nlLoopPlus mainStatements '}'  { 
@@ -282,18 +292,24 @@ varList : allVals ',' varList
         | allVals
         ;
 
-var :    ID { $$ = $1; }
+var :    ID { 
+            if (!compileBash)  // why? because batch has different types of var syntax
+            // %var% %var and so on, so let's adjust that later on
+                $$ = &$1[1];
+            else
+                $$ = $1; 
+        }
         ;
 
 allVar : var { $$ = $1; }
         | var '[' positiveNum ']'
         ;
 
-string : STR { $$ = $1; }
+string : STR { $$ = $1; dataType=1; }
         ;
 
-num :  positiveNum  { $$ = $1; }
-        | negativeNum { $$ = $1; }
+num :  positiveNum  { $$ = $1; dataType=0; }
+        | negativeNum { $$ = $1; dataType=0; }
         ;
 
 positiveNum : NUMBER { $$ = $1; }
