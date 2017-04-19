@@ -108,10 +108,10 @@ loopStatement : forLoop { $$ = $1; }
         | forDir { $$ = $1; }
         ;
 
-nlLoopPlus : NL nlLoop { printf("nllll"); }
+nlLoopPlus : NL nlLoop
         ;
 
-nlLoop : NL nlLoop { printf("why"); }
+nlLoop : NL nlLoop
         |
         ;
 
@@ -122,10 +122,16 @@ loopStatements : statement nlLoopPlus loopStatements { sprintf($$, "%s\n%s", $1,
         | { $$ = ""; }
         ;
 
-whileLoop : WHILE '(' conditionList ')' '{' nlLoopPlus loopStatements '}'
+whileLoop : WHILE '(' conditionList ')' '{' nlLoopPlus loopStatements '}'  {
+            char * s = malloc(lstr2($3, $7));
+            sprintf(s, "while (%s){\n%s}", $3, $7); $$ = s;
+        }
         ;
 
-forLoop : FOR var IN '(' NUMBER ',' NUMBER ',' NUMBER  ')' '{' nlLoopPlus loopStatements '}'
+forLoop : FOR var IN '(' NUMBER ',' NUMBER ',' NUMBER  ')' '{' nlLoopPlus loopStatements '}'  {
+            char * s = malloc(lstr5($2, $5, $7, $9, $13));
+            sprintf(s, "for %s in (%s, %s, %s){\n%s}", $2, $5, $7, $9, $13); $$ = s;
+        }
         ;
 
 forLine : FOR var IN READFILE '(' strVal ')' '{' nlLoopPlus loopStatements '}'  {
@@ -236,8 +242,11 @@ conditionList : condition LOGAND conditionList
         | condition { $$ = $1; }
         ;
 
-condition : expr '<' expr 
-        | expr '>' expr 
+condition : expr '<' expr
+        | expr '>' expr {
+            char * s = malloc(lstr2($1, $3));
+            sprintf(s, "%s > %s", $1, $3); $$ = s;
+        }
         | expr LTEQ expr { 
             char * s = malloc(lstr2($1, $3));
             sprintf(s, "%s <= %s", $1, $3); $$ = s;
@@ -273,7 +282,7 @@ varList : allVals ',' varList
         | allVals
         ;
 
-var :    ID { printf("Ass"); $$ = $1; }
+var :    ID { $$ = $1; }
         ;
 
 allVar : var { $$ = $1; }
@@ -298,7 +307,7 @@ numVal : allVar { $$ = $1; }
         ;
 
 strVal : allVar { $$ = $1; }
-        | string { $$ = $1; printf("Strings"); }
+        | string { $$ = $1; }
         ;
 
 boolVal : allVar 
@@ -338,6 +347,10 @@ int lstr3(char * s1, char * s2, char * s3){
 
 int lstr4(char * s1, char * s2, char * s3, char * s4){
     return sizeof(char) * (strlen(s1) + strlen(s2) + strlen(s3) + strlen(s4) + 50);
+}
+
+int lstr5(char * s1, char * s2, char * s3, char * s4, char * s5){
+    return sizeof(char) * (strlen(s1) + strlen(s2) + strlen(s3) + strlen(s4) + strlen(s5) + 50);
 }
 
 int main(){
