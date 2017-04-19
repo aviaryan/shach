@@ -1,7 +1,8 @@
 %{
 	#include <stdio.h>
+	#define YYSTYPE char*
 	#include "y.tab.h"
-	extern int yylval;
+	// extern char * yylval;
 %}
 
 	int begin_wn = 0;
@@ -64,15 +65,24 @@
 
 "#"[^\n]*   { printf("COMMENT < %s >\n", yytext); }
 
-0|[1-9][0-9]* { printf("NUMBER < %s >\n", yytext); return NUMBER; }
+0|[1-9][0-9]* {
+	yylval = strdup(yytext);
+	printf("NUMBER < %s >\n", yytext); return NUMBER; 
+}
 
--[1-9][0-9]* {printf("NEGNUMBER < %s >\n", yytext); return NEGATIVE_NUM;}
+-[1-9][0-9]* {
+	yylval = strdup(yytext);
+	printf("NEGNUMBER < %s >\n", yytext); return NEGATIVE_NUM;
+}
 
 "True"  {printf("TRUE < %s >\n", yytext); return TRUE;}
 
 "False"  {printf("FALSE < %s >\n", yytext); return FALSE;}
 
-"return"  {printf("RETURN < %s >\n", yytext); return RETURN;}
+"return"  {
+	yylval = strdup(yytext);
+	printf("RETURN < %s >\n", yytext); return RETURN;
+}
 
 "call"   {printf("CALL < %s >\n", yytext); return CALL;}
 
@@ -152,15 +162,25 @@
 
 "strlen" {printf("STRLEN < %s >\n", yytext); return STRLEN;}
 
-"(-)?" {printf("NEGATIVE_NUM < %s >\n", yytext); return NEGATIVE_NUM;}
+\$([a-zA-Z][a-zA-Z0-9_]*|[1-9][0-9]*) {
+	yylval = strdup(yytext);
+	printf("ID < %s >\n", yytext); return ID;
+}
 
-\$([a-zA-Z][a-zA-Z0-9_]*|[1-9][0-9]*) {printf("ID < %s >\n", yytext); return ID;}
+[a-zA-Z0-9_]+  {
+	yylval = strdup(yytext);
+	printf("FUNC_NAME < %s >\n", yytext); return FUNC_NAME;
+}
 
-[a-zA-Z0-9_]+  {printf("FUNC_NAME < %s >\n", yytext); return FUNC_NAME;}
+"~"[^\n\r]+  {
+	yylval = strdup(yytext);
+	printf("COMMAND < %s >\n", yytext); return COMMAND;
+}
 
-"~"[^\n\r]+  {printf("COMMAND < %s >\n", yytext); return COMMAND;}
-
-\"[^\n\r\"]*\"  {printf("STR < %s >\n", yytext); return STR;}
+\"[^\n\r\"]*\"  {
+	yylval = strdup(yytext);
+	printf("STR < %s >\n", yytext); return STR;
+}
 
 [ \t]*  {
 	// this is risky, can cause issues where we remove whitespaces which were actually needed.
