@@ -37,6 +37,16 @@
 	return END_WN;
 }
 
+"#BEGIN RAWUX"[\s\S]*?"#END RAWUX" {
+	printf("RAW_UX < %s >\n", yytext);
+	return RAW_UX;
+}
+
+"#BEGIN RAWWN"[\s\S]*?"#END RAWWN" {
+	printf("RAW_WN < %s >\n", yytext);
+	return RAW_WN;
+}
+
 "+"	{ printf("ADD\n"); return('+');}
 
 "++" {printf("CONCAT\n"); return CONCAT;}

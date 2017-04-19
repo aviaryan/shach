@@ -9,8 +9,7 @@
         int dataType = 1; // 0 for int, 1 for string
 %}
 
-%token NUMBER ID FUNC_NAME COMMAND TRUE FALSE RETURN CALL SCAN PRINT ISFILE ISDIR EXISTS RAWBASH RAWBATCH BASH BATCH NL TEXT BREAK CONTINUE BEGIN_UX END_UX BEGIN_WN END_WN IF ELSE ELIF FUNC IN FOR WHILE READFILE DIR ARRLEN STRLEN LOADENV NEGATIVE_NUM STR POWER EOFL CONCAT GTEQ LTEQ NOTEQ EQCOND LOGAND LOGOR INVALID
-
+%token NUMBER ID FUNC_NAME COMMAND TRUE FALSE RETURN CALL SCAN PRINT ISFILE ISDIR EXISTS RAWBASH RAWBATCH BASH BATCH NL TEXT BREAK CONTINUE BEGIN_UX END_UX BEGIN_WN END_WN IF ELSE ELIF FUNC IN FOR WHILE READFILE DIR ARRLEN STRLEN LOADENV NEGATIVE_NUM STR POWER EOFL CONCAT GTEQ LTEQ NOTEQ EQCOND LOGAND LOGOR INVALID RAW_UX RAW_WN
 %%
 
 program : nlLoop statements EOFL { 
@@ -37,6 +36,7 @@ statement : variableAssignment { $$ = $1; }
         | winBlockStatement { $$ = $1; }
         | commandStatement { $$ = $1; }
         | commentStatement { $$ = $1; }
+        | rawStatementBlock { $$ = $1; }
         ;
 
 variableAssignment : allVar '=' allExpr {
@@ -204,6 +204,10 @@ uxBlockStatement : BEGIN_UX statements END_UX
 
 winBlockStatement : BEGIN_WN statements END_WN
         ;
+
+rawStatementBlock : RAW_UX
+	| RAW_WN
+	;
 
 expr :  id1 '+' expr  { sprintf($$, "%s+%s", $1, $3); }
         | id1 '-' expr  { sprintf($$, "%s-%s", $1, $3); }
