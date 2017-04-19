@@ -37,14 +37,14 @@
 	return END_WN;
 }
 
-"#BEGIN RAWUX"[\s\S]*?"#END RAWUX" {
-	printf("RAW_UX < %s >\n", yytext);
-	return RAW_UX;
+"#BEGIN RAWUX"(.|\n)+"#END RAWUX" {
+	yylval = strdup(yytext);
+	printf("RAW_UX < %s >\n", yytext); return RAW_UX;
 }
 
-"#BEGIN RAWWN"[\s\S]*?"#END RAWWN" {
-	printf("RAW_WN < %s >\n", yytext);
-	return RAW_WN;
+"#BEGIN RAWWN"(.|\n)+"#END RAWWN" {
+	yylval = strdup(yytext);
+	printf("RAW_WN < %s >\n", yytext); return RAW_WN;
 }
 
 "+"	{ printf("ADD\n"); return('+');}

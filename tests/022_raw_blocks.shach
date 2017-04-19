@@ -1,0 +1,7 @@
+#BEGIN RAWUX
+s=2
+#END RAWUX
+#BEGIN RAWWN
+set s=2
+#END RAWWN
+xxx

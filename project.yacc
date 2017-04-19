@@ -205,8 +205,8 @@ uxBlockStatement : BEGIN_UX statements END_UX
 winBlockStatement : BEGIN_WN statements END_WN
         ;
 
-rawStatementBlock : RAW_UX
-	| RAW_WN
+rawStatementBlock : RAW_UX { $$ = $1; }
+	| RAW_WN { $$ = $1; }
 	;
 
 expr :  id1 '+' expr  { sprintf($$, "%s+%s", $1, $3); }
