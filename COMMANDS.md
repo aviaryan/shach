@@ -154,7 +154,8 @@ goto :eof
 
 #### forLoop()
 
-```{START..END..INCREMENT}
+```sh
+# {START..END..INCREMENT}
 for i in {0..10..2}
   do 
      echo "Welcome $i times"
@@ -162,7 +163,8 @@ for i in {0..10..2}
 
 ```
 
-```(START, INCREMENT, END)
+```bat
+rem (START, INCREMENT, END)
 for /l %x in (1, 1, 100) do (
    echo %x
    copy %x.txt z:\whatever\etc
@@ -287,7 +289,7 @@ set /a "Result = ( 24 << 1 ) & 23"
 
 #### strings
 
-```
+```sh
 STR="Hello World" 
 echo $STR 
 
@@ -297,7 +299,7 @@ echo $foo
 
 ```
 
-```
+```bat
 SET location = "bob"
 ECHO We're working with "%location%"
 
