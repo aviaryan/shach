@@ -151,6 +151,119 @@ goto :eof
 -----
 
 
+
+#### forLoop()
+
+```{START..END..INCREMENT}
+for i in {0..10..2}
+  do 
+     echo "Welcome $i times"
+ done
+
+```
+
+```(START, INCREMENT, END)
+for /l %x in (1, 1, 100) do (
+   echo %x
+   copy %x.txt z:\whatever\etc
+)
+```
+
+-----
+
+
+#### forLine()
+
+```
+while read p; do
+  echo $p
+done <peptides.txt
+
+```
+
+```
+for /F "tokens=*" %A in (myfile.txt) do [process] %%A
+
+```
+
+-----
+
+
+
+#### forDir()
+
+```sh
+for D in /path/to/data; do
+    # command 1
+    if [ -d "$D" ]
+    then
+        # command 2
+        for i in /path/to/data/$D/*.foo
+        do
+            # command 3
+        done
+    fi
+done
+```
+
+```bat
+CD \Work 
+FOR /D /r %%G in ("User*") DO Echo We found %%~nxG
+```
+
+-----
+
+
+#### whileLoop()
+
+```sh
+while [ $x -le 5 ]
+do
+  echo "Welcome $x times"
+  x=$(( $x + 1 ))
+done
+
+```
+
+```bat
+@echo off
+SET /A "index = 1"
+SET /A "count = 5"
+:while
+if %index% leq %count% (
+   echo The value of index is %index%
+   SET /A "index = index + 1"
+   goto :while
+)
+```
+
+-----
+
+#### Function with parameters()
+
+```sh
+print_something () {
+echo Hello $1
+}
+print_something Mars
+print_something Jupiter
+
+```
+
+```bat
+:myDosFunc    - here starts my function identified by it's label
+echo.
+echo. here the myDosFunc function is executing a group of commands
+echo. it could do %~1 of things %~2.
+goto:eof
+
+echo.going to execute myDosFunc with different arguments
+call:myDosFunc 100 YeePEE
+```
+
+-----
+
+
 #### Maths Expression
 
 ```sh
