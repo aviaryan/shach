@@ -38,28 +38,14 @@
 	return END_WN;
 }
 
-"#BEGIN RAWUX" {
-	raw_ux = 1;
-	printf("BEGIN_RAW_UX < %s >\n", yytext);
-	return BEGIN_RAW_UX;
+"#BEGIN RAWUX"[a-zA-Z0-9\t\n ./<>?;:!@#$%^&*()\[\]{}_+=|\\-]*"#END RAWUX" {
+	printf("RAW_UX < %s >\n", yytext);
+	return RAW_UX;
 }
 
-"#END RAWUX" {
-	raw_ux = 0;
-	printf("END_RAW_UX < %s >\n", yytext);
-	return END_RAW_UX;
-}
-
-"#BEGIN RAW_WN" {
-	raw_wn = 1;
-	printf("BEGIN_RAW_WN < %s >\n", yytext);
-	return BEGIN_RAW_WN;
-}
-
-"#END RAWWN" {
-	raw_wn = 0;
-	printf("END_RAW_WN < %s >\n", yytext);
-	return END_RAW_WN;
+"#BEGIN RAWWN"[a-zA-Z0-9\t\n ./<>?;:!@#$%^&*()\[\]{}_+=|\\-]*"#END RAWWN" {
+	printf("RAW_WN < %s >\n", yytext);
+	return RAW_WN;
 }
 
 "+"	{ printf("ADD\n"); return('+');}
@@ -183,8 +169,6 @@
 	// important to keep in the end
 	printf("WHITESPACE\n");
 }
-
-[a-zA-Z0-9\t\n ./<>?;:"'`!@#$%^&*()\[\]{}_+=|\\-]* {printf("RAW < %s >\n", yytext); return RAW;}
 
 .  {printf("INVALID < %s >\n", yytext); return INVALID;}
 
