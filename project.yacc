@@ -40,10 +40,10 @@ statement : variableAssignment { $$ = $1; }
         ;
 
 variableAssignment : allVar '=' allExpr {
+            char * s = malloc(lstr2($1, $3));
             if (compileBash){
-                sprintf($$, "%s=%s", &$1[1], $3); 
+                sprintf(s, "%s=%s", &$1[1], $3); $$ = s;
             } else {
-                char * s = malloc(lstr2($1, $3));
                 sprintf(s, "set %s=%s", $1, $3); $$ = s;
             }
         }
@@ -218,11 +218,7 @@ id2 : id2 '/' id3  { sprintf($$, "%s/%s", $1, $3); }
         | id3 { $$ = $1; }
         ;
 
-id3 : id3 POWER id4  { sprintf($$, "%s^%s", $1, $3); }
-        | id4 { $$ = $1; }
-        ;
-
-id4 : '(' expr ')'  { sprintf($$, "(%s)", $2); }
+id3 : '(' expr ')'  { sprintf($$, "(%s)", $2); }
         | numVal { $$ = $1; }
         ;
 
