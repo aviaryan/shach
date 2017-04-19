@@ -133,8 +133,8 @@ uxBlockStatement : BEGIN_UX statements END_UX
 winBlockStatement : BEGIN_WN statements END_WN
         ;
 
-rawStatementBlock : BEGIN_RAW_UX RAW END_RAW_UX
-	| BEGIN_RAW_WN RAW END_RAW_WN
+rawStatementBlock : RAW_UX
+	| RAW_WN
 	;
 
 expr :  id1 '+' expr 
