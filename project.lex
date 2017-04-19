@@ -6,8 +6,6 @@
 
 	int begin_wn = 0;
 	int begin_ux = 0;
-	int raw_wn = 0;
-	int raw_ux = 0;
 
 %%
 
