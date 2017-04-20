@@ -18,9 +18,8 @@ program : nlLoop statements EOFL {
             if (fp == NULL){
                 fprintf(stderr, "Can't open output file\n");
                 return 1; 
-            }
-            else {
-                fprintf(fp,"%s\n", $2);
+            } else {
+                fprintf(fp,"%s", $2);
                 fclose(fp);
                 return 0; 
             }
@@ -383,18 +382,14 @@ int main(int argc, char *argv[]){
         if (strcmp(argv[1],"batch") == 0){
             compileBash = false;
             fp = fopen("output.bat", "w");
-        }
-        else if (strcmp(argv[1],"bash") == 0){
+        } else if (strcmp(argv[1],"bash") == 0){
             compileBash = true;
             fp = fopen("output.sh", "w");
-        }
-        else {
+        } else {
            printf("<< Invalid type specified. Assuming bash >>\n");
-           
-           return 1;
+           fp = fopen("output.sh", "w");
         }
-   }
-   else {
+   } else {
         printf("<< No type specified. Assuming bash >>\n");
         fp = fopen("output.sh", "w");
     }
