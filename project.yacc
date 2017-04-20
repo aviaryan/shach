@@ -134,7 +134,11 @@ loopStatements : statement nlLoopPlus loopStatements { sprintf($$, "%s\n%s", $1,
 
 whileLoop : WHILE '(' conditionList ')' '{' nlLoopPlus loopStatements '}'  {
             char * s = malloc(lstr2($3, $7));
-            sprintf(s, "while (%s){\n%s}", $3, $7); $$ = s;
+            if (compileBash){
+                sprintf(s, "while [%s]\ndo%s\ndone", $3, $7); $$ = s;
+            }else{
+                sprintf(s, ":while\n if %s (\n%s\ngoto :while\n)", $3, $7); $$ = s;
+            }
         }
         ;
 
