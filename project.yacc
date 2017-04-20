@@ -27,7 +27,10 @@ program : nlLoop statements EOFL {
         ;
 
 statements : functionDeclaration nlLoopPlus statements { sprintf($$, "%s\n%s", $1, $3); }
-        | statement nlLoopPlus statements { sprintf($$, "%s\n%s", $1, $3); }
+        | statement nlLoopPlus statements { 
+            char * s = malloc(lstr2($1, $3));
+            sprintf(s, "%s\n%s", $1, $3); $$ = s;
+        }
         | { $$ = ""; }
         ;
 
@@ -212,9 +215,23 @@ uxBlockStatement : BEGIN_UX statements END_UX
 winBlockStatement : BEGIN_WN statements END_WN
         ;
 
-rawStatementBlock : RAW_UX { $$ = $1; }
-	| RAW_WN { $$ = $1; }
-	;
+rawStatementBlock : RAW_UX {
+        trimBlock(&$1);
+        if (compileBash){
+            $$ = $1;
+        } else {
+            $$ = "";
+        }
+    }
+    | RAW_WN {
+        trimBlock(&$1);
+        if (!compileBash){
+            $$ = $1;
+        } else {
+            $$ = "";
+        }
+    }
+    ;
 
 expr :  id1 '+' expr  { sprintf($$, "%s+%s", $1, $3); }
         | id1 '-' expr  { sprintf($$, "%s-%s", $1, $3); }
@@ -376,8 +393,20 @@ int lstr5(char * s1, char * s2, char * s3, char * s4, char * s5){
     return sizeof(char) * (strlen(s1) + strlen(s2) + strlen(s3) + strlen(s4) + strlen(s5) + 50);
 }
 
-int main(int argc, char *argv[]){
+int trimBlock(char ** str){
+    char * s = *str;
+    int i, sp, ep, len = strlen(s);
+    for (i=0; i<len; i++)
+        if (s[i] == '\n') break;
+    sp = i+1;
+    for (i=len-1; i>=0; i--)
+        if (s[i] == '\n') break;
+    ep = i-1;
+    s[ep+1] = '\0'; *str = &s[sp];
+    return 0;
+}
 
+int main(int argc, char *argv[]){
     if (argc == 2){
         if (strcmp(argv[1],"batch") == 0){
             compileBash = false;
