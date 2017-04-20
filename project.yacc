@@ -168,6 +168,7 @@ forDir : FOR var IN DIR '(' strVal ')' '{' nlLoopPlus loopStatements '}'  {
                 sprintf(s, "for %s in %s;do\n%s\ndone", $2, $6, $10); $$ = s;
             }else{
                 sprintf(s, "for /d /r %s in ('%s')do(\n%s\n)", $2, $6, $10); $$ = s;
+            }
         }
        ;
 
