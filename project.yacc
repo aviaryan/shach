@@ -370,17 +370,18 @@ int lstr5(char * s1, char * s2, char * s3, char * s4, char * s5){
 }
 
 int main(int argc, char *argv[]){
-    if( argc == 2 ) {
-        if(strcmp(argv[1],"batch") == 0) {
-            printf("The argument supplied is batch\n");
+    if (argc == 2){
+        if (strcmp(argv[1],"batch") == 0)
+            compileBash = false;
+        else if (strcmp(argv[1],"bash") == 0)
+            compileBash = true;
+        else {
+           printf("<< Invalid type specified. Assuming bash >>\n");
+           return 1;
         }
-        else if(strcmp(argv[1],"bash") == 0)
-            printf("The argument supplied is bash\n"); 
-        else
-           printf("Incorrect command line arguments.Please refer docs\n");
    }
    else
-        printf("Incorrect command line arguments.Please refer docs\n");
+        printf("<< No type specified. Assuming bash >>\n");
 	yyparse();
 	return 0;
 }
