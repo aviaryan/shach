@@ -355,11 +355,13 @@ int lstr5(char * s1, char * s2, char * s3, char * s4, char * s5){
 
 int main(int argc, char *argv[]){
     if( argc == 2 ) {
-        if(argv[1][2]=='t') {
+        if(strcmp(argv[1],"batch") == 0) {
             printf("The argument supplied is batch\n");
         }
+        else if(strcmp(argv[1],"bash") == 0)
+            printf("The argument supplied is bash\n"); 
         else
-            printf("The argument supplied is bash\n");    
+           printf("Incorrect command line arguments.Please refer docs\n");
    }
    else
         printf("Incorrect command line arguments.Please refer docs\n");
