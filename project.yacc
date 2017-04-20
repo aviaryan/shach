@@ -353,7 +353,16 @@ int lstr5(char * s1, char * s2, char * s3, char * s4, char * s5){
     return sizeof(char) * (strlen(s1) + strlen(s2) + strlen(s3) + strlen(s4) + strlen(s5) + 50);
 }
 
-int main(){
+int main(int argc, char *argv[]){
+    if( argc == 2 ) {
+        if(argv[1][2]=='t') {
+            printf("The argument supplied is batch\n");
+        }
+        else
+            printf("The argument supplied is bash\n");    
+   }
+   else
+        printf("Incorrect command line arguments.Please refer docs\n");
 	yyparse();
 	return 0;
 }
