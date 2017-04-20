@@ -6,6 +6,7 @@
         extern char * yytext;
         extern int begin_wn, begin_ux;
         bool compileBash = true;
+        FILE *fp;
         int dataType = 1; // 0 for int, 1 for string
 %}
 
@@ -14,8 +15,15 @@
 
 program : nlLoop statements EOFL { 
             printf("\nVALID_CODE");
-            printf("<< %s >>", $2);
-            return 0; 
+            if (fp == NULL){
+                fprintf(stderr, "Can't open output file\n");
+                return 1; 
+            }
+            else {
+                fprintf(fp,"%s\n", $2);
+                fclose(fp);
+                return 0; 
+            }
         }
         ;
 
@@ -370,18 +378,26 @@ int lstr5(char * s1, char * s2, char * s3, char * s4, char * s5){
 }
 
 int main(int argc, char *argv[]){
+
     if (argc == 2){
-        if (strcmp(argv[1],"batch") == 0)
+        if (strcmp(argv[1],"batch") == 0){
             compileBash = false;
-        else if (strcmp(argv[1],"bash") == 0)
+            fp = fopen("output.bat", "w");
+        }
+        else if (strcmp(argv[1],"bash") == 0){
             compileBash = true;
+            fp = fopen("output.sh", "w");
+        }
         else {
            printf("<< Invalid type specified. Assuming bash >>\n");
+           
            return 1;
         }
    }
-   else
+   else {
         printf("<< No type specified. Assuming bash >>\n");
+        fp = fopen("output.sh", "w");
+    }
 	yyparse();
 	return 0;
 }
