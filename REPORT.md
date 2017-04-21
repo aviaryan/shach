@@ -267,10 +267,22 @@ allExpr : expr
 <a name="intsem"></a>
 ### Intermediate Semantics Phase
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat.
+Different Semantic Rules were written in the yacc file in this phase. These were some intermediate semantics that were written to test that the our semantic is accessing all the grammer variables properly or not. Example of the written semantics is :
+
+```
+program : nlLoop statements EOFL { 
+            printf("\nVALID_CODE");
+            printf("<< %s >>", $2);
+            return 0; 
+        }
+        ;
+statements : functionDeclaration nlLoopPlus statements { sprintf($$, "%s\n%s", $1, $3); }
+        | statement nlLoopPlus statements { sprintf($$, "%s\n%s", $1, $3); }
+        | { $$ = ""; }
+        ;
+```
+
+By using this, different grammer non-terminals were assigned the values and it was tested by printing the output values to the console. Every grammer variable was checked for its value and then we moved on to the Final Phase.
 
 #### Test Cases
 
@@ -282,11 +294,20 @@ correctly recognized by our grammar whereas `anti-test` should be discarded by o
 <a name="finalph"></a>
 ### Final Phase
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat.
+In this phase after testing the intermediate sematic rules, we moved on to the actual semantics that was written to convert the shach code into corresponding bash and batch codes. First the user is asked to provide a input that he wants a batch or a bash file based on the OS he is working on. After this, if the user wants the code to be in a bash file, then a variable called compileBash is set to true otherwise false. And then accordingly the semantics are performed for bash and batch and a string buffer is passed for genrating the output file. Example of the final semantic rules is :
 
+```
+conditionalStatement : IF '(' conditionList ')' '{' nlLoopPlus mainStatements '}'  { 
+            char * s = malloc(lstr2($3, $7));
+            if (compileBash){
+                sprintf(s, "if (( %s ))\nthen\n%sfi", $3, $7); $$ = s;
+            } else {
+                sprintf(s, "if %s (\n%s)", $3, $7); $$ = s;
+            }
+        }
+```
+
+Finally an output file is generated accordingly, based on the user's input for bash or batch.
 
 <a name="manual"></a>
 ## Manual
@@ -440,13 +461,43 @@ consequat.
 <a name="ex"></a>
 ## Sample Code
 
-[[ Charu ]]
+Different sample codes that can be written in our language Shach are : 
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat.
+1. Code for Squaring the numbers.
+```
+for $v in (1,3,10){
+  $var=$v*$v
+  print("Sqaure of ${v} is ${var}")
+}
 
+xxx
+
+```
+2. Code for generating Fibonacci Series.
+```
+$t1 = 0
+$t2 = 1
+$nextTerm = 0
+print("Enter the number of terms: ")
+scan($var)
+print("Fibonacci Series: ")
+for $v in (1,1,10){
+  if($v==1){
+    print("${t1}")
+    continue 
+  }
+  if($v==2){
+    print("${t2}")
+    continue 
+  }
+  $nextTerm = $t1+$t2
+  $t1=$t2
+  $t2=$nextTerm
+  print("${nextTerm}")
+}
+xxx
+
+```
 
 <a name="build"></a>
 ## Building/Compiling
