@@ -305,6 +305,7 @@ $stringVar = "abcd"
 $anotherVar = $stringVar
 ```
 
+
 ### Expressions
 
 Expressions in Shach have been inspired from C and are very intuitive.
@@ -321,12 +322,23 @@ $string = "abcd" ++ $string
 
 **Bool** - Like bash and batch, there is no bool type in Shach. If you are looking for a bool like behavior, feel free to use the `int` or `string` type.
 
+
 ### Conditions
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat.
+Shach supports if, else and elif condition expressions. The syntax is inspired from C/JavaScript.
+Example -
+
+```sh
+$in = 4
+if ($in > 2){
+	$s = "${in} is more than 2"
+} elif ($in < 2) {
+	$s = "${in} is less than 2"
+} else {
+	$s = "same as 2"
+}
+```
+
 
 ### Loops
 
