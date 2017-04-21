@@ -338,19 +338,6 @@ stringExpr : strVal
         | strVal CONCAT stringExpr
         ;
 
-boolExpr : boolExpr1 { $$ = $1; }
-        | boolExpr1 LOGAND boolExpr { sprintf($$, "%s&&%s", $1, $3); }
-        | boolExpr1 LOGOR boolExpr { sprintf($$, "%s||%s", $1, $3); }
-        ;
-
-boolExpr1 : '(' boolExpr ')' {$$ = $2; }
-        | boolVal { $$ = $1; }
-        ;
-
-bool : TRUE { $$ = $1; }
-        | FALSE {$$ = $1; }
-        ;
-
 arrayExpr : '{' varList '}' 
         | '[' ']'
         ;
@@ -377,7 +364,6 @@ condition : expr '<' expr
         | expr EQCOND expr 
         | stringExpr EQCOND stringExpr 
         | stringExpr NOTEQ stringExpr 
-        | boolExpr { $$ = $1; }
         | functionCall
         ;
 
@@ -436,14 +422,9 @@ numVal : allVar { $$ = $1; }
 strVal : allVar { $$ = $1; }
         | string { $$ = $1; }
         ;
-
-boolVal : allVar { $$ = $1; }
-        | bool { $$ = $1; }
-        ;
     
 vals : num { $$ = $1; }
         | string { $$ = $1; }
-        | bool { $$ = $1; }
         | functionCall { $$ = $1; }
         ;
 
