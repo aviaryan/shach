@@ -1,0 +1,5 @@
+# BUG in this test
+$v=2
+$a = $a * (2+3) + 4
+$b = $a + $a - 4
+xxx

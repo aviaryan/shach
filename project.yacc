@@ -286,46 +286,46 @@ rawStatementBlock : RAW_UX {
     }
     ;
 
-expr :  id1 '+' expr  { 
-	if (compileBash) {
+expr : id1 '+' expr  { 
+        if (compileBash){
             sprintf($$, "$[%s+%s]", $1, $3);
         } else {
             sprintf($$, "%s+%s", $1, $3);
         }
-	}
-        | id1 '-' expr  { 
-	if (compileBash) {
+    }
+    | id1 '-' expr  { 
+        if (compileBash){
             sprintf($$, "$[%s-%s]", $1, $3);
         } else {
             sprintf($$, "%s-%s", $1, $3);
         }
-	}
-        | id1 { $$ = $1; }
-        ;
+    }
+    | id1 { $$ = $1; }
+    ;
 
 id1 : id2 '*' id1  { 
-	if (compileBash) {
+        if (compileBash){
             sprintf($$, "$[%s*%s]", $1, $3);
         } else {
             sprintf($$, "%s*%s", $1, $3);
         }
-	}
-        | id2 { $$ = $1; }
-        ;
+    }
+    | id2 { $$ = $1; }
+    ;
 
 id2 : id2 '/' id3  { 
-	if (compileBash) {
+        if (compileBash){
             sprintf($$, "$[%s/%s]", $1, $3);
         } else {
             sprintf($$, "%s/%s", $1, $3);
         }
-	}
-        | id3 { $$ = $1; }
-        ;
+    }
+    | id3 { $$ = $1; }
+    ;
 
 id3 : '(' expr ')'  { sprintf($$, "(%s)", $2); }
-        | numVal { $$ = $1; }
-        ;
+    | numVal { $$ = $1; }
+    ;
 
 stringExpr : strVal 
         | strVal CONCAT stringExpr
@@ -532,11 +532,11 @@ int main(int argc, char *argv[]){
         printf("<< No type specified. Assuming bash >>\n");
         fp = fopen("output.sh", "w");
     }
-	yyparse();
-	return 0;
+    yyparse();
+    return 0;
 }
 
 int yyerror(char *s){
-	printf("UNRECOGNIZED_CODE\n");
-	return 0;
+    printf("UNRECOGNIZED_CODE\n");
+    return 0;
 }
