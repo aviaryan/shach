@@ -1,5 +1,11 @@
-# BUG in this test
 $v=2
-$a = $a * (2+3) + 4
-$b = $a + $a - 4
+print("${v}")
+$v=2+2
+print("${v}")
+$abc=2+$v
+print("${abc}")
+$abc = $abc * (2+3) + 4
+print("${abc}")
+$b = $abc + $abc - 4
+print("${b}")
 xxx

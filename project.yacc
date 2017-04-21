@@ -286,44 +286,51 @@ rawStatementBlock : RAW_UX {
     }
     ;
 
-expr : id1 '+' expr  { 
+expr : id1 '+' expr  {
+        char * s = malloc(lstr2($1, $3));
         if (compileBash){
-            sprintf($$, "$[%s+%s]", $1, $3);
+            sprintf(s, "$[%s+%s]", $1, $3); $$ = s;
         } else {
-            sprintf($$, "%s+%s", $1, $3);
+            sprintf(s, "%s+%s", $1, $3); $$ = s;
         }
     }
     | id1 '-' expr  { 
+        char * s = malloc(lstr2($1, $3));
         if (compileBash){
-            sprintf($$, "$[%s-%s]", $1, $3);
+            sprintf(s, "$[%s-%s]", $1, $3); $$ = s;
         } else {
-            sprintf($$, "%s-%s", $1, $3);
+            sprintf(s, "%s-%s", $1, $3); $$ = s;
         }
     }
     | id1 { $$ = $1; }
     ;
 
-id1 : id2 '*' id1  { 
+id1 : id2 '*' id1  {
+        char * s = malloc(lstr2($1, $3));
         if (compileBash){
-            sprintf($$, "$[%s*%s]", $1, $3);
+            sprintf(s, "$[%s*%s]", $1, $3); $$ = s;
         } else {
-            sprintf($$, "%s*%s", $1, $3);
+            sprintf(s, "%s*%s", $1, $3); $$ = s;
         }
     }
     | id2 { $$ = $1; }
     ;
 
-id2 : id2 '/' id3  { 
+id2 : id2 '/' id3  {
+        char * s = malloc(lstr2($1, $3));
         if (compileBash){
-            sprintf($$, "$[%s/%s]", $1, $3);
+            sprintf(s, "$[%s/%s]", $1, $3); $$ = s;
         } else {
-            sprintf($$, "%s/%s", $1, $3);
+            sprintf(s, "%s/%s", $1, $3); $$ = s;
         }
     }
     | id3 { $$ = $1; }
     ;
 
-id3 : '(' expr ')'  { sprintf($$, "(%s)", $2); }
+id3 : '(' expr ')'  { 
+        char * s = malloc(lstr1($2));
+        sprintf(s, "(%s)", $2); $$ = s;
+    }
     | numVal { $$ = $1; }
     ;
 
@@ -431,16 +438,16 @@ strVal : allVar { $$ = $1; }
         ;
 
 boolVal : allVar { $$ = $1; }
-        | bool
+        | bool { $$ = $1; }
         ;
 
-vals : num 
-        | string 
-        | bool 
-        | functionCall
+vals : num { $$ = $1; }
+        | string { $$ = $1; }
+        | bool { $$ = $1; }
+        | functionCall { $$ = $1; }
         ;
 
-allVals : vals 
+allVals : vals { $$ = $1; }
         | allVar { $$ = $1; }
         ;
 
