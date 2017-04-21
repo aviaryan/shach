@@ -141,25 +141,41 @@ loopStatements : statement nlLoopPlus loopStatements { sprintf($$, "%s\n%s", $1,
 
 whileLoop : WHILE '(' conditionList ')' '{' nlLoopPlus loopStatements '}'  {
             char * s = malloc(lstr2($3, $7));
-            sprintf(s, "while (%s){\n%s}", $3, $7); $$ = s;
+            if (compileBash){
+                sprintf(s, "while [%s]\ndo%s\ndone", $3, $7); $$ = s;
+            }else{
+                sprintf(s, ":while\n if %s (\n%s\ngoto :while\n)", $3, $7); $$ = s;
+            }
         }
         ;
 
 forLoop : FOR var IN '(' NUMBER ',' NUMBER ',' NUMBER  ')' '{' nlLoopPlus loopStatements '}'  {
             char * s = malloc(lstr5($2, $5, $7, $9, $13));
-            sprintf(s, "for %s in (%s, %s, %s){\n%s}", $2, $5, $7, $9, $13); $$ = s;
+            if (compileBash){
+                sprintf(s, "for %s in {%s..%s..%s}\ndo\n%s\ndone", &$2[1], $5, $9, $7, $13); $$ = s;
+            }else{
+                sprintf(s, "for /l %%%s in (%s,%s,%s) do(\n%s\n)", $2, $5, $7, $9, $13); $$ = s;
+            }
         }
         ;
 
 forLine : FOR var IN READFILE '(' strVal ')' '{' nlLoopPlus loopStatements '}'  {
             char * s = malloc(lstr3($2, $6, $10));
-            sprintf(s, "for %s in file(%s){\n%s}", $2, $6, $10); $$ = s;
+            if (compileBash){
+                sprintf(s, "while read %s;do\n%s\ndone <%s", &$2[1], $10, $6); $$ = s;
+            }else{
+                sprintf(s, "for /F 'tokens=*' %%%s in (%s)do(\n%s\n)",$2, $6, $10); $$ = s;
+            }
         }
         ;
 
 forDir : FOR var IN DIR '(' strVal ')' '{' nlLoopPlus loopStatements '}'  { 
             char * s = malloc(lstr3($2, $6, $10));
-            sprintf(s, "for %s in dir(%s){\n%s}", $2, $6, $10); $$ = s;
+            if (compileBash){
+                sprintf(s, "for %s in %s;do\n%s\ndone", &$2[1], $6, $10); $$ = s;
+            }else{
+                sprintf(s, "for /d /r %%%s in ('%s')do(\n%s\n)", $2, $6, $10); $$ = s;
+            }
         }
        ;
 
