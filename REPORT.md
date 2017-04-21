@@ -16,14 +16,14 @@ a `.sh` or a `.bat` file or both.
 	* [Shach Semantics Phase](#intsem)
 	* [Final Phase](#finalph)
 * [Manual](#manual)
-	* Variables
-	* Expressions
-	* Conditions
-	* Loops
-	* Functions
-	* Blocks
-	* Native commands
-	* Inbuilt functions
+	* [Variables](#vars)
+	* [Expressions](#exps)
+	* [Conditions](#conds)
+	* [Loops](#loops)
+	* [Functions](#func)
+	* [Blocks](#blocks)
+	* [Native commands](#native)
+	* [Inbuilt functions](#inbuilt)
 * [Sample Code](#ex)
 * [Building](#build)
 * [Problems Faced](#problems)
@@ -488,10 +488,17 @@ $a = "this is present in both places"
 <a name="native"></a>
 ### Native commands
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat.
+Shach can also run native commands in bash and batch. Example of a native command is `gcc prog.c`.
+
+```sh
+~ gcc prog.c
+```
+
+It can also support Shach-like variables. Example -
+
+```sh
+~ go run $var
+```
 
 
 <a name="inbuilt"></a>
