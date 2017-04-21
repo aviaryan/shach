@@ -308,16 +308,16 @@ stringExpr : strVal
         ;
 
 boolExpr : boolExpr1 { $$ = $1; }
-        | boolExpr1 LOGAND boolExpr 
-        | boolExpr1 LOGOR boolExpr
+        | boolExpr1 LOGAND boolExpr { sprintf($$, "%s&&%s", $1, $3); }
+        | boolExpr1 LOGOR boolExpr { sprintf($$, "%s||%s", $1, $3); }
         ;
 
-boolExpr1 : '(' boolExpr ')'
+boolExpr1 : '(' boolExpr ')' {$$ = $2; }
         | boolVal { $$ = $1; }
         ;
 
-bool : TRUE
-        | FALSE
+bool : TRUE { $$ = $1; }
+        | FALSE {$$ = $1; }
         ;
 
 arrayExpr : '{' varList '}' 
@@ -346,7 +346,7 @@ condition : expr '<' expr
         | expr EQCOND expr 
         | stringExpr EQCOND stringExpr 
         | stringExpr NOTEQ stringExpr 
-        | boolExpr 
+        | boolExpr { $$ = $1; }
         | functionCall
         ;
 
@@ -407,12 +407,12 @@ strVal : allVar { $$ = $1; }
         ;
 
 boolVal : allVar { $$ = $1; }
-        | bool
+        | bool { $$ = $1; }
         ;
 
 vals : num 
         | string 
-        | bool 
+        | bool { $$ = $1; }
         | functionCall
         ;
 
