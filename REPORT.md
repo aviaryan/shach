@@ -13,17 +13,20 @@ a `.sh` or a `.bat` file or both.
 * [Motivation](#mvn)
 * [Project Development](#dev)
 	* [Lex Phase](#lexph)
-	* Shach Semantics Phase
-	* Final Phase
-* Manual
+	* [Shach Semantics Phase](#intsem)
+	* [Final Phase](#finalph)
+* [Manual](#manual)
 	* Variables
+	* Expressions
+	* Conditions
+	* Loops
 	* Functions
 	* Blocks
 	* Native commands
-* Sample Code
-* Building
-* Problems Faced
-* [Future Scope](#fscp)
+* [Sample Code](#ex)
+* [Building](#build)
+* [Problems Faced](#problems)
+* [Future Scope](#future)
 * [Team](#team)
 
 
@@ -77,7 +80,7 @@ ELSE, ELIF, FUNC, IN, FOR, WHILE, READFILE, DIR, ARRLEN, STRLEN, LOADENV, NEGATI
 STR, POWER, EOFL, CONCAT, GTEQ, LTEQ, NOTEQ, EQCOND, LOGAND, LOGOR, INVALID, RAW_UX, RAW_WN
 ```
 
-#### Shach grammar
+The grammar of Shach is:
 
 ```yacc
 program : nlLoop statements EOFL 
@@ -260,13 +263,8 @@ allExpr : expr
         | functionCall  
 ```
 
-#### Test Cases
 
-We generated a Travis along with all the test codes in Shach
-any changes made to any file will be incorporated only after being verified 
-by Travis CI.
-
-
+<a name="intsem"></a>
 ### Intermediate Semantics Phase
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -274,7 +272,14 @@ tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 consequat.
 
+#### Test Cases
 
+We used TravisCI to continuously test if our grammar was correctly recognizing the tokens or not. 
+For that we used 2 types of tests, `test` and `anti-test`. As the name suggest, all `test` files should be 
+correctly recognized by our grammar whereas `anti-test` should be discarded by our grammar.
+
+
+<a name="finalph"></a>
 ### Final Phase
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -283,7 +288,59 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 consequat.
 
 
+<a name="manual"></a>
 ## Manual
+
+Shach syntax is pretty much inspired from bash's expect that it is more human friendly and intuitive. 
+This section will cover concepts about how to write code in Shach. 
+The file extension for Shach files is `.shach`. 
+
+### Variables
+
+Variables in Shach are preceeded by a dollar `$`, everywhere.
+
+```sh
+$intVar = 2
+$stringVar = "abcd"
+$anotherVar = $stringVar
+```
+
+### Expressions
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat.
+
+### Conditions
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat.
+
+### Loops
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat.
+
+### Functions
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat.
+
+### Blocks
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat.
+
+### Native commands
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -291,19 +348,77 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 consequat.
 
 
-.....
-.....
-.....
+<a name="ex"></a>
+## Sample Code
 
-<a name="fscp"></a>
+[[ Charu ]]
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat.
+
+
+<a name="build"></a>
+## Building/Compiling
+
+On a Unix computer, run the following commands to build this project.
+
+```sh
+flex project.lex
+yacc -d project.yacc
+gcc lex.yy.c y.tab.c -ll -ly
+```
+
+One can also use the shortcut command which is 
+
+```sh
+make build
+```
+
+Once build is done, `a.out` file will be generated. Run it as follows -
+
+```sh
+./a.out < input_file.shach
+```
+
+The above command will take `input_file.shach` as the input source code and will create the output bash file called `output.sh` in the same directory.
+To generate batch code, run the following.
+
+```sh
+./a.out batch < input_file.shach
+# ./a.out bash < input_file.shach
+```
+
+The above command will generate batch code in `output.bat` file.
+
+When `a.out` is run, it prints the list of found tokens in the terminal. This was added for debugging purposes and will be removed later with a stable release.
+
+
+<a name="problems"></a>
+## Problems Faced
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat.
+
+
+<a name="future"></a>
 ## Future Scope
-The development of this language surely prompts many new areas of improvements. This project does not covers all functionalities related to bash and batch scripts. It would have great to implement that provided we’d enough time. Though it suceesfully meets the main objective which was to make a platform independent and easy to write progamming language.
+
+The development of this language surely prompts many new areas of improvements. 
+This project does not covers all functionalities related to bash and batch scripts. 
+It would have great to implement that provided we’d enough time. 
+Though it suceesfully meets the main objective which was to make a platform independent and easy to write progamming language.
 
 For further improvements we would like to implement all the remaining functionalites. 
 
-Also the current error handling only tell the user about error,does not suggest the user what needs to be done. We would like to implement auto suggesting feature in case of errors.
+Also the current error handling only tell the user about error,does not suggest the user what needs to be done. 
+We would like to implement auto suggesting feature in case of errors.
 
 Further we would like to make a web service for this, which would let the user to compile and genrate the bash and the batch scripts online. 
+
 
 <a name="team"></a>
 ## Team
