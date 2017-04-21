@@ -322,25 +322,38 @@ consequat.
 
 Different sample codes that can be written in our language Shach are : 
 
-1. Code for downloading different files.
+1. Code for Squaring the numbers.
 ```
-$start=1
+for v in {1..10..1}
+do
+var=$[$v*$v]
+echo Sqaure of ${v} is ${var}
 
-for $p in file($1) {
-	~ aria2c {$p} -x 2 -s 2 -o "Episode_"{$start}".mp4" --check-certificate=False
-	$start = $start + 1
-}
+done
 xxx
 
 ```
-2. Code for renaming files in a directory.
+2. Code for generating Fibonacci Series.
 ```
-for $p in dir($1) {
-	if ( exists($p ++ "new") ) {
-        continue
-    } else {
-        ~ mv "$p" "{$p}new"
-    }
+$t1 = 0
+$t2 = 1
+$nextTerm = 0
+print("Enter the number of terms: ")
+scan($var)
+print("Fibonacci Series: ")
+for $v in (1,1,10){
+  if($v==1){
+    print("${t1}")
+    continue 
+  }
+  if($v==2){
+    print("${t2}")
+    continue 
+  }
+  $nextTerm = $t1+$t2
+  $t1=$t2
+  $t2=$nextTerm
+  print("${nextTerm}")
 }
 xxx
 
