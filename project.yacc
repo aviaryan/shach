@@ -459,7 +459,10 @@ conditionList : condition LOGAND conditionList {
         | condition { $$ = $1; }
         ;
 
-condition : expr '<' expr
+condition : expr '<' expr {
+            char * s = malloc(lstr2($1, $3));
+            sprintf(s, "%s < %s", $1, $3); $$ = s;
+        }
         | expr '>' expr {
             char * s = malloc(lstr2($1, $3));
             sprintf(s, "%s > %s", $1, $3); $$ = s;
