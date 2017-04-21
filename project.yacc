@@ -391,7 +391,7 @@ id2 : id2 '/' id3  {
     ;
 
 id3 : '(' expr ')'  {
-        char * s = malloc(lstr2($1, $3));
+        char * s = malloc(lstr2($2));
         if (compileBash){
             sprintf(s, "$[%s]", $2); $$ = s;
         } else {
