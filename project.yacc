@@ -74,7 +74,8 @@ conditionalStatement : IF '(' conditionList ')' '{' nlLoopPlus mainStatements '}
         ;
 
 commandStatement : COMMAND {
-            $$ = &$1[1]; // add shach variables support here
+            char * temp = &$1[1]; parseVarString(temp);
+            $$ = temp;
         }
         ;
 
@@ -208,12 +209,16 @@ retStatement : RETURN '(' allVals ')' {
 
 functionCall : FUNC_NAME '(' paramList ')' 
         | inbuiltFunc '(' paramList ')'
+        | PRINT '(' paramList ')' {
+            deQuoteString(&$3); parseVarString($3);
+            char * s = malloc(lstr1($3));
+            sprintf(s, "echo %s", $3); $$ = s;
+        }
         | FUNC_NAME '(' ')'
         | inbuiltFunc '(' ')'
         ;
 
 inbuiltFunc : CALL 
-        | PRINT 
         | SCAN 
         | ISFILE 
         | ISDIR 
@@ -424,6 +429,36 @@ int trimBlock(char ** str){
     return 0;
 }
 
+int parseVarString(char * s){
+    int len = strlen(s);
+    int i, j=0;
+    // loop
+    if (!compileBash){ // batch
+        for (i=0; i<len; i++){
+            if (s[i] == '{'){
+                j--;
+                s[j] = '%';
+            } else if (s[i] == '}'){
+                s[j] = '%';
+            } else {
+                s[j] = s[i];
+            }
+            j++;
+        }
+        s[j] = '\0';
+    }
+    return 0;
+}
+
+int deQuoteString(char ** str){
+    char * s = *str; int len = strlen(s);
+    s[len-1] = '\0'; *str = &s[1];
+    return 0;
+}
+
+/*
+ * MAIN
+ */
 int main(int argc, char *argv[]){
     if (argc == 2){
         if (strcmp(argv[1],"batch") == 0){

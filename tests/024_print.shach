@@ -1,0 +1,4 @@
+print("what")
+$var=1
+print("lol ${var} is ${var}")
+xxx

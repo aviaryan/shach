@@ -1,6 +1,6 @@
 # first comment
 ~go build
-~es24 {sd}
+~es24 ${var}
 
 
  xxx
