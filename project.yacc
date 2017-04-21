@@ -207,19 +207,27 @@ retStatement : RETURN '(' allVals ')' {
         | RETURN { $$ = $1; }
         ;
 
-functionCall : FUNC_NAME '(' paramList ')' 
-        | inbuiltFunc '(' paramList ')'
+functionCall : inbuiltFunc '(' paramList ')'
         | PRINT '(' paramList ')' {
             deQuoteString(&$3); parseVarString($3);
             char * s = malloc(lstr1($3));
             sprintf(s, "echo %s", $3); $$ = s;
         }
-        | FUNC_NAME '(' ')'
+        | SCAN '(' paramList ')' {
+            printf("hii");
+            char * s = malloc(lstr1($3));
+            if (compileBash){
+                sprintf(s, "read %s", &$3[1]); $$ = s;
+            } else {
+                sprintf(s, "set /p %s=\"\"", $3); $$ = s;
+            }
+        }
         | inbuiltFunc '(' ')'
+        | FUNC_NAME '(' paramList ')'
+        | FUNC_NAME '(' ')'
         ;
 
 inbuiltFunc : CALL 
-        | SCAN 
         | ISFILE 
         | ISDIR 
         | EXISTS 
@@ -277,13 +285,13 @@ stringExpr : strVal
         | strVal CONCAT stringExpr
         ;
 
-boolExpr : boolExpr1 
+boolExpr : boolExpr1 { $$ = $1; }
         | boolExpr1 LOGAND boolExpr 
         | boolExpr1 LOGOR boolExpr
         ;
 
-boolExpr1 : '(' boolExpr ')' 
-        | boolVal
+boolExpr1 : '(' boolExpr ')'
+        | boolVal { $$ = $1; }
         ;
 
 bool : TRUE
@@ -320,8 +328,11 @@ condition : expr '<' expr
         | functionCall
         ;
 
-paramList : allExpr ',' paramList 
-        | allExpr
+paramList : allExpr ',' paramList  {
+            char * s = malloc(lstr2($1, $3));
+            sprintf(s, "%s,%s", $1, $3); $$ = s;
+        }
+        | allExpr { $$ = $1; }
         ;
 
 idList : var ',' idList {
@@ -373,7 +384,7 @@ strVal : allVar { $$ = $1; }
         | string { $$ = $1; }
         ;
 
-boolVal : allVar 
+boolVal : allVar { $$ = $1; }
         | bool
         ;
 
@@ -384,14 +395,14 @@ vals : num
         ;
 
 allVals : vals 
-        | allVar
+        | allVar { $$ = $1; }
         ;
 
 allExpr : expr { $$ = $1; }
-        | stringExpr
-        | boolExpr
-        | arrayExpr 
-        | functionCall
+        | stringExpr { $$ = $1; }
+        | boolExpr { $$ = $1; }
+        | arrayExpr { $$ = $1; }
+        | functionCall { $$ = $1; }
         ;
 
 %%

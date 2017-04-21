@@ -1,0 +1,3 @@
+scan($var)
+print("${var}")
+xxx
