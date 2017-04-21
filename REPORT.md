@@ -12,7 +12,7 @@ a `.sh` or a `.bat` file or both.
 
 * [Motivation](#mvn)
 * [Project Development](#dev)
-	* Lex Phase
+	* [Lex Phase](#lexph)
 	* Shach Semantics Phase
 	* Final Phase
 * Manual
@@ -58,22 +58,28 @@ in the lex phase. Also, we incorporated the code to generate .sh and .bat files 
 compilation.
 
 
+<a name="lexph"></a>
 ### Lex Phase
 
 Shach is a case sensitive language. Its keywords are:
 
+```
 #BEGIN, #END, UX, WN, RAWUX, RAWWN, return, call, rawbash, rawbatch, bash, batch, 
 loadenv, break, continue, if, else, elif, func, in, for, xxx, while 		
+```
 
 The tokens of the Shach grammar are:
 
+```
 NUMBER, ID, FUNC_NAME, COMMAND, RETURN, CALL, SCAN, PRINT, ISFILE, ISDIR, EXISTS, RAWBASH, 		
 RAWBATCH, BASH, BATCH, NL, TEXT, BREAK, CONTINUE, BEGIN_UX, END_UX, BEGIN_WN, END_WN, IF, 
 ELSE, ELIF, FUNC, IN, FOR, WHILE, READFILE, DIR, ARRLEN, STRLEN, LOADENV, NEGATIVE_NUM, 
 STR, POWER, EOFL, CONCAT, GTEQ, LTEQ, NOTEQ, EQCOND, LOGAND, LOGOR, INVALID, RAW_UX, RAW_WN
+```
 
-#### The grammar of Shach
+#### Shach grammar
 
+```yacc
 program : nlLoop statements EOFL 
 
 statements : functionDeclaration nlLoopPlus statements
@@ -252,12 +258,14 @@ allExpr : expr
         | stringExpr  
         | arrayExpr  
         | functionCall  
+```
 
-####Teat Cases
+#### Test Cases
 
 We generated a Travis along with all the test codes in Shach
 any changes made to any file will be incorporated only after being verified 
 by Travis CI.
+
 
 ### Intermediate Semantics Phase
 

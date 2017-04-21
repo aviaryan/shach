@@ -1,0 +1,4 @@
+func abb($a, $b){
+	return(1)
+}
+xxx
