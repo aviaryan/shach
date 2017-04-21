@@ -445,15 +445,13 @@ stringExpr : strVal { $$ = $1; }
         ;
 
 arrayExpr : '{' varList '}' {
-        char * s = malloc(lstr1($2));
-        if (compileBash) {
-            sprintf(s, "(%s)", $2); $$ = s;
-        } else {
-            sprintf(s, "%s", $2); $$ = s;
+            char * s = malloc(lstr1($2));
+            if (compileBash) {
+                sprintf(s, "(%s)", $2); $$ = s;
+            } else {
+                sprintf(s, "%s", $2); $$ = s;
+            }
         }
-        }
-        |
-        '[' ']'
         ;
 
 conditionList : condition LOGAND conditionList {
