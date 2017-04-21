@@ -455,6 +455,7 @@ allExpr : expr { $$ = $1; }
         | stringExpr { $$ = $1; }
         | arrayExpr { $$ = $1; }
         | functionCall { $$ = $1; }
+        |bool {$$ = $1; }
         ;
 
 %%
