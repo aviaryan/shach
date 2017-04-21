@@ -401,19 +401,6 @@ stringExpr : strVal
         | strVal CONCAT stringExpr
         ;
 
-boolExpr : boolExpr1 { $$ = $1; }
-        | boolExpr1 LOGAND boolExpr 
-        | boolExpr1 LOGOR boolExpr
-        ;
-
-boolExpr1 : '(' boolExpr ')'
-        | boolVal { $$ = $1; }
-        ;
-
-bool : TRUE
-        | FALSE
-        ;
-
 arrayExpr : '{' varList '}' 
         | '[' ']'
         ;
@@ -440,7 +427,6 @@ condition : expr '<' expr
         | expr EQCOND expr 
         | stringExpr EQCOND stringExpr 
         | stringExpr NOTEQ stringExpr 
-        | boolExpr 
         | functionCall
         ;
 
@@ -501,14 +487,9 @@ numVal : allVar { $$ = $1; }
 strVal : allVar { $$ = $1; }
         | string { $$ = $1; }
         ;
-
-boolVal : allVar { $$ = $1; }
-        | bool { $$ = $1; }
-        ;
-
+    
 vals : num { $$ = $1; }
         | string { $$ = $1; }
-        | bool { $$ = $1; }
         | functionCall { $$ = $1; }
         ;
 
@@ -518,7 +499,6 @@ allVals : vals { $$ = $1; }
 
 allExpr : expr { $$ = $1; }
         | stringExpr { $$ = $1; }
-        | boolExpr { $$ = $1; }
         | arrayExpr { $$ = $1; }
         | functionCall { $$ = $1; }
         ;

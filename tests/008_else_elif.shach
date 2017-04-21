@@ -1,6 +1,6 @@
+
+if(3>=2){
 $s=1
-if(3>=2 && True){
-	$s=1
 }else{
 	# comment
 	$s=2
