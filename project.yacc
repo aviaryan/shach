@@ -395,7 +395,7 @@ id3 : '(' expr ')'  {
         if (compileBash){
             sprintf(s, "$[%s]", $2); $$ = s;
         } else {
-            sprintf(s, "%s", $2); $$ = s;
+            sprintf(s, "(%s)", $2); $$ = s;
         }
     | numVal { $$ = $1; }
     ;
