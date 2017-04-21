@@ -2,7 +2,7 @@ $v=2
 func a($a,$b){
 	if (2==$v){
 	   return(2)
-	} elif (True && $v) {
+	} elif (1==$v) {
 		return($var)
 	} else {
 		return($arr[1])
