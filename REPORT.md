@@ -395,10 +395,32 @@ for $p in file("path/to/filename") {
 
 ### Functions
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat.
+Shach supports functions like bash and batch and follows a similar style.
+Functions can have any number of parameters and they need not to be defined in the function declaration.
+Return data of function is passed to a global variable which can be used anywhere in the code.
+
+Here is an example of function declaration.
+
+```sh
+func add($retVar){
+	$sum = $1 + $2
+	return($sum)
+}
+```
+
+Here `$1`, `$2` are the parameters passed when calling the function. The `$retVal` seen above is actually the variable which will contain the final answer 
+after the function executes.
+
+To call this function, we do -
+
+```sh
+add($myVar, 2, 4)
+print("the sum of 2 and 4 is ${myVar}")
+```
+
+All functions in Shach must define a return variable and a return statement. This has been done to promote good coding habits that is every routine should 
+atleast return its success/failure status.
+
 
 ### Blocks
 
