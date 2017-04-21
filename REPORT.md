@@ -15,15 +15,15 @@ a `.sh` or a `.bat` file or both.
 	* [Lex Phase](#lexph)
 	* [Shach Semantics Phase](#intsem)
 	* [Final Phase](#finalph)
-* Manual
+* [Manual](#manual)
 	* Variables
 	* Functions
 	* Blocks
 	* Native commands
-* Sample Code
-* Building
-* Problems Faced
-* Future Scope
+* [Sample Code](#ex)
+* [Building](#build)
+* [Problems Faced](#problems)
+* [Future Scope](#future)
 * [Team](#team)
 
 
@@ -285,7 +285,10 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 consequat.
 
 
+<a name="manual"></a>
 ## Manual
+
+[[ AVI ]]
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -293,9 +296,42 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 consequat.
 
 
-.....
-.....
-.....
+<a name="ex"></a>
+## Sample Code
+
+[[ Charu ]]
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat.
+
+
+<a name="build"></a>
+## Building/Compiling
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat.
+
+
+<a name="problems"></a>
+## Problems Faced
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat.
+
+
+<a name="future"></a>
+## Future Scope
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat.
 
 
 <a name="team"></a>
