@@ -1,4 +1,4 @@
-if(3>=2 && True){
+if(3>=2){
 	$s=1
 }else{
 	# comment
