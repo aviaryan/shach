@@ -2,7 +2,7 @@ $v = []
 $v = {1, 2, 3, "string", $var}
 $c=1
 for $v in (1,10,3){
-  $v = {1, 2, "string", $var,"string1", 1,abc(), abc($1), $a[2]}
+  $v = {1, 2, "string", $var,"string1", 1, $a[2]}
   $v = {"string1", "string2", "string3"}
   $c=[]
   

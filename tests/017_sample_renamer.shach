@@ -1,5 +1,5 @@
 for $p in dir($1) {
-	if ( exists($p ++ "new") ) {
+	if ( "text" == $p ) {
         continue
     } else {
         ~ mv "$p" "{$p}new"

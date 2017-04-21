@@ -1,4 +1,4 @@
-$v=abc()
-$aa=abc($1)
-$ab = abc($1,"string")
+abc($ret)
+abc($aa, $1)
+abc($ab, $1,"string")
 xxx
