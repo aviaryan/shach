@@ -13,8 +13,8 @@ a `.sh` or a `.bat` file or both.
 * [Motivation](#mvn)
 * [Project Development](#dev)
 	* [Lex Phase](#lexph)
-	* Shach Semantics Phase
-	* Final Phase
+	* [Shach Semantics Phase](#intsem)
+	* [Final Phase](#finalph)
 * Manual
 	* Variables
 	* Functions
@@ -77,7 +77,7 @@ ELSE, ELIF, FUNC, IN, FOR, WHILE, READFILE, DIR, ARRLEN, STRLEN, LOADENV, NEGATI
 STR, POWER, EOFL, CONCAT, GTEQ, LTEQ, NOTEQ, EQCOND, LOGAND, LOGOR, INVALID, RAW_UX, RAW_WN
 ```
 
-#### Shach grammar
+The grammar of Shach is:
 
 ```yacc
 program : nlLoop statements EOFL 
@@ -260,13 +260,8 @@ allExpr : expr
         | functionCall  
 ```
 
-#### Test Cases
 
-We generated a Travis along with all the test codes in Shach
-any changes made to any file will be incorporated only after being verified 
-by Travis CI.
-
-
+<a name="intsem"></a>
 ### Intermediate Semantics Phase
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -274,7 +269,14 @@ tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 consequat.
 
+#### Test Cases
 
+We used TravisCI to continuously test if our grammar was correctly recognizing the tokens or not. 
+For that we used 2 types of tests, `test` and `anti-test`. As the name suggest, all `test` files should be 
+correctly recognized by our grammar whereas `anti-test` should be discarded by our grammar.
+
+
+<a name="finalph"></a>
 ### Final Phase
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
