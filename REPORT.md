@@ -487,10 +487,8 @@ When `a.out` is run, it prints the list of found tokens in the terminal. This wa
 <a name="problems"></a>
 ## Problems Faced
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat.
+Since it was our first experience designing a compiler, we encountered many challenges.
+Intially, our code failed to parse the language, debugging that much big code proved to be a herculean task. Many a times it was hard to determine why the desired regex was not getting matched by the sample code. Later we manifested it by integration tests that passes for the pieces of code. We too have a bad time bridging the gap between bash and batch. There we have some functionalties which were only one way round supported by either bash or batch but not both. It took us long time to figure out the way to handle such cases and implement the cumbersome syntax for the output scripts. During semantics we ran into segmentation fault, bus errors and function declartion prob.. //todo: elaborate.
 
 
 <a name="future"></a>
