@@ -3,12 +3,9 @@
 ![Builds Passing](https://img.shields.io/badge/builds-passing-brightgreen.svg)
 ![Open Source](https://img.shields.io/badge/open-source-blue.svg)
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Shach is a simple programming language that can compile to both Bash or Windows Batch.
+The user may write the shach script only once and compile it in any platform to generate
+a .sh or a .bat file or both.
 
 
 ## Table of Contents
@@ -33,12 +30,17 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 <a name="mvn"></a>
 ## Motivation
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Both bash and batch are tedious to write. You have to spend a lot of time to 
+learn either of them and writing a platform-dependent code for the respective 
+Operating System. If the user happens to be a maintainer of a cross-platform 
+toolwhich relies on Bash on Linux/Mac and Batch on Windows as "glue code", 
+simultaneously writing code for both of them can be really painful.
+
+SHACH comes to your rescue here.SHACH is quite easy to write, no complex syntaxes,
+different inbuilt functions provided for making the tasks easier and above all you
+don’t have to worry about writing different codes for different platforms. 
+Cross-compiling is supported so that you can create bash & batch scripts from any
+platform, whether it be OSX, Linux or Windows.
 
 
 <a name="dev"></a>
