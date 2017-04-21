@@ -505,10 +505,22 @@ It can also support Shach-like variables. Example -
 <a name="inbuilt"></a>
 ### Inbuilt functions
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat.
+Shach supports some inbuilt functions to faclitiate user.
+
+#### SCAN
+
+```sh
+scan($var)
+```
+The scan functions let the user take input from input stream. It takes variable as the argument.
+
+#### PRINT
+
+```sh
+print("shach is cool!!")
+print("${var} is like ${var1}")
+```
+The print functions let the user to  print the output to selected output stream. The argument can be a string or a string having any number of variables.
 
 
 <a name="ex"></a>
