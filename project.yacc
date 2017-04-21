@@ -4,7 +4,6 @@
         #include <stdbool.h>
         #define YYSTYPE char*
         extern char * yytext;
-        extern int begin_wn, begin_ux;
         bool compileBash = true;
         FILE *fp;
         int dataType = 1; // 0 for int, 1 for string
@@ -54,7 +53,7 @@ variableAssignment : allVar '=' allExpr {
             if (compileBash){
                 sprintf(s, "%s=%s", &$1[1], $3); $$ = s;
             } else {
-                sprintf(s, "set \a %s=%s", $1, $3); $$ = s;
+                sprintf(s, "set \\a %s=%s", $1, $3); $$ = s;
             }
         }
         ;
@@ -262,11 +261,23 @@ inbuiltFunc : CALL
         | ARRLEN 
         ;
 
-uxBlockStatement : BEGIN_UX statements END_UX
-        ;
+uxBlockStatement : BEGIN_UX nlLoopPlus statements END_UX {
+        if (compileBash){
+            $$ = $3;
+        } else {
+            $$ = "";
+        }
+    }
+    ;
 
-winBlockStatement : BEGIN_WN statements END_WN
-        ;
+winBlockStatement : BEGIN_WN nlLoopPlus statements END_WN {
+        if (!compileBash){
+            $$ = $3;
+        } else {
+            $$ = "";
+        }
+    }
+    ;
 
 rawStatementBlock : RAW_UX {
         trimBlock(&$1);
