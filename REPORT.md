@@ -23,6 +23,7 @@ a `.sh` or a `.bat` file or both.
 	* Functions
 	* Blocks
 	* Native commands
+	* Inbuilt functions
 * [Sample Code](#ex)
 * [Building](#build)
 * [Problems Faced](#problems)
@@ -316,6 +317,7 @@ Shach syntax is pretty much inspired from bash's expect that it is more human fr
 This section will cover concepts about how to write code in Shach. 
 The file extension for Shach files is `.shach`. 
 
+<a name="vars"></a>
 ### Variables
 
 Variables in Shach are preceeded by a dollar `$`, everywhere.
@@ -326,7 +328,7 @@ $stringVar = "abcd"
 $anotherVar = $stringVar
 ```
 
-
+<a name="exps"></a>
 ### Expressions
 
 Expressions in Shach have been inspired from C and are very intuitive.
@@ -344,6 +346,8 @@ $string = "abcd" ++ $string
 **Bool** - Like bash and batch, there is no bool type in Shach. If you are looking for a bool like behavior, feel free to use the `int` or `string` type.
 
 
+
+<a name="conds"></a>
 ### Conditions
 
 Shach supports if, else and elif condition expressions. The syntax is inspired from C/JavaScript.
@@ -361,6 +365,7 @@ if ($in > 2){
 ```
 
 
+<a name="loops"></a>
 ### Loops
 
 Shach supports four types of loops.
@@ -413,7 +418,7 @@ for $p in file("path/to/filename") {
 }
 ```
 
-
+<a name="func"></a>
 ### Functions
 
 Shach supports functions like bash and batch and follows a similar style.
@@ -443,6 +448,7 @@ All functions in Shach must define a return variable and a return statement. Thi
 atleast return its success/failure status.
 
 
+<a name="blocks"></a>
 ### Blocks
 
 Shach has the concept of blocks to output code only in bash or batch file. This can be used if you are writing platform-dependent codes. 
@@ -479,8 +485,17 @@ print("unix ${v}")
 $a = "this is present in both places"
 ```
 
-
+<a name="native"></a>
 ### Native commands
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat.
+
+
+<a name="inbuilt"></a>
+### Inbuilt functions
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
