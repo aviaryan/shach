@@ -3,8 +3,8 @@
 ![Builds Passing](https://img.shields.io/badge/builds-passing-brightgreen.svg)
 ![Open Source](https://img.shields.io/badge/open-source-blue.svg)
 
-Shach is a simple programming language that can compile to both Bash or Windows Batch.
-The user may write the shach script only once and compile it in any platform to generate
+Shach is a simple programming language that can compile to both Bash and Windows Batch.
+The user will write the shach script (.shach) only once and compile it in any platform to generate
 a .sh or a .bat file or both.
 
 
@@ -33,10 +33,10 @@ a .sh or a .bat file or both.
 Both bash and batch are tedious to write. You have to spend a lot of time to 
 learn either of them and writing a platform-dependent code for the respective 
 Operating System. If the user happens to be a maintainer of a cross-platform 
-toolwhich relies on Bash on Linux/Mac and Batch on Windows as "glue code", 
+tool which relies on Bash on Linux/Mac and Batch on Windows as "glue code", 
 simultaneously writing code for both of them can be really painful.
 
-SHACH comes to your rescue here.SHACH is quite easy to write, no complex syntaxes,
+Shach comes to your rescue here. Shach is quite easy to write, no complex syntaxes,
 different inbuilt functions provided for making the tasks easier and above all you
 don’t have to worry about writing different codes for different platforms. 
 Cross-compiling is supported so that you can create bash & batch scripts from any
