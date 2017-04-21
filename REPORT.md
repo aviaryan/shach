@@ -4,8 +4,8 @@
 ![Open Source](https://img.shields.io/badge/open-source-blue.svg)
 
 Shach is a simple programming language that can compile to both Bash and Windows Batch.
-The user will write the shach script (.shach) only once and compile it in any platform to generate
-a .sh or a .bat file or both.
+The user will write the shach script (`.shach`) only once and compile it in any platform to generate
+a `.sh` or a `.bat` file or both.
 
 
 ## Table of Contents
