@@ -60,15 +60,28 @@ variableAssignment : allVar '=' allExpr {
 
 conditionalStatement : IF '(' conditionList ')' '{' nlLoopPlus mainStatements '}'  { 
             char * s = malloc(lstr2($3, $7));
-            sprintf(s, "if (%s){\n%s}", $3, $7); $$ = s;
+            if (compileBash){
+                sprintf(s, "if (( %s ))\nthen\n%sfi", $3, $7); $$ = s;
+            } else {
+                sprintf(s, "if %s (\n%s)", $3, $7); $$ = s;
+            }
         }
         | IF '(' conditionList ')' '{' nlLoopPlus mainStatements '}' ELSE '{' nlLoopPlus mainStatements '}'  { 
             char * s = malloc(lstr3($3, $7, $12));
-            sprintf(s, "if (%s){\n%s} else {\n%s}", $3, $7, $12); $$ = s;
+            if (compileBash){
+                sprintf(s, "if (( %s ))\nthen\n%selse\n%sfi", $3, $7, $12); $$ = s;
+            } else {
+                sprintf(s, "if %s (\n%s) else (\n%s)", $3, $7, $12); $$ = s;
+            }
         }
         | IF '(' conditionList ')' '{' nlLoopPlus mainStatements '}'  elif_st  ELSE '{' nlLoopPlus mainStatements '}'  { 
             char * s = malloc(lstr4($3, $7, $9, $13));
-            sprintf(s, "if (%s){\n%s} %s else {\n%s}", $3, $7, $9, $13); $$ = s;
+            if (compileBash){
+                sprintf(s, "if (( %s ))\nthen\n%s %s else \n%sfi", $3, $7, $9, $13); $$ = s;
+            } else {
+                sprintf(s, "if %s (\n%s) %s else (\n%s)\n)", $3, $7, $9, $13); $$ = s;
+                // TODO: variable in conditions have %..%
+            }
         }
         ;
 
@@ -80,47 +93,86 @@ commandStatement : COMMAND {
 
 elif_st : ELIF '(' conditionList ')' '{' nlLoopPlus mainStatements '}'  { 
             char * s = malloc(lstr2($3, $7));
-            sprintf(s, "elif (%s){\n%s}", $3, $7); $$ = s;
+            if (compileBash){ // http://stackoverflow.com/questions/16034749/
+                sprintf(s, "elif (( %s ))\nthen\n%s", $3, $7); $$ = s;
+            } else { // http://stackoverflow.com/questions/25384358/
+                // multi-elif not handled yet
+                sprintf(s, "else (\n if %s (\n%s)", $3, $7); $$ = s;
+            }
         }
         ;
 
 conditionalFuncStatement : IF '(' conditionList ')' '{' nlLoopPlus funcStatements '}' { 
             char * s = malloc(lstr2($3, $7));
-            sprintf(s, "if (%s){\n%s}", $3, $7); $$ = s;
+            if (compileBash){
+                sprintf(s, "if (( %s ))\nthen\n%sfi", $3, $7); $$ = s;
+            } else {
+                sprintf(s, "if %s (\n%s)", $3, $7); $$ = s;
+            }
         }
         | IF '(' conditionList ')' '{' nlLoopPlus funcStatements '}' ELSE '{' nlLoopPlus funcStatements '}' {
-            char * s = malloc(lstr3($3, $7, $12)); 
-            sprintf(s, "if (%s){\n%s} else {\n%s}", $3, $7, $12); $$ = s;
+            char * s = malloc(lstr3($3, $7, $12));
+            if (compileBash){
+                sprintf(s, "if (( %s ))\nthen\n%selse\n%sfi", $3, $7, $12); $$ = s;
+            } else {
+                sprintf(s, "if %s (\n%s) else (\n%s)", $3, $7, $12); $$ = s;
+            }
         }
         | IF '(' conditionList ')' '{' nlLoopPlus funcStatements '}'  elif_func_st  ELSE '{' nlLoopPlus funcStatements '}' {
             char * s = malloc(lstr4($3, $7, $9, $13));
-            sprintf(s, "if (%s){\n%s} %s else {\n%s}", $3, $7, $9, $13); $$ = s;
+            if (compileBash){
+                sprintf(s, "if (( %s ))\nthen\n%s %s else \n%sfi", $3, $7, $9, $13); $$ = s;
+            } else {
+                sprintf(s, "if %s (\n%s) %s else (\n%s)\n)", $3, $7, $9, $13); $$ = s;
+            }
         }
         ;
 
 elif_func_st : ELIF '(' conditionList ')' '{' nlLoopPlus funcStatements '}' {
             char * s = malloc(lstr2($3, $7));
-            sprintf(s, "elif (%s){\n%s}", $3, $7); $$ = s;
+            if (compileBash){ // http://stackoverflow.com/questions/16034749/
+                sprintf(s, "elif (( %s ))\nthen\n%s", $3, $7); $$ = s;
+            } else { // http://stackoverflow.com/questions/25384358/
+                // multi-elif not handled yet
+                sprintf(s, "else (\n if %s (\n%s)", $3, $7); $$ = s;
+            }
         }
         ;
 
 conditionalLoopStatement : IF '(' conditionList ')' '{' nlLoopPlus loopStatements '}' { 
             char * s = malloc(lstr2($3, $7));
-            sprintf(s, "if (%s){\n%s}", $3, $7); $$ = s;
+            if (compileBash){
+                sprintf(s, "if (( %s ))\nthen\n%sfi", $3, $7); $$ = s;
+            } else {
+                sprintf(s, "if %s (\n%s)", $3, $7); $$ = s;
+            }
         }
         | IF '(' conditionList ')' '{' nlLoopPlus loopStatements '}' ELSE '{' nlLoopPlus loopStatements '}' {
-            char * s = malloc(lstr3($3, $7, $12)); 
-            sprintf(s, "if (%s){\n%s} else {\n%s}", $3, $7, $12); $$ = s;
+            char * s = malloc(lstr3($3, $7, $12));
+            if (compileBash){
+                sprintf(s, "if (( %s ))\nthen\n%selse\n%sfi", $3, $7, $12); $$ = s;
+            } else {
+                sprintf(s, "if %s (\n%s) else (\n%s)", $3, $7, $12); $$ = s;
+            }
         }
         | IF '(' conditionList ')' '{' nlLoopPlus loopStatements '}'  elif_loop_st  ELSE '{' nlLoopPlus loopStatements '}' {
             char * s = malloc(lstr4($3, $7, $9, $13));
-            sprintf(s, "if (%s){\n%s} %s else {\n%s}", $3, $7, $9, $13); $$ = s;
+            if (compileBash){
+                sprintf(s, "if (( %s ))\nthen\n%s %s else \n%sfi", $3, $7, $9, $13); $$ = s;
+            } else {
+                sprintf(s, "if %s (\n%s) %s else (\n%s)\n)", $3, $7, $9, $13); $$ = s;
+            }
         }
         ;
 
 elif_loop_st : ELIF '(' conditionList ')' '{' nlLoopPlus loopStatements '}' {
             char * s = malloc(lstr2($3, $7));
-            sprintf(s, "elif (%s){\n%s}", $3, $7); $$ = s;
+            if (compileBash){ // http://stackoverflow.com/questions/16034749/
+                sprintf(s, "elif (( %s ))\nthen\n%s", $3, $7); $$ = s;
+            } else { // http://stackoverflow.com/questions/25384358/
+                // multi-elif not handled yet
+                sprintf(s, "else (\n if %s (\n%s)", $3, $7); $$ = s;
+            }
         }
         ;
 
@@ -415,11 +467,13 @@ varList : allVals ',' varList
         ;
 
 var :    ID { 
-            if (!compileBash)  // why? because batch has different types of var syntax
-            // %var% %var and so on, so let's adjust that later on
+            if (!compileBash){  
+                // why? because batch has different types of var syntax
+                // %var% %var and so on, so let's adjust that later on
                 $$ = &$1[1];
-            else
+            } else {
                 $$ = $1; 
+            }
         }
         ;
 
