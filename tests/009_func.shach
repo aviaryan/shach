@@ -1,9 +1,11 @@
-func abc($a,$b){
+func abc($a){
   # code
  return($var)
 }
-func abc(){
+
+func other($ret){
   # code
- return($var)
+  $v=1
+ return(0)
 }
 xxx

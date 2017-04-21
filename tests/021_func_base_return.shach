@@ -1,7 +1,7 @@
-func a(){
-	return   
+func a($ret){
+	return(0)
    
 	   # added lots of whitespace
 }
-$v = a(2,3)
+a($ret)
 xxx

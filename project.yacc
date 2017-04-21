@@ -7,6 +7,9 @@
         bool compileBash = true;
         FILE *fp;
         int dataType = 1; // 0 for int, 1 for string
+        // function
+        bool funcStarted;
+        char * retFuncVar;
 %}
 
 %token NUMBER ID FUNC_NAME COMMAND RETURN CALL SCAN PRINT ISFILE ISDIR EXISTS RAWBASH RAWBATCH BASH BATCH NL TEXT BREAK CONTINUE BEGIN_UX END_UX BEGIN_WN END_WN IF ELSE ELIF FUNC IN FOR WHILE READFILE DIR ARRLEN STRLEN LOADENV NEGATIVE_NUM STR POWER EOFL CONCAT GTEQ LTEQ NOTEQ EQCOND LOGAND LOGOR INVALID RAW_UX RAW_WN
@@ -245,17 +248,26 @@ funcStatements : statement nlLoopPlus funcStatements { sprintf($$, "%s\n%s", $1,
         | { $$ = ""; }
         ;
 
-functionDeclaration : FUNC FUNC_NAME '(' universalIdList ')' '{' nlLoopPlus funcStatements '}' {
-            char * s = malloc(lstr3($2, $4, $8));
-            sprintf(s, "func %s(%s){\n%s}", $2, $4, $8); $$ = s;
+functionDeclaration : FUNC FUNC_NAME '(' var ')' '{' nlLoopPlus funcStatements '}' {
+            char * s = malloc(lstr2($2, $8));
+            if (compileBash){
+                // http://www.linuxjournal.com/content/return-values-bash-functions
+                sprintf(s, "function %s(){\n%s\n}", $2, $8); $$ = s;
+            } else {
+                // http://stackoverflow.com/questions/11481150/batch
+                sprintf(s, ":%s\n%s\nexit /b", $2, $8); $$ = s;
+            }
         }
         ;
 
 retStatement : RETURN '(' allVals ')' {
-            char * s = malloc(lstr1($3));
-            sprintf(s, "return(%s)", $3); $$ = s;
+            char * s = malloc(lstr2($3, retFuncVar));
+            if (compileBash){
+                sprintf(s, "%s=%s", &retFuncVar[1], $3); $$ = s;
+            } else {
+                sprintf(s, "set %s=%s", retFuncVar, $3); $$ = s;
+            }
         }
-        | RETURN { $$ = $1; }
         ;
 
 functionCall : inbuiltFunc '(' paramList ')'
@@ -453,17 +465,6 @@ paramList : allExpr ',' paramList  {
         | allExpr { $$ = $1; }
         ;
 
-idList : var ',' idList {
-            char * s = malloc(lstr2($1, $3));
-            sprintf(s, "%s,%s", $1, $3); $$ = s;
-        }
-        | var { $$ = $1; }
-        ;
-
-universalIdList: idList { $$ = $1; }
-        | { $$ = ""; }
-        ;
-
 varList : allVals ',' varList 
         | allVals
         ;
@@ -475,6 +476,10 @@ var :    ID {
                 $$ = &$1[1];
             } else {
                 $$ = $1; 
+            }
+            if (funcStarted){
+                retFuncVar = malloc(lstr1($$)); sprintf(retFuncVar, "%s", $$);
+                funcStarted = false;
             }
         }
         ;

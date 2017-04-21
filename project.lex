@@ -1,8 +1,11 @@
 %{
 	#include <stdio.h>
+	#include <stdbool.h>
 	#define YYSTYPE char*
 	#include "y.tab.h"
 	// extern char * yylval;
+	// function
+	bool funcStarted;
 %}
 
 %%
@@ -105,7 +108,10 @@
 
 "elif" {printf("ELIF < %s >\n", yytext); return ELIF;}
 
-"func " {printf("FUNC < %s >\n", yytext); return FUNC;}
+"func " {
+	funcStarted = true;
+	printf("FUNC < %s >\n", yytext); return FUNC;
+}
 
 "in" {printf("IN < %s >\n", yytext); return IN;}
 

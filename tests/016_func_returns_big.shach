@@ -1,5 +1,5 @@
 $v=2
-func a($a,$b){
+func a($ret){
 	if (2==$v){
 	   return(2)
 	} elif (1==$v) {
