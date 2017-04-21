@@ -405,8 +405,14 @@ arrayExpr : '{' varList '}'
         | '[' ']'
         ;
 
-conditionList : condition LOGAND conditionList 
-        | condition LOGOR conditionList 
+conditionList : condition LOGAND conditionList {
+            char * s = malloc(lstr2($1, $3));
+            sprintf(s, "%s && %s", $1, $3); $$ = s;
+        } 
+        | condition LOGOR conditionList {
+            char * s = malloc(lstr2($1, $3));
+            sprintf(s, "%s || %s", $1, $3); $$ = s;
+        }
         | condition { $$ = $1; }
         ;
 
@@ -423,8 +429,14 @@ condition : expr '<' expr
             char * s = malloc(lstr2($1, $3));
             sprintf(s, "%s >= %s", $1, $3); $$ = s;
         }
-        | expr NOTEQ expr 
-        | expr EQCOND expr 
+        | expr NOTEQ expr {
+            char * s = malloc(lstr2($1, $3));
+            sprintf(s, "%s != %s", $1, $3); $$ = s;
+        }
+        | expr EQCOND expr  {
+            char * s = malloc(lstr2($1, $3));
+            sprintf(s, "%s == %s", $1, $3); $$ = s;
+        } 
         | stringExpr EQCOND stringExpr 
         | stringExpr NOTEQ stringExpr 
         | functionCall
