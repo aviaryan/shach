@@ -390,10 +390,13 @@ id2 : id2 '/' id3  {
     | id3 { $$ = $1; }
     ;
 
-id3 : '(' expr ')'  { 
-        char * s = malloc(lstr1($2));
-        sprintf(s, "(%s)", $2); $$ = s;
-    }
+id3 : '(' expr ')'  {
+        char * s = malloc(lstr2($1, $3));
+        if (compileBash){
+            sprintf(s, "$[%s]", $2); $$ = s;
+        } else {
+            sprintf(s, "%s", $2); $$ = s;
+        }
     | numVal { $$ = $1; }
     ;
 
