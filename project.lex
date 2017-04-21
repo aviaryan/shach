@@ -75,9 +75,16 @@
 	printf("NEGNUMBER < %s >\n", yytext); return NEGATIVE_NUM;
 }
 
-"True"  {printf("TRUE < %s >\n", yytext); return TRUE;}
+"True"  {
+	yylval = strdup(yytext);
+	printf("TRUE < %s >\n", yytext); return TRUE;
+}
 
-"False"  {printf("FALSE < %s >\n", yytext); return FALSE;}
+"False"  {
+	yylval = strdup(yytext);
+	printf("FALSE < %s >\n", yytext); return FALSE;
+}
+
 
 "return"  {
 	yylval = strdup(yytext);
