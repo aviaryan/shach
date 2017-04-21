@@ -1,0 +1,8 @@
+$a="shach"
+$b="sh"
+$c=$a++$b
+print("${c}")
+if($a<>$b){
+	print("lol ${a} is ${b}")
+}
+xxx
