@@ -324,12 +324,11 @@ Different sample codes that can be written in our language Shach are :
 
 1. Code for Squaring the numbers.
 ```
-for v in {1..10..1}
-do
-var=$[$v*$v]
-echo Sqaure of ${v} is ${var}
+for $v in (1,3,10){
+  $var=$v*$v
+  print("Sqaure of ${v} is ${var}")
+}
 
-done
 xxx
 
 ```
