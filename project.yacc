@@ -145,9 +145,9 @@ whileLoop : WHILE '(' conditionList ')' '{' nlLoopPlus loopStatements '}'  {
 forLoop : FOR var IN '(' NUMBER ',' NUMBER ',' NUMBER  ')' '{' nlLoopPlus loopStatements '}'  {
             char * s = malloc(lstr5($2, $5, $7, $9, $13));
             if (compileBash){
-                sprintf(s, "for %s in (%s..%s..%s)\ndo\n%s\ndone", $2, $5, $7, $9, $13); $$ = s;
+                sprintf(s, "for %s in {%s..%s..%s}\ndo\n%s\ndone", &$2[1], $5, $9, $7, $13); $$ = s;
             }else{
-                sprintf(s, "for /l in (%s,%s,%s) do(\n%s\n)", $2, $5, $7, $9, $13); $$ = s;
+                sprintf(s, "for /l %%%s in (%s,%s,%s) do(\n%s\n)", $2, $5, $7, $9, $13); $$ = s;
             }
         }
         ;
@@ -155,9 +155,9 @@ forLoop : FOR var IN '(' NUMBER ',' NUMBER ',' NUMBER  ')' '{' nlLoopPlus loopSt
 forLine : FOR var IN READFILE '(' strVal ')' '{' nlLoopPlus loopStatements '}'  {
             char * s = malloc(lstr3($2, $6, $10));
             if (compileBash){
-                sprintf(s, "while read %s;do\n%s\ndone <%s", $2, $10, $6); $$ = s;
+                sprintf(s, "while read %s;do\n%s\ndone <%s", &$2[1], $10, $6); $$ = s;
             }else{
-                sprintf(s, "for /F 'tokens=*' %s in (%s)do(\n%s\n)",$2, $6, $10); $$ = s;
+                sprintf(s, "for /F 'tokens=*' %%%s in (%s)do(\n%s\n)",$2, $6, $10); $$ = s;
             }
         }
         ;
@@ -165,9 +165,9 @@ forLine : FOR var IN READFILE '(' strVal ')' '{' nlLoopPlus loopStatements '}'  
 forDir : FOR var IN DIR '(' strVal ')' '{' nlLoopPlus loopStatements '}'  { 
             char * s = malloc(lstr3($2, $6, $10));
             if (compileBash){
-                sprintf(s, "for %s in %s;do\n%s\ndone", $2, $6, $10); $$ = s;
+                sprintf(s, "for %s in %s;do\n%s\ndone", &$2[1], $6, $10); $$ = s;
             }else{
-                sprintf(s, "for /d /r %s in ('%s')do(\n%s\n)", $2, $6, $10); $$ = s;
+                sprintf(s, "for /d /r %%%s in ('%s')do(\n%s\n)", $2, $6, $10); $$ = s;
             }
         }
        ;
