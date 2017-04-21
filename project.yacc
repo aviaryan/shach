@@ -452,7 +452,6 @@ allVals : vals { $$ = $1; }
 
 allExpr : expr { $$ = $1; }
         | stringExpr { $$ = $1; }
-        | boolExpr { $$ = $1; }
         | arrayExpr { $$ = $1; }
         | functionCall { $$ = $1; }
         ;
