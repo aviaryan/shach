@@ -286,16 +286,40 @@ rawStatementBlock : RAW_UX {
     }
     ;
 
-expr :  id1 '+' expr  { sprintf($$, "%s+%s", $1, $3); }
-        | id1 '-' expr  { sprintf($$, "%s-%s", $1, $3); }
+expr :  id1 '+' expr  { 
+	if (compileBash) {
+            sprintf($$, "$[%s+%s]", $1, $3);
+        } else {
+            sprintf($$, "%s+%s", $1, $3);
+        }
+	}
+        | id1 '-' expr  { 
+	if (compileBash) {
+            sprintf($$, "$[%s-%s]", $1, $3);
+        } else {
+            sprintf($$, "%s-%s", $1, $3);
+        }
+	}
         | id1 { $$ = $1; }
         ;
 
-id1 : id2 '*' id1  { sprintf($$, "%s*%s", $1, $3); }
+id1 : id2 '*' id1  { 
+	if (compileBash) {
+            sprintf($$, "$[%s*%s]", $1, $3);
+        } else {
+            sprintf($$, "%s*%s", $1, $3);
+        }
+	}
         | id2 { $$ = $1; }
         ;
 
-id2 : id2 '/' id3  { sprintf($$, "%s/%s", $1, $3); }
+id2 : id2 '/' id3  { 
+	if (compileBash) {
+            sprintf($$, "$[%s/%s]", $1, $3);
+        } else {
+            sprintf($$, "%s/%s", $1, $3);
+        }
+	}
         | id3 { $$ = $1; }
         ;
 
