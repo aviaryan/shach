@@ -572,14 +572,20 @@ Once build is done, `a.out` file will be generated. Run it as follows -
 
 ```sh
 ./a.out < input_file.shach
+# OR ./a.out bash < input_file.shach
 ```
 
-The above command will take `input_file.shach` as the input source code and will create the output bash file called `output.sh` in the same directory.
+The above command will take `input_file.shach` as the input source code and will create the output bash file called `output.sh` in the same directory. 
+To run the bash code, do - 
+
+```sh
+bash output.sh
+```
+
 To generate batch code, run the following.
 
 ```sh
 ./a.out batch < input_file.shach
-# ./a.out bash < input_file.shach
 ```
 
 The above command will generate batch code in `output.bat` file.
