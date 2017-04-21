@@ -403,7 +403,7 @@ stringExpr : strVal
 
 arrayExpr : '{' varList '}' {
         char * s = malloc(lstr1($2));
-        if (compileBash){
+        if (compileBash) {
             sprintf(s, "(%s)", $2); $$ = s;
         } else {
             sprintf(s, "%s", $2); $$ = s;
