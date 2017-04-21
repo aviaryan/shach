@@ -17,6 +17,9 @@ a `.sh` or a `.bat` file or both.
 	* [Final Phase](#finalph)
 * [Manual](#manual)
 	* Variables
+	* Expressions
+	* Conditions
+	* Loops
 	* Functions
 	* Blocks
 	* Native commands
@@ -288,7 +291,56 @@ consequat.
 <a name="manual"></a>
 ## Manual
 
-[[ AVI ]]
+Shach syntax is pretty much inspired from bash's expect that it is more human friendly and intuitive. 
+This section will cover concepts about how to write code in Shach. 
+The file extension for Shach files is `.shach`. 
+
+### Variables
+
+Variables in Shach are preceeded by a dollar `$`, everywhere.
+
+```sh
+$intVar = 2
+$stringVar = "abcd"
+$anotherVar = $stringVar
+```
+
+### Expressions
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat.
+
+### Conditions
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat.
+
+### Loops
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat.
+
+### Functions
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat.
+
+### Blocks
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat.
+
+### Native commands
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
