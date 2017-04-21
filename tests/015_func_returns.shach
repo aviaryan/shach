@@ -4,5 +4,5 @@ func a($retvar){
 	}
 	return("string")
 }
-$v = a($retvar)
+a($retvar, 1, 2)
 xxx

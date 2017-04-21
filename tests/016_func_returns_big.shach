@@ -2,10 +2,12 @@ $v=2
 func a($ret){
 	if (2==$v){
 	   return(2)
-	} elif (1==$v) {
+	} elif ($1==$v) {
 		return($var)
 	} else {
 		return($arr[1])
 	}
 }
+a($ret, 2)
+
 xxx

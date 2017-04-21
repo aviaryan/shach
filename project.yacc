@@ -312,7 +312,28 @@ functionCall : inbuiltFunc '(' paramList ')'
                 $$ = "";
             }
         }
-        | FUNC_NAME '(' paramList ')'
+        | FUNC_NAME '(' paramList ')' {
+            int plen = strlen($3), i;
+            for (i=0; i<plen; i++){
+                if ($3[i]==',') break;
+            }
+            int limit=i;
+            // make into spaces
+            for (i=0; i<plen; i++){
+                if ($3[i] == ',') $3[i] = ' ';
+            }
+            char * s = malloc(lstr2($1, $3));
+            if (limit == plen) 
+                $3[0] = '\0';
+            else
+                $3 = &$3[limit+1];
+
+            if (compileBash){
+                sprintf(s, "%s %s", $1, $3); $$ = s;
+            } else {
+                sprintf(s, "call :%s %s", $1, $3); $$ = s;
+            }
+        }
         | FUNC_NAME '(' ')'
         ;
 
