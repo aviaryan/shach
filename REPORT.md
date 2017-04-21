@@ -315,7 +315,8 @@ Finally an output file is generated accordingly, based on the user's input for b
 
 Shach syntax is pretty much inspired from bash's expect that it is more human friendly and intuitive. 
 This section will cover concepts about how to write code in Shach. 
-The file extension for Shach files is `.shach`. 
+The file extension for Shach files is `.shach`. All `.shach` files must end with `xxx` (it is the temporary EOF we are using as Shach is highly experimental 
+and this helps debugging.)
 
 <a name="vars"></a>
 ### Variables
@@ -523,9 +524,10 @@ for $v in (1,3,10){
 }
 
 xxx
-
 ```
+
 2. Code for generating Fibonacci Series.
+
 ```
 $t1 = 0
 $t2 = 1
@@ -548,7 +550,6 @@ for $v in (1,1,10){
   print("${nextTerm}")
 }
 xxx
-
 ```
 
 <a name="build"></a>
