@@ -1,0 +1,6 @@
+$var = 2
+bash("go build ${var}")
+batch("cmd.exe ${var}")
+rawbash("go build $var 2")
+rawbatch("cmd.exe %var% 2")
+xxx

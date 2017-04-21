@@ -214,7 +214,6 @@ functionCall : inbuiltFunc '(' paramList ')'
             sprintf(s, "echo %s", $3); $$ = s;
         }
         | SCAN '(' paramList ')' {
-            printf("hii");
             char * s = malloc(lstr1($3));
             if (compileBash){
                 sprintf(s, "read %s", &$3[1]); $$ = s;
@@ -222,7 +221,34 @@ functionCall : inbuiltFunc '(' paramList ')'
                 sprintf(s, "set /p %s=\"\"", $3); $$ = s;
             }
         }
-        | inbuiltFunc '(' ')'
+        | RAWBASH '(' paramList ')' {
+            if (compileBash){
+                deQuoteString(&$3); $$ = $3;
+            } else {
+                $$ = "";
+            }
+        }
+        | RAWBATCH '(' paramList ')' {
+            if (!compileBash){
+                deQuoteString(&$3); $$ = $3;
+            } else {
+                $$ = "";
+            }
+        }
+        | BASH '(' paramList ')' {
+            if (compileBash){
+                deQuoteString(&$3); parseVarString($3); $$ = $3;
+            } else {
+                $$ = "";
+            }
+        }
+        | BATCH '(' paramList ')' {
+            if (!compileBash){
+                deQuoteString(&$3); parseVarString($3); $$ = $3;
+            } else {
+                $$ = "";
+            }
+        }
         | FUNC_NAME '(' paramList ')'
         | FUNC_NAME '(' ')'
         ;
@@ -231,10 +257,6 @@ inbuiltFunc : CALL
         | ISFILE 
         | ISDIR 
         | EXISTS 
-        | RAWBASH 
-        | RAWBATCH 
-        | BASH 
-        | BATCH 
         | LOADENV 
         | STRLEN 
         | ARRLEN 
