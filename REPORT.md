@@ -328,7 +328,7 @@ $string = "abcd" ++ $string
 Shach supports if, else and elif condition expressions. The syntax is inspired from C/JavaScript.
 Example -
 
-```sh
+```
 $in = 4
 if ($in > 2){
 	$s = "${in} is more than 2"
@@ -342,10 +342,56 @@ if ($in > 2){
 
 ### Loops
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat.
+Shach supports four types of loops.
+
+1. for range loop
+2. while loop
+3. for file in directory loop
+4. for line in file loop
+
+
+#### for range loop
+
+It takes 3 parameters which are (START, END, INCREMENT).
+
+```sh
+for $v in (1,10,3){
+  print("current loop count is ${v}")
+}
+```
+
+#### while loop
+
+While loop is same as C's while loop.
+
+```sh
+$v = 0
+while ($v < 10){
+	$v = $v + 1
+	print("loop running")
+}
+```
+
+#### for file in directory loop
+
+This loop reads the list of files in a directory. The text inside `dir(..)` below corresponds to directory path.
+
+```sh
+for $a in dir("path/to/directory"){
+    print("Found file/folder ${a}")
+}
+```
+
+#### for line in file loop
+
+This loops reads a file, line by line. The text inside `file(...)` corresponds to file to read.
+
+```sh
+for $p in file("path/to/filename") {
+	print("Found file ${p}")
+}
+```
+
 
 ### Functions
 
