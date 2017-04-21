@@ -73,7 +73,9 @@ conditionalStatement : IF '(' conditionList ')' '{' nlLoopPlus mainStatements '}
         }
         ;
 
-commandStatement : COMMAND { $$ = $1; }
+commandStatement : COMMAND {
+            $$ = &$1[1]; // add shach variables support here
+        }
         ;
 
 elif_st : ELIF '(' conditionList ')' '{' nlLoopPlus mainStatements '}'  { 
