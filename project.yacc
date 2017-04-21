@@ -397,8 +397,15 @@ id3 : '(' expr ')'  {
     | numVal { $$ = $1; }
     ;
 
-stringExpr : strVal 
-        | strVal CONCAT stringExpr
+stringExpr : strVal { $$ = $1; }
+        | strVal CONCAT stringExpr {
+            char * s = malloc(lstr2($1, $3));
+            if (compileBash){
+                sprintf(s, "%s%s", $1, $3); $$ = s;
+            } else {
+                sprintf(s, "%s%c%c%s%c", $1,'%','%',$3,'%'); $$ = s;
+            }
+        }
         ;
 
 arrayExpr : '{' varList '}' 
@@ -437,8 +444,14 @@ condition : expr '<' expr
             char * s = malloc(lstr2($1, $3));
             sprintf(s, "%s == %s", $1, $3); $$ = s;
         } 
-        | stringExpr EQCOND stringExpr 
-        | stringExpr NOTEQ stringExpr 
+        | stringExpr EQCOND stringExpr {
+            char * s = malloc(lstr2($1, $3));
+            sprintf(s, "[ %s == %s ]", $1, $3); $$ = s;
+        }
+        | stringExpr NOTEQ stringExpr {
+            char * s = malloc(lstr2($1, $3));
+            sprintf(s, "[ %s != %s ]", $1, $3); $$ = s;
+        }
         | functionCall
         ;
 
