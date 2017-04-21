@@ -439,6 +439,7 @@ strVal : allVar { $$ = $1; }
 
 boolVal : allVar { $$ = $1; }
         | bool { $$ = $1; }
+        ;
     
 vals : num { $$ = $1; }
         | string { $$ = $1; }
