@@ -310,10 +310,37 @@ consequat.
 <a name="build"></a>
 ## Building/Compiling
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat.
+On a Unix computer, run the following commands to build this project.
+
+```sh
+flex project.lex
+yacc -d project.yacc
+gcc lex.yy.c y.tab.c -ll -ly
+```
+
+One can also use the shortcut command which is 
+
+```sh
+make build
+```
+
+Once build is done, `a.out` file will be generated. Run it as follows -
+
+```sh
+./a.out < input_file.shach
+```
+
+The above command will take `input_file.shach` as the input source code and will create the output bash file called `output.sh` in the same directory.
+To generate batch code, run the following.
+
+```sh
+./a.out batch < input_file.shach
+# ./a.out bash < input_file.shach
+```
+
+The above command will generate batch code in `output.bat` file.
+
+When `a.out` is run, it prints the list of found tokens in the terminal. This was added for debugging purposes and will be removed later with a stable release.
 
 
 <a name="problems"></a>
