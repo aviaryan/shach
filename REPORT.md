@@ -307,10 +307,19 @@ $anotherVar = $stringVar
 
 ### Expressions
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat.
+Expressions in Shach have been inspired from C and are very intuitive.
+
+```sh
+$intVar = 2 + (2 * 5)
+$string = "abcd" ++ "another string"
+$int = 4 - 2
+$intVar = $intVar * (6 - $int)
+$string = "abcd" ++ $string
+```
+
+**Note** - For string concat, we have `++` operator.
+
+**Bool** - Like bash and batch, there is no bool type in Shach. If you are looking for a bool like behavior, feel free to use the `int` or `string` type.
 
 ### Conditions
 
