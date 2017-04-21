@@ -1,0 +1,10 @@
+#BEGIN WN
+$v = 2
+print("win ${v}")
+#END WN
+#BEGIN UX
+$v = 3
+print("unix ${v}")
+#END UX
+$a = 2
+xxx

@@ -315,3 +315,28 @@ goto :eof
 ```
 
 -----
+
+
+#### if..else
+
+```sh
+# $i is not nec, i also works
+if (( $i == 0 ))
+then
+   echo "i == 0"
+elif (( $i < 0 ))
+then
+  echo "i < 0"
+else
+  echo "i > 0"
+fi
+```
+
+```bat
+IF %2% == 1 (
+  Echo deleting filename.txt
+  Del filename.txt
+) ELSE (
+  Echo The file was not found.
+)
+```

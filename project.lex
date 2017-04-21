@@ -5,34 +5,27 @@
 	// extern char * yylval;
 %}
 
-	int begin_wn = 0;
-	int begin_ux = 0;
-
 %%
 
 \n[ \t]*  { printf("TRAILING SPACE < %s >\n", yytext); return NL; }
 
 "#BEGIN UX" {
-	begin_ux = 1;
 	printf("BEGIN_UX < %s >\n", yytext);
 	return BEGIN_UX;
 	// handle this in yacc rules.. if begin_ux is set, then only output on unix and v.v.
 }
 
 "#END UX" {
-	begin_ux = 0;
 	printf("END_UX < %s >\n", yytext);
 	return END_UX;
 }
 
 "#BEGIN WN" {
-	begin_wn = 1;
 	printf("BEGIN_WN < %s >\n", yytext);
 	return BEGIN_WN;
 }
 
 "#END WN" {
-	begin_wn = 0;
 	printf("END_WN < %s >\n", yytext);
 	return END_WN;
 }
