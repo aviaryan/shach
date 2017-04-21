@@ -52,7 +52,7 @@ statement : variableAssignment { $$ = $1; }
 variableAssignment : allVar '=' allExpr {
             char * s = malloc(lstr2($1, $3));
             if (compileBash){
-                sprintf(s, "%s=$[%s]", &$1[1], $3); $$ = s;
+                sprintf(s, "%s=%s", &$1[1], $3); $$ = s;
             } else {
                 sprintf(s, "set \a %s=%s", $1, $3); $$ = s;
             }
