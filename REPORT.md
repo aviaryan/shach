@@ -445,10 +445,40 @@ atleast return its success/failure status.
 
 ### Blocks
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat.
+Shach has the concept of blocks to output code only in bash or batch file. This can be used if you are writing platform-dependent codes. 
+
+We have two class of blocks. Raw and non-raw. 
+
+Raw blocks are written in bash or batch depending on the target platform. Example of it is as following
+
+```sh
+#BEGIN RAWUX
+s=2
+t="This is unix"
+#END RAWUX
+
+#BEGIN RAWWN
+set s=2
+set s=this is windows
+#END RAWWN
+```
+
+Non-Raw blocks are written in Shach's language but they compile into Unix or Windows only, depending on the header.
+
+```sh
+#BEGIN WN
+$v = 2
+print("win ${v}")
+#END WN
+
+#BEGIN UX
+$v = 3
+print("unix ${v}")
+#END UX
+
+$a = "this is present in both places"
+```
+
 
 ### Native commands
 
