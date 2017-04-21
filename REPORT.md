@@ -23,7 +23,7 @@ a `.sh` or a `.bat` file or both.
 * Sample Code
 * Building
 * Problems Faced
-* Future Scope
+* [Future Scope](#fscp)
 * [Team](#team)
 
 
@@ -295,6 +295,15 @@ consequat.
 .....
 .....
 
+<a name="fscp"></a>
+## Future Scope
+The development of this language surely prompts many new areas of improvements. This project does not covers all functionalities related to bash and batch scripts. It would have great to implement that provided we’d enough time. Though it suceesfully meets the main objective which was to make a platform independent and easy to write progamming language.
+
+For further improvements we would like to implement all the remaining functionalites. 
+
+Also the current error handling only tell the user about error,does not suggest the user what needs to be done. We would like to implement auto suggesting feature in case of errors.
+
+Further we would like to make a web service for this, which would let the user to compile and genrate the bash and the batch scripts online. 
 
 <a name="team"></a>
 ## Team
