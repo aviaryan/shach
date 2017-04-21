@@ -409,6 +409,8 @@ arrayExpr : '{' varList '}' {
             sprintf(s, "%s", $2); $$ = s;
         }
         }
+        |
+        '[' ']'
         ;
 
 conditionList : condition LOGAND conditionList 
