@@ -286,22 +286,53 @@ rawStatementBlock : RAW_UX {
     }
     ;
 
-expr :  id1 '+' expr  { sprintf($$, "%s+%s", $1, $3); }
-        | id1 '-' expr  { sprintf($$, "%s-%s", $1, $3); }
-        | id1 { $$ = $1; }
-        ;
+expr : id1 '+' expr  {
+        char * s = malloc(lstr2($1, $3));
+        if (compileBash){
+            sprintf(s, "$[%s+%s]", $1, $3); $$ = s;
+        } else {
+            sprintf(s, "%s+%s", $1, $3); $$ = s;
+        }
+    }
+    | id1 '-' expr  { 
+        char * s = malloc(lstr2($1, $3));
+        if (compileBash){
+            sprintf(s, "$[%s-%s]", $1, $3); $$ = s;
+        } else {
+            sprintf(s, "%s-%s", $1, $3); $$ = s;
+        }
+    }
+    | id1 { $$ = $1; }
+    ;
 
-id1 : id2 '*' id1  { sprintf($$, "%s*%s", $1, $3); }
-        | id2 { $$ = $1; }
-        ;
+id1 : id2 '*' id1  {
+        char * s = malloc(lstr2($1, $3));
+        if (compileBash){
+            sprintf(s, "$[%s*%s]", $1, $3); $$ = s;
+        } else {
+            sprintf(s, "%s*%s", $1, $3); $$ = s;
+        }
+    }
+    | id2 { $$ = $1; }
+    ;
 
-id2 : id2 '/' id3  { sprintf($$, "%s/%s", $1, $3); }
-        | id3 { $$ = $1; }
-        ;
+id2 : id2 '/' id3  {
+        char * s = malloc(lstr2($1, $3));
+        if (compileBash){
+            sprintf(s, "$[%s/%s]", $1, $3); $$ = s;
+        } else {
+            sprintf(s, "%s/%s", $1, $3); $$ = s;
+        }
+    }
+    | id3 { $$ = $1; }
+    ;
 
-id3 : '(' expr ')'  { sprintf($$, "(%s)", $2); }
-        | numVal { $$ = $1; }
-        ;
+id3 : '(' expr ')'  { 
+        char * s = malloc(lstr1($2));
+        sprintf(s, "(%s)", $2); $$ = s;
+    }
+    | numVal { $$ = $1; }
+    ;
 
 stringExpr : strVal 
         | strVal CONCAT stringExpr
@@ -408,15 +439,14 @@ strVal : allVar { $$ = $1; }
 
 boolVal : allVar { $$ = $1; }
         | bool { $$ = $1; }
-        ;
-
-vals : num 
-        | string 
+    
+vals : num { $$ = $1; }
+        | string { $$ = $1; }
         | bool { $$ = $1; }
-        | functionCall
+        | functionCall { $$ = $1; }
         ;
 
-allVals : vals 
+allVals : vals { $$ = $1; }
         | allVar { $$ = $1; }
         ;
 
@@ -508,11 +538,11 @@ int main(int argc, char *argv[]){
         printf("<< No type specified. Assuming bash >>\n");
         fp = fopen("output.sh", "w");
     }
-	yyparse();
-	return 0;
+    yyparse();
+    return 0;
 }
 
 int yyerror(char *s){
-	printf("UNRECOGNIZED_CODE\n");
-	return 0;
+    printf("UNRECOGNIZED_CODE\n");
+    return 0;
 }
