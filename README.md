@@ -1,6 +1,6 @@
 # Shach
  
-##### See [REPORT.md](REPORT.md) for more details. 
+### See [REPORT.md](REPORT.md) for more details. 
 
 
 ## Overview
