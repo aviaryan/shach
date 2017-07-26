@@ -1,6 +1,7 @@
 # Shach
  
- ![ScreenShot](https://i.imgsafe.org/da7382f992.png)
+##### See [REPORT.md](REPORT.md) for more details. 
+
 
 ## Overview
 
